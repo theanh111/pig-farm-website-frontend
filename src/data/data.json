@@ -1,0 +1,214 @@
+{
+    "Header": {
+        "title": "LỢN MÓNG CÁI",
+        "paragraph": "Lợn Móng Cái là giống lợn có nguồn gốc từ khu vực thành phố Móng Cái, tỉnh Quảng Ninh. Do có các đặc tính ưu việt hơn lợn ỉ nên giống lợn này nhanh chóng phát triển ra các vùng lân cận. Ở miền Bắc Việt Nam, hiện lợn Móng Cái dùng làm nái nền chủ yếu để lai với lợn đực ngoại như Đại Bạch, Yorkshire cho sản phẩm con lai dùng để nuôi lấy thịt!"
+    },
+    "About": {
+        "paragraph": "Tổ tiên của loài Lợn Móng Cái cũng là một loại lợn rừng. Xuất xứ từ những con lợn rừng nhiệt đới châu Á, được người dân địa phương đưa về thuần hoá và nuôi tại nhà, từ 150 năm trước đây. Vùng biển với khí hậu trong lành, giàu thức ăn có lẽ là nhân tố quan trọng trong việc tạo ra giống lợn có màu lông đặc thù đen, trắng và hồng tím không có ở nơi khác. Lợn Móng Cái có ba loại: xương to, xương nhỡ và xương nhỏ. Những con xương càng nhỏ thì thịt càng thơm ngon. Thịt thơm ngon, dễ nuôi, đẻ mắn, đẻ sai, thân thiện với con người, chịu được kham khổ,chống đỡ bệnh tật tốt là những đặc điểm của lợn Móng Cái. Chỉ có điều lợn nuôi lâu lớn, về sau không được người dân chuộng nuôi vì năng suất kém mà mất dần vị thế trong bữa ăn, chỉ được biết đến như một loại thực phẩm thịt lợn rất thơm ngon, mềm dẻo vượt trội so với những loại thịt lợn khác. Lợn Móng Cái có hướng sản xuất chung là hướng mỡ, tầm vóc trung bình, có số vú từ 12 vú trở lên, thể chất yếu.",
+        "Why": ["Có đặc tính di truyền ổn định", "Màu lông đồng nhất", "Nuôi lấy thịt", "Nhanh chóng phát triển"],
+        "Why2": ["Có đặc tính di truyền ổn định", "Màu lông đồng nhất", "Nuôi lấy thịt", "Nhanh chóng phát triển"]
+    },
+    "Gallery": [
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/01-large.jpg",
+            "smallImage": "img/portfolio/01-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/02-large.jpg",
+            "smallImage": "img/portfolio/02-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/03-large.jpg",
+            "smallImage": "img/portfolio/03-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/04-large.jpg",
+            "smallImage": "img/portfolio/04-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/05-large.jpg",
+            "smallImage": "img/portfolio/05-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/06-large.jpg",
+            "smallImage": "img/portfolio/06-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/07-large.jpg",
+            "smallImage": "img/portfolio/07-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/08-large.jpg",
+            "smallImage": "img/portfolio/08-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        },
+        {
+            "title": "Project Title",
+            "largeImage": "img/portfolio/09-large.jpg",
+            "smallImage": "img/portfolio/09-small.jpg"
+        }
+    ],
+    "Services": [
+        {
+            "icon": "fa fa-wordpress",
+            "name": "Lorem ipsum dolor",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        },
+        {
+            "icon": "fa fa-cart-arrow-down",
+            "name": "Consectetur adipiscing",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        },
+        {
+            "icon": "fa fa-cloud-download",
+            "name": "Lorem ipsum dolor",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        },
+        {
+            "icon": "fa fa-language",
+            "name": "Consectetur adipiscing",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        },
+        {
+            "icon": "fa fa-plane",
+            "name": "Lorem ipsum dolor",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        },
+        {
+            "icon": "fa fa-pie-chart",
+            "name": "Consectetur adipiscing",
+            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sedasd commodo nibh ante facilisis bibendum dolor feugiat at."
+        }
+    ],
+    "Testimonials": [
+        {
+            "img": "img/testimonials/01.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Lê Cát Trọng Lý"
+        },
+        {
+            "img": "img/testimonials/02.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Hồ Quang Hiếu"
+        },
+        {
+            "img": "img/testimonials/03.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Lại Văn Sâm"
+        },
+        {
+            "img": "img/testimonials/04.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Ngô Kiến Huy"
+        },
+        {
+            "img": "img/testimonials/05.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Hồ Ngọc Hà"
+        },
+        {
+            "img": "img/testimonials/06.jpg",
+            "text": "\"Lợn Móng Cái - Thuần chủng là giống đặc hữu có nguồn gốc từ Móng Cái, Quảng Ninh giống này rất nổi tiếng ở Việt Nam. \"",
+            "name": "Hiền Hồ"
+        }
+    ],
+    "Team": [
+        {
+            "img": "img/team/01.jpg",
+            "name": "Hồ Ngọc Hà",
+            "job": "Chủ Dự Án"
+        },
+        {
+            "img": "img/team/02.jpg",
+            "name": "Ngô Kiến Huy",
+            "job": "Nghiên Cứu Sinh"
+        },
+        {
+            "img": "img/team/03.jpg",
+            "name": "Hiền Hồ",
+            "job": "Trưởng Nhóm"
+        },
+        {
+            "img": "img/team/04.jpg",
+            "name": "Lại Văn Sâm",
+            "job": "Nghiên Cứu Sinh"
+        }
+    ],
+    "Contact": {
+        "address": "Ngô Xuân Quảng, Trâu Quỳ, Gia Lâm, Hà Nội ",
+        "phone": "0908868686",
+        "email": "mongcaipigs@gmail.com",
+        "facebook": "fb.com",
+        "twitter": "twitter.com",
+        "youtube": "youtube.com"
+    },
+    "Features": [
+        {
+            "icon": "fa fa-comments-o",
+            "title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "fa fa-bullhorn",
+            "title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "fa fa-group",
+            "title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        },
+        {
+            "icon": "fa fa-magic",
+            "title": "Lorem ipsum",
+            "text": "Lorem ipsum dolor sit amet placerat facilisis felis mi in tempus eleifend pellentesque natoque etiam."
+        }
+    ]
+}
