@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../firebase/index";
-import { Drawer, Form, Button, Input, Space, notification, Card, Modal } from "antd";
+import { Drawer, Form, Button, Input, Space, notification, Card, Modal, message } from "antd";
 
 import Loader from "../../Loader/Loader";
 import { saveFarm } from "../../../api/farm";
@@ -46,19 +46,13 @@ const AddNewFarm = (props) => {
     const [errorMessgae, setErrorMessage] = useState("");
     const [url, setUrl] = useState("");
 
-    // const handleCheck = () => {
-    //     if (url !== "" &&)
-    // }
-
     const upload = async () => {
         setViewLoader(true);
         if (image == null) return;
 
         const imageRef = storage.ref(`/images/${image.name}`);
-        imageRef
-            .child(`/images/${image.name}`)
-            .getDownloadURL()
-            .then((res) => console.log(res));
+        imageRef.child(`/images/${image.name}`).getDownloadURL();
+        // .then((res) => console.log(res));
 
         await imageRef
             .put(image)
@@ -112,7 +106,7 @@ const AddNewFarm = (props) => {
             .then((res) => {
                 if (res) {
                     if (res.status == 200) {
-                        openSuccessNotification("Lưu cơ sở chăn nuôi thành công");
+                        message.success("Lưu cơ sở chăn nuôi thành công");
                         setViewLoader(true);
                         sleep(500).then(() => {
                             setViewLoader(false);
@@ -134,24 +128,6 @@ const AddNewFarm = (props) => {
                 alert("Hết phiên đăng nhập");
                 history("/dang-nhap");
             });
-    };
-
-    const openSuccessNotification = (message) => {
-        notification.success({
-            message: <h5 style={{ color: "green" }}>Thành Công</h5>,
-            description: message,
-            placement: "topLeft",
-            duration: 10,
-        });
-    };
-
-    const openFailedNotification = (message) => {
-        notification.error({
-            message: <h5 style={{ color: "red" }}>Thất Bại</h5>,
-            description: message,
-            placement: "topLeft",
-            duration: 10,
-        });
     };
 
     const sleep = (time) => {

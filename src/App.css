@@ -17,6 +17,19 @@
     }
 }
 
+.txt {
+    cursor: pointer;
+}
+
+.txt:hover {
+    text-decoration: underline;
+}
+
+.site-layout-content {
+    min-height: 280px;
+    padding: 24px;
+}
+
 .center-loader-div {
     z-index: 10000;
     position: absolute;

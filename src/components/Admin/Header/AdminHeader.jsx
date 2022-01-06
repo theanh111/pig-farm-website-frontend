@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout, Menu, Dropdown } from "antd";
 import { ImportOutlined } from "@ant-design/icons";
 import { Button } from "antd";
@@ -23,10 +23,6 @@ const AdminHeader = (props) => {
         history("/dang-nhap");
     };
 
-    const handleClickProfile = () => {
-        console.log("view profile");
-    };
-
     const getDataUser = () => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -43,14 +39,16 @@ const AdminHeader = (props) => {
         if (obj) {
             await getUserByUsername(obj)
                 .then((res) => {
-                    let result = res.data.data;
-                    if (result.length > 0) {
-                        let data = result[0];
-                        let user_name = data.username;
-                        let first_name = data.first_name;
-                        let last_name = data.last_name;
-                        let imageUrl = data.avatar;
-                        setUserData({ avatar: imageUrl, firstName: first_name, lastName: last_name, username: user_name });
+                    if (res) {
+                        let result = res.data.data;
+                        if (result.length > 0) {
+                            let data = result[0];
+                            let user_name = data.username;
+                            let first_name = data.first_name;
+                            let last_name = data.last_name;
+                            let imageUrl = data.avatar;
+                            setUserData({ avatar: imageUrl, firstName: first_name, lastName: last_name, username: user_name });
+                        }
                     }
                 })
                 .catch((err) => {
@@ -67,8 +65,10 @@ const AdminHeader = (props) => {
 
     const menu = (
         <Menu>
-            <Menu.Item onClick={handleClickProfile}>
-                <span style={{ fontSize: 14 }}>{userData.username}</span>
+            <Menu.Item>
+                <Link to="/admin/profile">
+                    <span style={{ fontSize: 14 }}>{userData.username}</span>
+                </Link>
             </Menu.Item>
             <Menu.Item onClick={handleClose}>
                 <span style={{ color: "red" }}>

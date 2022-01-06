@@ -1,31 +1,16 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "./AdminNavbar";
-import {
-    Layout,
-    Menu,
-    Breadcrumb,
-    Table,
-    Input,
-    InputNumber,
-    Popconfirm,
-    Form,
-    Typography,
-    Button,
-    Row,
-    Col,
-    Card,
-    Image,
-    Tooltip,
-} from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, message } from "antd";
 import AdminHeader from "./AdminHeader";
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import AddNewPig from "./AddNewPig";
 import AddNewPigImport from "./AddNewPigImport";
 import { Link } from "react-router-dom";
-import { getAllPig } from "../../../api/pig";
+import { getAllPig, updatePigStatus } from "../../../api/pig";
 import Loader from "../../Loader/Loader";
 import PigDetail from "./Pig/PigDetail";
 import { useNavigate } from "react-router-dom";
+import EditPig from "./Pig/EditPig";
 
 const { Content } = Layout;
 
@@ -38,6 +23,9 @@ const AdminPigs = (props) => {
     const [viewAddNewPigImport, setViewAddNewPigImport] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
+    const [viewEditPig, setViewEditPig] = useState(false);
+    const [pigStatus, setPigStatus] = useState(false);
+    const [dataEditPig, setDataEditPig] = useState({});
 
     const showAddNewPig = () => {
         let token = checkTokenLocalStorage();
@@ -83,6 +71,11 @@ const AdminPigs = (props) => {
         }
     };
 
+    const handleEditPig = (pig) => {
+        setDataEditPig(pig);
+        setViewEditPig(true);
+    };
+
     const columns = [
         {
             title: (record) => <span style={{ fontSize: 12 }}>Mã Số Cá Thể</span>,
@@ -90,7 +83,7 @@ const AdminPigs = (props) => {
             width: "100px",
             render: (record) => (
                 <Tooltip title="Xem chi tiết cá thể">
-                    <div onClick={() => viewDetailPig(record)} style={{ cursor: "pointer", fontWeight: 700, color: "#f95d01" }}>
+                    <div onClick={() => viewDetailPig(record)} style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>
                         {record.ma_so_ca_the}
                     </div>
                 </Tooltip>
@@ -209,15 +202,77 @@ const AdminPigs = (props) => {
         },
         {
             title: "Sửa",
-            render: () => {
+            render: (record) => {
                 return (
-                    <Typography.Link>
-                        <EditOutlined style={{ fontSize: 25 }} />
-                    </Typography.Link>
+                    <Tooltip title="Sửa Cá Thể">
+                        <Button onClick={() => handleEditPig(record)}>
+                            <EditOutlined style={{ fontSize: 20 }} />
+                        </Button>
+                    </Tooltip>
+                );
+            },
+        },
+        {
+            title: "Trạng Thái",
+            render: (record) => {
+                return (
+                    <div onClick={() => handlePigStatus(record)}>
+                        <Switch
+                            checkedChildren={<CheckOutlined />}
+                            unCheckedChildren={<CloseOutlined />}
+                            checked={record.trang_thai === 1 ? true : false}
+                        />
+                    </div>
                 );
             },
         },
     ];
+
+    const handlePigStatus = (record) => {
+        if (record) {
+            let data = record;
+            if (data.trang_thai === 1) {
+                let obj = { id: data.id, trang_thai: 0 };
+                updatePigStatusAPI(obj);
+            }
+            if (data.trang_thai === 0) {
+                let obj = { id: data.id, trang_thai: 1 };
+                updatePigStatusAPI(obj);
+            }
+        }
+        fetchData();
+    };
+
+    const updatePigStatusAPI = async (pig) => {
+        setViewLoader(true);
+        await updatePigStatus(pig)
+            .then((res) => {
+                if (res) {
+                    if (res.status == 200) {
+                        message.success("Cập nhật trạng thái cá thể thành công");
+                        setViewLoader(true);
+                        fetchData();
+                    } else if (res.status == 400) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    } else if (res.status == 401) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    }
+                }
+            })
+            .catch((err) => {
+                alert("Hết phiên đăng nhập");
+                history("/dang-nhap");
+            });
+        setViewLoader(false);
+    };
+
+    const fetchData = () => {
+        getAllPigAPI();
+    };
 
     const getAllPigAPI = async () => {
         setViewLoader(true);
@@ -262,11 +317,6 @@ const AdminPigs = (props) => {
                             </Breadcrumb>
 
                             <Row gutter={[8, 8]}>
-                                {/* <Col span={2}>
-                                    <Button type="primary" onClick={showAddNewPig} icon={<PlusOutlined />}>
-                                        Thêm Cá Thể
-                                    </Button>
-                                </Col> */}
                                 <Col span={2}>
                                     <Button type="primary" onClick={showAddNewPigImport} icon={<PlusOutlined />}>
                                         Import File Excel
@@ -274,14 +324,6 @@ const AdminPigs = (props) => {
                                 </Col>
                             </Row>
 
-                            {/* {viewAddDialog ? (
-                            <Dialog open={showAddNewPig} onClose={handleCloseAddDialog}>
-                                <DialogTitle>{"Thêm Cá Thể Mới Bằng"}</DialogTitle>
-                                <DialogContent>
-                                    <Button onClick={showAddNewPig}>Nhập Dữ Liệu</Button> <Button>Form Excel</Button>
-                                </DialogContent>
-                            </Dialog>
-                        ) : null} */}
                             {viewPigDetail ? (
                                 <>
                                     <PigDetail
@@ -302,11 +344,21 @@ const AdminPigs = (props) => {
                                     viewAddNewPig={viewAddNewPig}
                                 />
                             ) : null}
+
                             {viewAddNewPigImport ? (
                                 <AddNewPigImport
                                     fetchData={() => getAllPigAPI()}
                                     closeDrawer={() => setViewAddNewPigImport(false)}
                                     viewAddNewPigImport={viewAddNewPigImport}
+                                />
+                            ) : null}
+
+                            {viewEditPig ? (
+                                <EditPig
+                                    fetchData={() => getAllPigAPI()}
+                                    closeDrawer={() => setViewEditPig(false)}
+                                    viewEditPig={viewEditPig}
+                                    pig={dataEditPig}
                                 />
                             ) : null}
 

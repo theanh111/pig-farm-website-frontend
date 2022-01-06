@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Popover, Drawer, Button, Row, Input, Select, DatePicker, Space, Table, Modal, notification } from "antd";
-import { EyeOutlined, PlusOutlined, CloseOutlined } from "@ant-design/icons";
+import { Popover, Drawer, Button, Row, Input, Select, DatePicker, Space, Table, Modal, message } from "antd";
+import { EyeOutlined, PlusOutlined, DownloadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import { savePigImport } from "../../../api/pig";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 
 const AddNewPigImport = (props) => {
@@ -68,24 +68,6 @@ const AddNewPigImport = (props) => {
         showModal();
     };
 
-    const openNotification = (message) => {
-        notification.success({
-            message: <h5 style={{ color: "green" }}>Thành Công</h5>,
-            description: message,
-            placement: "topLeft",
-            duration: 15,
-        });
-    };
-
-    const openFailedNotification = (message) => {
-        notification.error({
-            message: <h5 style={{ color: "red" }}>Thất Bại</h5>,
-            description: message,
-            placement: "topLeft",
-            duration: 15,
-        });
-    };
-
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
@@ -101,9 +83,9 @@ const AddNewPigImport = (props) => {
                                 if (res.data.data.dataFailed) {
                                     let dataFailed = res.data.data.dataFailed;
                                     if (dataFailed.length > 0) {
-                                        openFailedNotification("Danh sách mã cá thể lỗi: " + dataFailed);
+                                        message.error("Danh sách mã cá thể lỗi: " + dataFailed);
                                     } else {
-                                        openNotification("Lưu file thành công");
+                                        message.success("Lưu file thành công");
                                     }
                                 }
                                 setViewLoader(true);
@@ -456,6 +438,12 @@ const AddNewPigImport = (props) => {
                     bodyStyle={{ paddingBottom: 80 }}
                     extra={
                         <Space>
+                            <Link to="/file/mongcaipig-mau-import.xlsx" target="_blank" download>
+                                <Button style={{ marginTop: 5 + "px" }}>
+                                    <DownloadOutlined />
+                                    Tải Xuống Mẫu Import
+                                </Button>
+                            </Link>
                             <Button
                                 onClick={handleSaveDataImport}
                                 style={{ backgroundColor: "#1cb21c" }}
@@ -468,6 +456,7 @@ const AddNewPigImport = (props) => {
                     }
                 >
                     {/* upload file section */}
+
                     <div className="form">
                         <form className="form-group" autoComplete="off" onSubmit={handleSubmit}>
                             <h5>Tải lên</h5>

@@ -1,12 +1,55 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import { Layout, Breadcrumb, Card, Col, Row } from "antd";
 import AdminHeader from "./AdminHeader";
 import { Link } from "react-router-dom";
+import { countPig } from "../../../api/pig";
+import { countFarm } from "../../../api/farm";
 
 const { Content } = Layout;
 
 const AdminDashboard = (props) => {
+    const [totalPig, setTotalPig] = useState(null);
+    const [totalFarm, setTotalFarm] = useState(null);
+
+    const countPigAPI = async () => {
+        await countPig()
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setTotalPig(result);
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const countFarmAPI = async () => {
+        await countFarm()
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setTotalFarm(result);
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const fetchData = () => {
+        countFarmAPI();
+        countPigAPI();
+    };
+    useEffect(() => {
+        fetchData();
+    }, []);
+
     useEffect(() => {
         document.title = "Trang Chủ - Admin";
     }, []);
@@ -27,18 +70,18 @@ const AdminDashboard = (props) => {
                         <div className="site-card-wrapper">
                             <Row gutter={16}>
                                 <Col span={8}>
-                                    <Card title="Tổng Số Lợn" bordered={false}>
-                                        16
+                                    <Card title="Tổng Số Cá Thể" bordered={false}>
+                                        {totalPig}
                                     </Card>
                                 </Col>
                                 <Col span={8}>
-                                    <Card title="Cơ Sở Chăn Nuôi" bordered={false}>
-                                        19
+                                    <Card title="Tổng Số Cơ Sở Chăn Nuôi" bordered={false}>
+                                        {totalFarm}
                                     </Card>
                                 </Col>
                                 <Col span={8}>
                                     <Card title="Thành Viên" bordered={false}>
-                                        19
+                                        10
                                     </Card>
                                 </Col>
                             </Row>

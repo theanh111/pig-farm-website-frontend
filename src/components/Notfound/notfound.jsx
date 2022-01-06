@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Result, Button } from "antd";
 import { Link } from "react-router-dom";
 
 const NotFound = () => {
@@ -8,14 +9,20 @@ const NotFound = () => {
     }, []);
 
     return (
-        <div className="main">
-            <div className="fof">
-                <h1>Error 404</h1>
-                <Link to="/" className="link-home">
-                    Về Trang Chủ
-                </Link>
+        <>
+            <div className="site-layout-content">
+                <Result
+                    status="404"
+                    title="404"
+                    subTitle="Xin lỗi, trang bạn nhập không tồn tại."
+                    extra={
+                        <a href="/">
+                            <Button type="primary">Về Trang Chủ</Button>
+                        </a>
+                    }
+                />
             </div>
-        </div>
+        </>
     );
 };
 

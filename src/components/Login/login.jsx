@@ -101,7 +101,7 @@ export const Login = () => {
             ) : (
                 <>
                     <Card style={{ width: 500, margin: "0 auto" }}>
-                        {errorMessage ? <div style={{ color: "red" }}>{errorMessage}</div> : null}
+                        <div style={{ paddingLeft: 150 }}>{errorMessage ? <div style={{ color: "red" }}>{errorMessage}</div> : null}</div>
                         <Form
                             name="basic"
                             labelCol={{ span: 8 }}
@@ -132,10 +132,10 @@ export const Login = () => {
                                 </Button>
                             </Form.Item>
                         </Form>
-                        <div style={{ margin: "0 auto" }} className="registerMessage">
-                            <span>Bạn chưa có tài khoản? </span>
-                            <Link to="/dang-ky">Tạo tài khoản</Link>
-                        </div>
+                        {/* <div style={{ margin: "0 auto", paddingLeft: 115 }} className="registerMessage"> */}
+                        {/* <span>Bạn chưa có tài khoản? </span> */}
+                        {/* <Link to="/dang-ky">Tạo tài khoản</Link> */}
+                        {/* </div> */}
                     </Card>
 
                     {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

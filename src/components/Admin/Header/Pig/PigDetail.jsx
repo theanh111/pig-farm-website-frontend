@@ -1,333 +1,41 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Drawer, Form, Button, Input, Space, notification, Table, Modal } from "antd";
-import Loader from "../../../Loader/Loader";
+import React, { useState, useEffect } from "react";
+import { Drawer, Button, Space, Descriptions, Badge, Image, Card, Row, Col } from "antd";
+
+const { Meta } = Card;
 
 const PigDetail = (props) => {
-    const history = useNavigate();
+    const [pig, setPig] = useState({});
     const { pigById, viewPigDetail, closeDrawer, fetchData } = props;
-    const [viewLoader, setViewLoader] = useState(false);
     const onCloseDrawer = () => {
         closeDrawer();
     };
 
-    const handleCloseConfirm = () => {
-        showModal();
-    };
-
     const handleCloseDrawer = () => {
-        showModal();
-    };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = () => {
-        setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
         onCloseDrawer();
-        setIsModalVisible(false);
     };
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
+    const setData = () => {
+        if (pigById) {
+            if (pigById.length > 0) {
+                setPig(pigById[0]);
+            }
+        }
     };
 
-    const columns = [
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Dấu Thời Gian</span>,
-            dataIndex: "dau_thoi_gian",
-            width: "100px",
-            height: "100px",
-            fixed: "left",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Mã Số Cá Thể</span>,
-            key: "ma_so_ca_the",
-            width: "100px",
-            render: (record) => (
-                <div
-                    style={{ cursor: "pointer", fontWeight: 700, color: "#f95d01" }}
-                    dangerouslySetInnerHTML={{ __html: record.ma_so_ca_the }}
-                ></div>
-            ),
-            fixed: "left",
-            height: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Tuổi</span>,
-            dataIndex: "tuoi",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Người Đánh Giá</span>,
-            dataIndex: "nguoi_danh_gia",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Địa Điểm Đánh Giá</span>,
-            dataIndex: "dia_diem_danh_gia",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Ngày Đánh Giá</span>,
-            dataIndex: "ngay_danh_gia",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Giới Tính</span>,
-            dataIndex: "gioi_tinh",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Nhân Trung Trắng</span>,
-            dataIndex: "nhan_trung_trang",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Tai Mèo</span>,
-            dataIndex: "tai_meo",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Mõm</span>,
-            dataIndex: "mom",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Vành Trắng Quanh Mõm</span>,
-            dataIndex: "vanh_trang_quanh_mom",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Mắt</span>,
-            dataIndex: "mat",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Da Có Khoang Đen</span>,
-            dataIndex: "da_co_khoang_den",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Khoang Đen Phụ</span>,
-            dataIndex: "khoang_den_phu",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Kiểu Lưng Bụng</span>,
-            dataIndex: "kieu_lung_bung",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chân</span>,
-            dataIndex: "chan",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Da Mắt</span>,
-            dataIndex: "da_mat",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Kiểu Đuổi</span>,
-            dataIndex: "kieu_duoi",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Kiểu Tai</span>,
-            dataIndex: "kieu_tai",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hướng Tai</span>,
-            dataIndex: "huong_tai",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Lông</span>,
-            dataIndex: "long",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Loại Màu Lông</span>,
-            dataIndex: "loai_mau_long",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Dạng Đầu</span>,
-            dataIndex: "hinh_dang_dau",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Trọng Lượng Cơ Thể (kg)</span>,
-            dataIndex: "trong_luong_co_the_kg",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Dài Đầu (cm)</span>,
-            dataIndex: "chieu_dai_dau_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Dài Đuôi (cm)</span>,
-            dataIndex: "chieu_dai_duoi_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Rộng Ngực (cm)</span>,
-            dataIndex: "chieu_rong_nguc_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Cao Thân Tại Chân Trước (cm)</span>,
-            dataIndex: "chieu_cao_than_tai_chan_truoc_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Dài Cơ Thể (cm)</span>,
-            dataIndex: "chieu_dai_co_the_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Dài Tai (cm)</span>,
-            dataIndex: "chieu_dai_tai_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chiều Rộng Thân Tại Xương Chậu (cm)</span>,
-            dataIndex: "chieu_rong_than_tai_xuong_chau_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Chu Vi Cổ Chân (cm)</span>,
-            dataIndex: "chu_vi_co_chan_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Độ Rộng Dải Trắng Vắt Vai (cm)</span>,
-            dataIndex: "do_rong_dai_trang_vat_vai_cm",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Số Bầu Vú</span>,
-            dataIndex: "so_bau_vu",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Loại Con Giống</span>,
-            dataIndex: "loai_con_giong",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Số Con Trong Đàn</span>,
-            dataIndex: "so_con_trong_dan",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Số Con Đực Trong Đàn</span>,
-            dataIndex: "so_con_duc_trong_dan",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Số Con Cái Trong Đàn</span>,
-            dataIndex: "so_con_cai_trong_dan",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 1</span>,
-            dataIndex: "hinh_anh_1",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 2</span>,
-            dataIndex: "hinh_anh_2",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Dạng Lông</span>,
-            dataIndex: "hinh_dang_long",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Độ Dài Lông</span>,
-            dataIndex: "do_dai_long",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Độ Dày Lông</span>,
-            dataIndex: "do_day_long",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Phả Hệ</span>,
-            dataIndex: "pha_he",
-            height: "100px",
-            width: "100px",
-        },
-    ];
+    useEffect(() => {
+        setData();
+    }, []);
 
     return (
         <>
             <>
-                {viewLoader ? <Loader /> : null}
-                <Modal
-                    centered
-                    okType="danger"
-                    style={{ zIndex: 9 }}
-                    title="Thông Báo"
-                    visible={isModalVisible}
-                    onOk={handleOk}
-                    onCancel={handleCancel}
-                    cancelText="Hủy"
-                    okText="Đóng"
-                >
-                    <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
-                </Modal>
                 <Drawer
-                    title="Xem chi tiết"
+                    title={
+                        <>
+                            <span>Xem Chi Tiết Cá Thể: </span>
+                            <span style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{pig.ma_so_ca_the}</span>
+                        </>
+                    }
                     width="85%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewPigDetail}
@@ -338,22 +46,100 @@ const PigDetail = (props) => {
                         </Space>
                     }
                 >
-                    {/* view file section */}
-                    <h5>Xem trước dữ liệu tải lên</h5>
-                    <div className="viewer">
-                        {pigById !== null && (
-                            <>
-                                <Table
-                                    size="small"
-                                    className="table-view-data"
-                                    bordered
-                                    scroll={{ x: "calc(700px + 50%)" }}
-                                    columns={columns}
-                                    dataSource={pigById}
-                                ></Table>
-                            </>
-                        )}
-                    </div>
+                    {pig ? (
+                        <Descriptions labelStyle={{ fontWeight: 500, fontSize: 15 }} layout="vertical" bordered>
+                            <Descriptions.Item span={3} label="Hình Ảnh">
+                                <Row justify="center" gutter={[20, 10]}>
+                                    <Col xs={12}>
+                                        <Card
+                                            hoverable
+                                            style={{ width: 500 }}
+                                            cover={
+                                                <Image
+                                                    style={{ width: 500, height: 260, objectFit: "cover", display: "inline-block" }}
+                                                    alt="Hinh Anh 1"
+                                                    src={pig.hinh_anh_1}
+                                                />
+                                            }
+                                        >
+                                            <Meta title="Hình Ảnh 1" description={"- Link: " + pig.hinh_anh_1} />
+                                        </Card>
+                                    </Col>
+                                    <Col xs={8}>
+                                        <Card
+                                            hoverable
+                                            style={{ width: 500 }}
+                                            cover={
+                                                <Image
+                                                    style={{ width: 500, height: 260, objectFit: "cover", display: "inline-block" }}
+                                                    alt="Hinh Anh 2"
+                                                    src={pig.hinh_anh_2}
+                                                />
+                                            }
+                                        >
+                                            <Meta title="Hình Ảnh 2" description={"- Link: " + pig.hinh_anh_2} />
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Trạng Thái" span={3}>
+                                {pig.trang_thai === 1 ? (
+                                    <Badge status="success" text="Active" />
+                                ) : (
+                                    <Badge status="warning" text="Inactive" />
+                                )}
+                            </Descriptions.Item>
+
+                            <Descriptions.Item label="Mã Số Cá Thể">
+                                <span style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{pig.ma_so_ca_the}</span>
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Dấu Thời Gian">{pig.dau_thoi_gian}</Descriptions.Item>
+                            <Descriptions.Item label="Tuổi">{pig.tuoi}</Descriptions.Item>
+                            <Descriptions.Item label="Người Đánh Giá">{pig.nguoi_danh_gia}</Descriptions.Item>
+                            <Descriptions.Item label="Địa Điểm Đánh Giá">{pig.dia_diem_danh_gia}</Descriptions.Item>
+                            <Descriptions.Item label="Ngày Đánh Giá">{pig.ngay_danh_gia}</Descriptions.Item>
+                            <Descriptions.Item label="Giới Tính">{pig.gioi_tinh}</Descriptions.Item>
+                            <Descriptions.Item label="Nhân Trung Trắng">{pig.nhan_trung_trang}</Descriptions.Item>
+                            <Descriptions.Item label="Tai Mèo">{pig.tai_meo}</Descriptions.Item>
+                            <Descriptions.Item label="Mõm">{pig.mom}</Descriptions.Item>
+                            <Descriptions.Item label="Vành Trắng Quanh Mõm">{pig.vanh_trang_quanh_mom}</Descriptions.Item>
+                            <Descriptions.Item label="Mắt">{pig.mat}</Descriptions.Item>
+                            <Descriptions.Item label="Da Có Khoang Đen">{pig.da_co_khoang_den}</Descriptions.Item>
+                            <Descriptions.Item label="Khoang Đen Phụ">{pig.khoang_den_phu}</Descriptions.Item>
+                            <Descriptions.Item label="Kiểu Lưng Bụng">{pig.kieu_lung_bung}</Descriptions.Item>
+                            <Descriptions.Item label="Chân">{pig.chan}</Descriptions.Item>
+                            <Descriptions.Item label="Da Mắt">{pig.da_mat}</Descriptions.Item>
+                            <Descriptions.Item label="Kiểu Đuổi">{pig.kieu_duoi}</Descriptions.Item>
+                            <Descriptions.Item label="Kiểu Tai">{pig.kieu_tai}</Descriptions.Item>
+                            <Descriptions.Item label="Hướng Tai">{pig.huong_tai}</Descriptions.Item>
+                            <Descriptions.Item label="Kiểu Lông">{pig.kieu_long}</Descriptions.Item>
+                            <Descriptions.Item label="Loại Màu Lông">{pig.loai_mau_long}</Descriptions.Item>
+                            <Descriptions.Item label="Hình Dạng Đầu">{pig.hinh_dang_dau}</Descriptions.Item>
+                            <Descriptions.Item label="Trọng Lượng Cơ Thể (kg)">{pig.trong_luong_co_the_kg}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Dài Đầu (cm)">{pig.chieu_dai_dau_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Dài Đuôi (cm)">{pig.chieu_dai_duoi_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Rộng Ngực (cm)">{pig.chieu_rong_nguc_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Cao Thân Tại Chân Trước (cm)">
+                                {pig.chieu_cao_than_tai_chan_truoc_cm}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Chiều Dài Cơ Thể (cm)">{pig.chieu_dai_co_the_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Dài Tai (cm)">{pig.chieu_dai_tai_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Chiều Rộng Thân Tại Xương Chậu (cm)">
+                                {pig.chieu_rong_than_tai_xuong_chau_cm}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="Chu Vi Cổ Chân (cm)">{pig.chu_vi_co_chan_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Độ Rộng Dải Trắng Vắt Vai (cm)">{pig.do_rong_dai_trang_vat_vai_cm}</Descriptions.Item>
+                            <Descriptions.Item label="Số Bầu Vú">{pig.so_bau_vu}</Descriptions.Item>
+                            <Descriptions.Item label="Loại Con Giống">{pig.loai_con_giong}</Descriptions.Item>
+                            <Descriptions.Item label="Số Con Trong Đàn">{pig.so_con_trong_dan}</Descriptions.Item>
+                            <Descriptions.Item label="Số Con Đực Trong Đàn">{pig.so_con_duc_trong_dan}</Descriptions.Item>
+                            <Descriptions.Item label="Số Con Cái Trong Đàn">{pig.so_con_cai_trong_dan}</Descriptions.Item>
+                            <Descriptions.Item label="Hình Dạng Lông">{pig.hinh_dang_long}</Descriptions.Item>
+                            <Descriptions.Item label="Độ Dài Lông">{pig.do_dai_long}</Descriptions.Item>
+                            <Descriptions.Item label="Độ Dày Lông">{pig.do_day_long}</Descriptions.Item>
+                            <Descriptions.Item label="Phả Hệ">{pig.pha_he}</Descriptions.Item>
+                        </Descriptions>
+                    ) : null}
                 </Drawer>
             </>
         </>

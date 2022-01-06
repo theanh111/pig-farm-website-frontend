@@ -30,6 +30,11 @@ export const Navigation = () => {
                             </Link>
                         </li>
                         <li>
+                            <Link to="/blog" className="page-scroll">
+                                Blog
+                            </Link>
+                        </li>
+                        <li>
                             <Link to="/lien-he" className="page-scroll">
                                 Liên Hệ
                             </Link>

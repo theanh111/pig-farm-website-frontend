@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "./AdminNavbar";
-import { Layout, Breadcrumb, Table, Input, InputNumber, Popconfirm, Form, Typography, Button, Row, Col, Image } from "antd";
+import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
 import AdminHeader from "./AdminHeader";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import AddNewFarm from "./AddNewFarm";
 import Loader from "../../Loader/Loader";
 import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
+import EditFarm from "./Farm/CRUD/EditFarm";
 
 const { Content } = Layout;
 
@@ -14,9 +15,11 @@ const AdminFarms = (props) => {
     const history = useNavigate();
     const [viewLoader, setViewLoader] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
-    const [viewAddNewPigImport, setViewAddNewPigImport] = useState(false);
+    const [viewEditFarm, setViewEditFarm] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
+    const [dataEdit, setDataEdit] = useState([]);
+    const [dataEditFarm, setDataEditFarm] = useState({});
 
     const showAddNewFarm = () => {
         let token = checkTokenLocalStorage();
@@ -50,6 +53,11 @@ const AdminFarms = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
+    const handleEditFarm = (farm) => {
+        setDataEditFarm(farm);
+        setViewEditFarm(true);
+    };
+
     const columns = [
         {
             title: "Hình Ảnh",
@@ -68,10 +76,12 @@ const AdminFarms = (props) => {
             width: "40%",
             editable: true,
             render: (record) => (
+                // <Link to={"/co-so/" + record.id} target="_blank">
                 <div
-                    style={{ cursor: "pointer", fontWeight: 500, fontSize: 18, color: "blue" }}
+                    style={{ cursor: "pointer", fontWeight: 500, fontSize: 15, color: "#34568B" }}
                     dangerouslySetInnerHTML={{ __html: record.ten_trang_trai }}
                 ></div>
+                // </Link>
             ),
         },
         {
@@ -87,9 +97,11 @@ const AdminFarms = (props) => {
             width: "10%",
             render: (record) => {
                 return (
-                    <Typography.Link>
-                        <EditOutlined style={{ fontSize: 25 }} />
-                    </Typography.Link>
+                    <Tooltip title="Sửa Cơ Sở">
+                        <Button onClick={() => handleEditFarm(record)}>
+                            <EditOutlined style={{ fontSize: 20 }} />
+                        </Button>
+                    </Tooltip>
                 );
             },
         },
@@ -161,6 +173,20 @@ const AdminFarms = (props) => {
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
+                                />
+                            ) : null}
+
+                            {viewEditFarm ? (
+                                <EditFarm
+                                    id={dataEditFarm.id}
+                                    ten_trang_trai={dataEditFarm.ten_trang_trai}
+                                    hinh_anh={dataEditFarm.hinh_anh}
+                                    fetchData={() => getAllFarmAPI()}
+                                    closeDrawer={() => {
+                                        setViewEditFarm(false);
+                                        setDataEdit([]);
+                                    }}
+                                    viewEditFarm={viewEditFarm}
                                 />
                             ) : null}
 

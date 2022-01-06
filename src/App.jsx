@@ -14,6 +14,10 @@ import AdminFarms from "./components/Admin/Header/AdminFarms";
 import AdminNavbar from "./components/Admin/Header/AdminNavbar";
 import AdminHeader from "./components/Admin/Header/AdminHeader";
 import { FarmDetail } from "./components/Detail/Farm/FarmDetail";
+import { ContactPage } from "./components/Contact/ContactPage";
+import { FindOutNow } from "./components/FindOutNow/FindOutNow";
+import Profile from "./components/Admin/Header/User/Profile";
+import AdminBlog from "./components/Admin/Blog/AdminBlog";
 
 const App = (props) => {
     const history = useNavigate();
@@ -80,12 +84,22 @@ const App = (props) => {
             <Route path="/co-so/:id" element={<FarmDetail />} />
             <Route path="/ca-the/:id" element={<Detail />} />
             <Route path="/co-so-chan-nuoi" element={<Farm />} />
+            <Route path="/lien-he" element={<ContactPage />} />
+            <Route path="/tim-hieu-ngay" element={<FindOutNow />} />
 
             <Route
                 path="/admin"
                 element={
                     <PrivateRoute>
                         <AdminDashboard />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/admin/profile"
+                element={
+                    <PrivateRoute>
+                        <Profile />
                     </PrivateRoute>
                 }
             />
@@ -104,6 +118,22 @@ const App = (props) => {
                 element={
                     <PrivateRoute>
                         <AdminFarms />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/admin/quan-ly-blog"
+                element={
+                    <PrivateRoute>
+                        <AdminBlog />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/admin/quan-ly-nguoi-dung"
+                element={
+                    <PrivateRoute>
+                        <AdminBlog />
                     </PrivateRoute>
                 }
             />
