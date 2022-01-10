@@ -27,7 +27,7 @@ export const Farm = (props) => {
     useEffect(() => {
         getData();
         setLandingPageData(JsonData);
-    }, [pig]);
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);

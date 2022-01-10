@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
 import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
-import AddNewFarm from "../Header/AddNewFarm";
+import { PlusOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import Loader from "../../Loader/Loader";
 import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
-import EditFarm from "../Header/Farm/CRUD/EditFarm";
+import { getAllBlog } from "../../../api/blog";
+import BlogViewDetail from "./BlogViewDetail";
+import AddNewBlog from "./AddNewBlog";
 
 const { Content } = Layout;
 
@@ -20,6 +21,7 @@ const AdminBlog = (props) => {
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditFarm, setDataEditFarm] = useState({});
+    const [blogData, setBlogData] = useState({});
 
     const showAddNewFarm = () => {
         let token = checkTokenLocalStorage();
@@ -58,31 +60,40 @@ const AdminBlog = (props) => {
         setViewEditFarm(true);
     };
 
+    const handleViewDetail = (blog) => {
+        setBlogData(blog);
+        setViewEditFarm(true);
+    };
+
     const columns = [
         {
-            title: "Hình Ảnh",
-            key: "hinh_anh",
-            width: "5%",
+            title: "Mã Blog",
+            key: "ma_blog",
+            width: "20%",
             editable: true,
             render: (record) => {
                 return (
-                    <Image style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh} />
+                    <Link to={"/blog/" + record.ma_blog} target="_blank">
+                        <div
+                            style={{ cursor: "pointer", fontWeight: 500, color: "#34568B" }}
+                            dangerouslySetInnerHTML={{ __html: record.ma_blog }}
+                        ></div>
+                    </Link>
                 );
             },
         },
         {
-            title: "Tên Trang Trại",
-            key: "ten_trang_trai",
-            width: "40%",
+            title: "Tên Blog",
+            dataIndex: "ten_blog",
+            width: "30%",
             editable: true,
-            render: (record) => (
-                // <Link to={"/co-so/" + record.id} target="_blank">
-                <div
-                    style={{ cursor: "pointer", fontWeight: 500, fontSize: 15, color: "#34568B" }}
-                    dangerouslySetInnerHTML={{ __html: record.ten_trang_trai }}
-                ></div>
-                // </Link>
-            ),
+        },
+        {
+            title: "Người Nhập",
+            align: "center",
+            dataIndex: "nguoi_nhap",
+            width: "20%",
+            editable: true,
         },
         {
             title: "Ngày Nhập",
@@ -94,12 +105,26 @@ const AdminBlog = (props) => {
         {
             title: "Sửa",
             align: "center",
-            width: "10%",
+            width: "20%",
             render: (record) => {
                 return (
-                    <Tooltip title="Sửa Cơ Sở">
+                    <Tooltip title="Sửa Blog">
                         <Typography.Link>
                             <EditOutlined onClick={() => handleEditFarm(record)} style={{ fontSize: 25 }} />
+                        </Typography.Link>
+                    </Tooltip>
+                );
+            },
+        },
+        {
+            title: "Xem trước",
+            align: "center",
+            width: "20%",
+            render: (record) => {
+                return (
+                    <Tooltip title="Sửa Blog">
+                        <Typography.Link>
+                            <EyeOutlined onClick={() => handleViewDetail(record)} style={{ fontSize: 25 }} />
                         </Typography.Link>
                     </Tooltip>
                 );
@@ -109,7 +134,7 @@ const AdminBlog = (props) => {
 
     const getAllFarmAPI = async () => {
         setViewLoader(true);
-        await getAllFarm()
+        await getAllBlog()
             .then((res) => {
                 let result = res.data.data;
                 if (result) {
@@ -169,7 +194,7 @@ const AdminBlog = (props) => {
                             </Row>
 
                             {viewAddNewFarm ? (
-                                <AddNewFarm
+                                <AddNewBlog
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -177,10 +202,8 @@ const AdminBlog = (props) => {
                             ) : null}
 
                             {viewEditFarm ? (
-                                <EditFarm
-                                    id={dataEditFarm.id}
-                                    ten_trang_trai={dataEditFarm.ten_trang_trai}
-                                    hinh_anh={dataEditFarm.hinh_anh}
+                                <BlogViewDetail
+                                    blogData={blogData}
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => {
                                         setViewEditFarm(false);

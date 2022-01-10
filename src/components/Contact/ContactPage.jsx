@@ -5,6 +5,7 @@ import { Contact } from "../Contact/contact";
 import JsonData from "../../data/data.json";
 import { getAllFarm } from "../../api/farm";
 import { Link } from "react-router-dom";
+import { ExportOutlined } from "@ant-design/icons";
 
 const { Content } = Layout;
 
@@ -25,7 +26,7 @@ export const ContactPage = (props) => {
     useEffect(() => {
         getData();
         setLandingPageData(JsonData);
-    }, [pig]);
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -53,6 +54,11 @@ export const ContactPage = (props) => {
                         <br />
                         Thành Phố Hồ Chí Minh
                     </span>
+                </div>
+                <div>
+                    <Link to="/dang-nhap" className="page-scroll">
+                        <ExportOutlined />
+                    </Link>
                 </div>
             </Content>
 

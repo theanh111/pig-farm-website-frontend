@@ -1,3 +1,4 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
 @media screen and (max-width: 400px) {
     #features {
         padding: 20px;
@@ -17,12 +18,35 @@
     }
 }
 
+.image-gallery-slide img {
+    object-fit: cover;
+    display: inline-block;
+}
+
 .txt {
     cursor: pointer;
 }
 
 .txt:hover {
     text-decoration: underline;
+}
+
+.header-fix {
+    color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+}
+
+#components-layout-demo-top .logoWeb {
+    float: left;
+    width: 120px;
+    height: 21px;
+    margin: 16px 24px 10px 0;
+}
+.ant-row-rtl #components-layout-demo-top .logoWeb {
+    float: right;
+    margin: 16px 0 16px 24px;
 }
 
 .site-layout-content {

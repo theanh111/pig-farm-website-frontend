@@ -20,7 +20,7 @@ export const Gallery2 = () => {
 
     useEffect(() => {
         getData();
-    }, [pig]);
+    }, []);
     return (
         <div id="portfolio" className="text-center">
             <div className="container">

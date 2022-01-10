@@ -21,13 +21,14 @@ const LandingPage = () => {
     useEffect(() => {
         window.scrollTo(0, 0);
         setLandingPageData(JsonData);
-        document.title = "Trang Chủ - mongcaipig.vn";
+        document.title = "Website giới thiệu kết quả đề tài đánh giá đa dạng di truyền giống lợn Móng Cái ở thành phố Móng Cái 2021-2023";
     }, []);
 
     return (
         <div>
             <Navigation />
             <Header data={landingPageData.Header} />
+
             {/* <Features data={landingPageData.Features} /> */}
             {/* <Services data={landingPageData.Services} /> */}
             <Gallery data={landingPageData.Gallery} />

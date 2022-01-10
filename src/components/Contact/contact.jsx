@@ -155,6 +155,10 @@ export const Contact = (props) => {
                         <a href="/" rel="nofollow">
                             Mong Cai Pig.
                         </a>
+                        <br></br>
+                        <p>
+                            Website giới thiệu kết quả đề tài đánh giá đa dạng di truyền giống lợn Móng Cái ở thành phố Móng Cái 2021-2023
+                        </p>
                     </p>
                 </div>
             </div>
