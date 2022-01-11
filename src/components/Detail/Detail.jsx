@@ -5,7 +5,7 @@ import JsonData from "../../data/data.json";
 import { ContentDetail } from "./ContentDetail";
 import { Contact } from "../Contact/contact";
 import { getPigById } from "../../api/pig";
-import { Carousel, Image, Row, Col, Table, Tag, Space } from "antd";
+import { Carousel, Image, Row, Col, Table, Tag, Space, Card } from "antd";
 import ImageGallery from "react-image-gallery";
 import LeftNav from "../Header/LeftNav";
 import RightNav from "../Header/RightNav";
@@ -194,7 +194,7 @@ export const Detail = () => {
             <Navigation />
             <div style={{ paddingTop: 50 }}>
                 <Row justify="center" gutter={[20, 20]}>
-                    <Col xs={5}>
+                    <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%" }}>
                         <ImageGallery
                             renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                             renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -207,32 +207,42 @@ export const Detail = () => {
                         />
                     </Col>
                     <Col xs={8}>
-                        <div className="detail-box">
-                            <div style={{ paddingLeft: 10, paddingTop: 5 }}>
-                                <span style={{ color: "white", fontWeight: 300, fontSize: 18 }}>Mã số cá thể: </span>
-                                <br></br>
-                                <span style={{ color: "white", fontWeight: 500, fontSize: 40 }}>{pigDetail.ma_so_ca_the}</span>
-                            </div>
-                        </div>
-
-                        <span>
-                            - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
-                        </span>
-                        <br></br>
-                        <span>
-                            - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
-                        </span>
-                        <br></br>
-                        <span>
-                            - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
-                        </span>
-                        <br></br>
-                        <span>
-                            - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
-                        </span>
+                        <Card
+                            title={
+                                <>
+                                    <span>Mã Số Cá Thể: </span>
+                                    <span style={{ color: "blue", fontSize: 25 }}>{pigDetail.ma_so_ca_the}</span>
+                                </>
+                            }
+                            bordered={true}
+                            style={{ width: 600, height: 380, boxShadow: "0 0 2px black", borderRadius: "2%" }}
+                        >
+                            {/* <div className="detail-box">
+                                    <div style={{ paddingLeft: 10, paddingTop: 5 }}>
+                                        <span style={{ color: "white", fontWeight: 300, fontSize: 18 }}>Mã số cá thể: </span>
+                                        <br></br>
+                                        <span style={{ color: "white", fontWeight: 500, fontSize: 40 }}>{pigDetail.ma_so_ca_the}</span>
+                                    </div>
+                                </div> */}
+                            <span>
+                                - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
+                            </span>
+                            <br></br>
+                            <span>
+                                - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
+                            </span>
+                            <br></br>
+                            <span>
+                                - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
+                            </span>
+                            <br></br>
+                            <span>
+                                - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
+                            </span>
+                        </Card>
                     </Col>
                 </Row>
-                <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50 }}>
+                <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50, paddingBottom: 80 }}>
                     <Col xs={16}>
                         <Table bordered columns={columns} dataSource={data} pagination={false} />
                     </Col>

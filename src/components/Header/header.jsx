@@ -83,6 +83,7 @@ const images = [
 export const Header = (props) => {
     return (
         <>
+            {" "}
             <Row justify="center" gutter={[20, 20]}>
                 <Col xs={6}>
                     <div>Nhóm Nghiên Cứu</div>
