@@ -32,10 +32,10 @@ const LandingPage = () => {
             {/* <Features data={landingPageData.Features} /> */}
             {/* <Services data={landingPageData.Services} /> */}
             <Gallery data={landingPageData.Gallery} />
-            <Gallery2 data={landingPageData.Gallery} />
-            <Testimonials data={landingPageData.Testimonials} />
-            <Team data={landingPageData.Team} />
-            <About data={landingPageData.About} />
+            {/* <Gallery2 data={landingPageData.Gallery} /> */}
+            {/* <Testimonials data={landingPageData.Testimonials} /> */}
+            {/* <Team data={landingPageData.Team} /> */}
+            {/* <About data={landingPageData.About} /> */}
             <Contact data={landingPageData.Contact} />
         </div>
     );

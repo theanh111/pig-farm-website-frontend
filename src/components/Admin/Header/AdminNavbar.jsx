@@ -66,6 +66,10 @@ const AdminNavbar = () => {
                         <Link to="/admin/quan-ly-blog" />
                     </Menu.Item>
                     <Menu.Item icon={<FolderOutlined />}>
+                        Quản Lý Tin Tức
+                        <Link to="/admin/quan-ly-tin-tuc" />
+                    </Menu.Item>
+                    <Menu.Item icon={<FolderOutlined />}>
                         Quản Lý Người Dùng
                         <Link to="/admin/quan-ly-nguoi-dung" />
                     </Menu.Item>

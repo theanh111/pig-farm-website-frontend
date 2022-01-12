@@ -13,7 +13,7 @@ const jwt = require("jsonwebtoken");
 
 const EditBlog = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewEditBlog, closeDrawer, fetchData } = props;
     const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
@@ -154,7 +154,7 @@ const EditBlog = (props) => {
                     title="Thêm Blog Mới"
                     width="85%"
                     onClose={() => handleCloseDrawer()}
-                    visible={viewAddNewFarm}
+                    visible={viewEditBlog}
                     bodyStyle={{ paddingBottom: 80 }}
                     extra={
                         <Space>

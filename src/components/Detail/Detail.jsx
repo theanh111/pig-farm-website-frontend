@@ -2,7 +2,6 @@ import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import JsonData from "../../data/data.json";
-import { ContentDetail } from "./ContentDetail";
 import { Contact } from "../Contact/contact";
 import { getPigById } from "../../api/pig";
 import { Carousel, Image, Row, Col, Table, Tag, Space, Card } from "antd";
@@ -217,13 +216,6 @@ export const Detail = () => {
                             bordered={true}
                             style={{ width: 600, height: 380, boxShadow: "0 0 2px black", borderRadius: "2%" }}
                         >
-                            {/* <div className="detail-box">
-                                    <div style={{ paddingLeft: 10, paddingTop: 5 }}>
-                                        <span style={{ color: "white", fontWeight: 300, fontSize: 18 }}>Mã số cá thể: </span>
-                                        <br></br>
-                                        <span style={{ color: "white", fontWeight: 500, fontSize: 40 }}>{pigDetail.ma_so_ca_the}</span>
-                                    </div>
-                                </div> */}
                             <span>
                                 - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
                             </span>
@@ -249,55 +241,7 @@ export const Detail = () => {
                 </Row>
             </div>
 
-            {/* <main className="container-detail">
-                <div className="left-column-detail">
-                    <div style={{ width: "584px", height: "389px", objectFit: "cover", display: "inline-block" }}>
-                        <Image
-                            style={{ borderRadius: "2%", cursor: "pointer" }}
-                            className="active"
-                            src={pigDetail.hinh_anh_1}
-                            alt={pigDetail.ma_so_ca_the}
-                        />
-                    </div>
-                </div>
-
-                <div className="right-column-detail">
-                    <div className="product-description-detail">
-                        <div className="site-card-border-less-wrapper">
-                            <div className="detail-box">
-                                <div style={{ paddingLeft: 10, paddingTop: 5 }}>
-                                    <span className="product-description-detail-span">Mã số cá thể: </span>
-                                    <br />
-                                    <h1>{pigDetail.ma_so_ca_the}</h1>
-                                </div>
-                            </div>
-                            <p>
-                                - Dấu Thời Gian: <span style={{ fontWeight: 500 }}>{pigDetail.dau_thoi_gian}</span>
-                            </p>
-                            <p>
-                                - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
-                            </p>
-                            <p>
-                                - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
-                            </p>
-                            <p>
-                                - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
-                            </p>
-                            <p>
-                                - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* <div className="product-configuration-detail"></div> */}
-            {/* <div className="product-price-detail">
-                        <span>148$</span>
-                    </div> */}
-            {/* </div> */}
-            {/* </main> */}
-            {/* <ContentDetail data={pigDetail} /> */}
             <Contact data={landingPageData.Contact} />
-            {/* <About data={landingPageData.About} /> */}
         </>
     );
 };

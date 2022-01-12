@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import ImageGallery from "react-image-gallery";
-import { Row, Col, Button } from "antd";
+import { Row, Col, Button, Divider } from "antd";
 import LeftNav from "./LeftNav";
 import RightNav from "./RightNav";
 import News from "../News/News";
+import Blog from "../Blog/Blog";
 
 const images = [
     {
@@ -83,10 +84,9 @@ const images = [
 export const Header = (props) => {
     return (
         <>
-            {" "}
             <Row justify="center" gutter={[20, 20]}>
                 <Col xs={6}>
-                    <div>Nhóm Nghiên Cứu</div>
+                    <Divider orientation="center">Nhóm Nghiên Cứu</Divider>
                     <ImageGallery
                         renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                         renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -99,7 +99,7 @@ export const Header = (props) => {
                     />
                 </Col>
                 <Col xs={6}>
-                    <div>Cá Thể</div>
+                    <Divider orientation="center">Cá Thể</Divider>
                     <ImageGallery
                         renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                         renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -112,7 +112,7 @@ export const Header = (props) => {
                     />
                 </Col>
                 <Col xs={6}>
-                    <div>Cơ Sở Chăn Nuôi</div>
+                    <Divider orientation="center">Cơ Sở Chăn Nuôi</Divider>
                     <ImageGallery
                         renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                         renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -125,12 +125,12 @@ export const Header = (props) => {
                     />
                 </Col>
             </Row>
-            <Row justify="center" gutter={[20, 20]}>
+            <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50 }}>
                 <Col xs={8}>
                     <News></News>
                 </Col>
                 <Col xs={8}>
-                    <News></News>
+                    <Blog></Blog>
                 </Col>
             </Row>
         </>

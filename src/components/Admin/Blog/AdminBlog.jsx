@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
 import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, EyeOutlined, SelectOutlined } from "@ant-design/icons";
 import Loader from "../../Loader/Loader";
 import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ const AdminBlog = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
     const [viewEditFarm, setViewEditFarm] = useState(false);
+    const [viewDetailBlog, setViewDetailBlog] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
@@ -62,7 +63,7 @@ const AdminBlog = (props) => {
 
     const handleViewDetail = (blog) => {
         setBlogData(blog);
-        setViewEditFarm(true);
+        setViewDetailBlog(true);
     };
 
     const columns = [
@@ -73,12 +74,9 @@ const AdminBlog = (props) => {
             editable: true,
             render: (record) => {
                 return (
-                    <Link to={"/blog/" + record.ma_blog} target="_blank">
-                        <div
-                            style={{ cursor: "pointer", fontWeight: 500, color: "#34568B" }}
-                            dangerouslySetInnerHTML={{ __html: record.ma_blog }}
-                        ></div>
-                    </Link>
+                    <div style={{ fontWeight: 500, color: "#34568B" }}>
+                        <span>{record.ma_blog}</span>
+                    </div>
                 );
             },
         },
@@ -122,9 +120,25 @@ const AdminBlog = (props) => {
             width: "20%",
             render: (record) => {
                 return (
-                    <Tooltip title="Sửa Blog">
+                    <Tooltip title="Xem trước">
                         <Typography.Link>
                             <EyeOutlined onClick={() => handleViewDetail(record)} style={{ fontSize: 25 }} />
+                        </Typography.Link>
+                    </Tooltip>
+                );
+            },
+        },
+        {
+            title: "Live",
+            align: "center",
+            width: "20%",
+            render: (record) => {
+                return (
+                    <Tooltip title="Live">
+                        <Typography.Link>
+                            <Link to={"/blog/" + record.ma_blog} target="_blank">
+                                <SelectOutlined style={{ fontSize: 25 }} />
+                            </Link>
                         </Typography.Link>
                     </Tooltip>
                 );
@@ -201,15 +215,15 @@ const AdminBlog = (props) => {
                                 />
                             ) : null}
 
-                            {viewEditFarm ? (
+                            {viewDetailBlog ? (
                                 <BlogViewDetail
                                     blogData={blogData}
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => {
-                                        setViewEditFarm(false);
-                                        setDataEdit([]);
+                                        setViewDetailBlog(false);
+                                        setBlogData([]);
                                     }}
-                                    viewEditFarm={viewEditFarm}
+                                    viewDetailBlog={viewDetailBlog}
                                 />
                             ) : null}
 
