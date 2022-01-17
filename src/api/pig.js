@@ -2,13 +2,7 @@ import axios from "axios";
 
 import { Config } from "../config";
 
-// const LIVE_API = "http://103.173.154.237:8080";
-// const LOCAL_API = "http://192.168.1.38:8080";
-
-const LIVE_API = Config.baseAPI;
-const LOCAL_API = "http://192.168.1.38:8080";
-
-const ENDPOINT = LIVE_API;
+const ENDPOINT = Config.baseAPI;
 
 const GET_PIG_LIMIT_12 = ENDPOINT + "/get-pig-limit-12";
 const GET_PIG_BY_ID = ENDPOINT + "/get-pig-by-id/";

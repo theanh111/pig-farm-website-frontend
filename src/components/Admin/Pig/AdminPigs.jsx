@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "./AdminNavbar";
+import AdminNavbar from "../Header/AdminNavbar";
 import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, message } from "antd";
-import AdminHeader from "./AdminHeader";
+import AdminHeader from "../Header/AdminHeader";
 import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
 import AddNewPig from "./AddNewPig";
 import AddNewPigImport from "./AddNewPigImport";
 import { Link } from "react-router-dom";
 import { getAllPig, updatePigStatus } from "../../../api/pig";
 import Loader from "../../Loader/Loader";
-import PigDetail from "./Pig/PigDetail";
+import PigDetail from "./PigDetail";
 import { useNavigate } from "react-router-dom";
-import EditPig from "./Pig/EditPig";
+import EditPig from "./EditPig";
+import { checkToken } from "../../../api/auth";
 
 const { Content } = Layout;
 
@@ -39,6 +40,7 @@ const AdminPigs = (props) => {
     const showAddNewPigImport = () => {
         let token = checkTokenLocalStorage();
         if (token) {
+            checkTokenAPI();
             setViewAddNewPigImport(true);
         } else {
             backToLogin();
@@ -47,7 +49,6 @@ const AdminPigs = (props) => {
 
     const backToLogin = () => {
         localStorage.removeItem("token");
-        alert("Hết phiên đăng nhập");
         history("/dang-nhap");
     };
 
@@ -63,6 +64,7 @@ const AdminPigs = (props) => {
     const viewDetailPig = (id) => {
         let token = checkTokenLocalStorage();
         if (token) {
+            checkTokenAPI();
             setViewPigDetail(true);
             pigById.push(id);
         } else {
@@ -72,6 +74,7 @@ const AdminPigs = (props) => {
     };
 
     const handleEditPig = (pig) => {
+        checkTokenAPI();
         setDataEditPig(pig);
         setViewEditPig(true);
     };
@@ -81,6 +84,7 @@ const AdminPigs = (props) => {
             title: (record) => <span style={{ fontSize: 12 }}>Mã Số Cá Thể</span>,
             key: "ma_so_ca_the",
             width: "100px",
+
             render: (record) => (
                 <Tooltip title="Xem chi tiết cá thể">
                     <div onClick={() => viewDetailPig(record)} style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>
@@ -229,6 +233,7 @@ const AdminPigs = (props) => {
     ];
 
     const handlePigStatus = (record) => {
+        checkTokenAPI();
         if (record) {
             let data = record;
             if (data.trang_thai === 1) {
@@ -292,7 +297,26 @@ const AdminPigs = (props) => {
             });
     };
 
+    const checkTokenAPI = async () => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            await checkToken(token)
+                .then((res) => {
+                    if (res.status) {
+                        if (res.status !== 200) {
+                            backToLogin();
+                        }
+                    }
+                })
+                .catch((err) => {
+                    backToLogin();
+                    console.log(err);
+                });
+        }
+    };
+
     useEffect(() => {
+        checkTokenAPI();
         getAllPigAPI();
     }, []);
 

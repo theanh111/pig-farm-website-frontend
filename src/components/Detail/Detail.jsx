@@ -1,95 +1,24 @@
 import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import JsonData from "../../data/data.json";
 import { Contact } from "../Contact/contact";
 import { getPigById } from "../../api/pig";
-import { Carousel, Image, Row, Col, Table, Tag, Space, Card } from "antd";
+import { Carousel, Image, Row, Col, Table, Tag, Space, Card, Breadcrumb, Layout } from "antd";
 import ImageGallery from "react-image-gallery";
-import LeftNav from "../Header/LeftNav";
-import RightNav from "../Header/RightNav";
-import News from "../News/News";
+import LeftNav from "../Gallery/LeftNav";
+import RightNav from "../Gallery/RightNav";
+import Loader from "../Loader/Loader";
 
-const images = [
-    {
-        original: "dhttps://picsum.photos/id/1018/1000/600/",
-        thumbnail: "shttps://picsum.photos/id/1018/250/150/",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?export=view&id=1yDS1uhrkM_vbU547DAA02Z2BJckrcLi0",
-        thumbnail: "https://drive.google.com/uc?export=view&id=1yDS1uhrkM_vbU547DAA02Z2BJckrcLi0",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?export=view&id=1fiKk2zg1OdFXf8oKi2NoCit669dPdYW-",
-        thumbnail: "https://drive.google.com/uc?export=view&id=1fiKk2zg1OdFXf8oKi2NoCit669dPdYW-",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-    {
-        original: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        thumbnail: "https://drive.google.com/uc?id=1zxfKsXL_M4_YcflW96bsMJtZFIiDVHAi",
-        originalHeight: 300,
-        originalWidth: 200,
-        thumbnailHeight: 55,
-        thumbnailWidth: 55,
-    },
-];
+const { Content } = Layout;
 
 export const Detail = () => {
+    const [viewLoader, setViewLoader] = useState(false);
     const [pigDetail, setPigDetail] = useState({});
     const [data, setData] = useState([]);
     const [items, setItems] = useState([]);
     const getDataPigById = async (id) => {
+        setViewLoader(true);
         setItems([]);
         setData([]);
         await getPigById(id)
@@ -127,6 +56,7 @@ export const Detail = () => {
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
     };
     const params = useParams();
     const [landingPageData, setLandingPageData] = useState({});
@@ -191,57 +121,77 @@ export const Detail = () => {
     return (
         <>
             <Navigation />
-            <div style={{ paddingTop: 50 }}>
-                <Row justify="center" gutter={[20, 20]}>
-                    <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%" }}>
-                        <ImageGallery
-                            renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
-                            renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
-                            slideDuration={800}
-                            autoPlay={true}
-                            showPlayButton={false}
-                            showFullscreenButton={false}
-                            onErrorImageURL="/images/user/imageerror.png"
-                            items={items}
-                        />
-                    </Col>
-                    <Col xs={8}>
-                        <Card
-                            title={
-                                <>
-                                    <span>Mã Số Cá Thể: </span>
-                                    <span style={{ color: "blue", fontSize: 25 }}>{pigDetail.ma_so_ca_the}</span>
-                                </>
-                            }
-                            bordered={true}
-                            style={{ width: 600, height: 380, boxShadow: "0 0 2px black", borderRadius: "2%" }}
-                        >
-                            <span>
-                                - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
-                            </span>
-                            <br></br>
-                            <span>
-                                - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
-                            </span>
-                            <br></br>
-                            <span>
-                                - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
-                            </span>
-                            <br></br>
-                            <span>
-                                - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
-                            </span>
-                        </Card>
-                    </Col>
-                </Row>
-                <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50, paddingBottom: 80 }}>
-                    <Col xs={16}>
-                        <Table bordered columns={columns} dataSource={data} pagination={false} />
-                    </Col>
-                </Row>
-            </div>
-
-            <Contact data={landingPageData.Contact} />
+            {viewLoader ? (
+                <Loader />
+            ) : (
+                <>
+                    <div id="wrapper">
+                        <div id="content-fix">
+                            <Content style={{ padding: "0px 400px 0px" }}>
+                                <Breadcrumb style={{ margin: "8px 0" }}>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to="/">Trang Chủ</Link>
+                                    </Breadcrumb.Item>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to="/ca-the">Cá Thể</Link>
+                                    </Breadcrumb.Item>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to={"/ca-the/" + pigDetail.id}>{pigDetail.ma_so_ca_the}</Link>
+                                    </Breadcrumb.Item>
+                                </Breadcrumb>
+                            </Content>
+                            <Row justify="center" gutter={[20, 20]}>
+                                <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%" }}>
+                                    <ImageGallery
+                                        renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
+                                        renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
+                                        slideDuration={800}
+                                        autoPlay={true}
+                                        showPlayButton={false}
+                                        showFullscreenButton={false}
+                                        onErrorImageURL="/images/user/imageerror.png"
+                                        items={items}
+                                    />
+                                </Col>
+                                <Col xs={8}>
+                                    <Card
+                                        title={
+                                            <>
+                                                <span>Mã Số Cá Thể: </span>
+                                                <span style={{ color: "blue", fontSize: 25 }}>{pigDetail.ma_so_ca_the}</span>
+                                            </>
+                                        }
+                                        bordered={true}
+                                        style={{ width: 600, height: 380, boxShadow: "0 0 2px black", borderRadius: "2%" }}
+                                    >
+                                        <span>
+                                            - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
+                                        </span>
+                                        <br></br>
+                                        <span>
+                                            - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
+                                        </span>
+                                        <br></br>
+                                        <span>
+                                            - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
+                                        </span>
+                                        <br></br>
+                                        <span>
+                                            - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
+                                        </span>
+                                    </Card>
+                                </Col>
+                            </Row>
+                            <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50, paddingBottom: 80 }}>
+                                <Col xs={16}>
+                                    <Table size="small" bordered columns={columns} dataSource={data} pagination={false} />
+                                </Col>
+                            </Row>
+                        </div>
+                        <Contact />
+                    </div>
+                </>
+            )}
         </>
     );
 };

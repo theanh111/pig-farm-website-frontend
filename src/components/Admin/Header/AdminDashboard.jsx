@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import { Layout, Breadcrumb, Card, Col, Row } from "antd";
 import AdminHeader from "./AdminHeader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { countPig } from "../../../api/pig";
 import { countFarm } from "../../../api/farm";
+import { checkToken } from "../../../api/auth";
 
 const { Content } = Layout;
 
 const AdminDashboard = (props) => {
+    const history = useNavigate();
     const [totalPig, setTotalPig] = useState(null);
     const [totalFarm, setTotalFarm] = useState(null);
 
@@ -42,11 +44,37 @@ const AdminDashboard = (props) => {
             });
     };
 
+    const checkTokenAPI = async () => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            await checkToken(token)
+                .then((res) => {
+                    if (res.status) {
+                        if (res.status !== 200) {
+                            backToLogin();
+                        }
+                    }
+                })
+                .catch((err) => {
+                    backToLogin();
+                    console.log(err);
+                });
+        }
+    };
+
+    const backToLogin = () => {
+        localStorage.removeItem("token");
+        alert("Hết phiên đăng nhập");
+        history("/dang-nhap");
+    };
+
     const fetchData = () => {
         countFarmAPI();
         countPigAPI();
     };
+
     useEffect(() => {
+        checkTokenAPI();
         fetchData();
     }, []);
 

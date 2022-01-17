@@ -3,16 +3,25 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import JsonData from "../../../data/data.json";
 import { Contact } from "../../Contact/contact";
-import { getFarmById } from "../../../api/farm";
-import { Image, Col, Row, Space } from "antd";
+import { getFarmByFarmCode, getFarmById } from "../../../api/farm";
+import { Image, Col, Row, Empty, Breadcrumb, Layout } from "antd";
 import { getPigByFarmName } from "../../../api/pig";
-import { PigImage } from "../../image";
+import { PigImage } from "../../PigImage";
+import { Link } from "react-router-dom";
+import Loader from "../../Loader/Loader";
+
+const { Content } = Layout;
 
 export const FarmDetail = () => {
+    const params = useParams();
+    const [viewLoader, setViewLoader] = useState(false);
     const [pigByFarmName, setPigByFarmName] = useState([]);
     const [farmDetail, setFarmDetail] = useState({});
-    const getDataFarmById = async (id) => {
-        await getFarmById(id)
+    const [landingPageData, setLandingPageData] = useState({});
+
+    const getDataFarmByFarmCode = async (farmcode) => {
+        setViewLoader(true);
+        await getFarmByFarmCode(farmcode)
             .then((res) => {
                 let result = res.data.data;
                 if (result.length > 0) {
@@ -24,9 +33,8 @@ export const FarmDetail = () => {
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
     };
-    const params = useParams();
-    const [landingPageData, setLandingPageData] = useState({});
 
     const getPigByFarmNameAPI = async (farmName) => {
         await getPigByFarmName(farmName)
@@ -44,76 +52,87 @@ export const FarmDetail = () => {
     };
 
     useEffect(() => {
-        getDataFarmById(params.id);
+        getDataFarmByFarmCode(params.farmcode);
         setLandingPageData(JsonData);
     }, []);
 
     return (
         <>
             <Navigation />
-            <Row style={{ paddingTop: 50, paddingBottom: 50 }}>
-                <Col align="middle" span={12} offset={6}>
-                    <h1 style={{ color: "#0a233e", fontFamily: "Times New Roman", fontWeight: 800, fontSize: 50 }}>
-                        {farmDetail.ten_trang_trai}
-                    </h1>
-                </Col>
-                <Col align="middle" span={12} offset={6}>
-                    <Image height={500} width={800} src={farmDetail.hinh_anh} alt={farmDetail.ten_trang_trai}></Image>
-                </Col>
-            </Row>
+            {viewLoader ? (
+                <Loader />
+            ) : (
+                <>
+                    <div id="wrapper">
+                        <div id="content-fix">
+                            <Content style={{ padding: "0px 400px 0px" }}>
+                                <Breadcrumb style={{ margin: "8px 0" }}>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to="/">Trang Chủ</Link>
+                                    </Breadcrumb.Item>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi</Link>
+                                    </Breadcrumb.Item>
+                                    <Breadcrumb.Item className="txt">
+                                        <Link to={"/co-so-chan-nuoi/" + farmDetail.ma_trang_trai}>{farmDetail.ten_trang_trai}</Link>
+                                    </Breadcrumb.Item>
+                                </Breadcrumb>
+                            </Content>
+                            <Row style={{ paddingBottom: 50, paddingTop: 5 }}>
+                                <Col align="middle" span={12} offset={6}>
+                                    <h1 style={{ color: "#0a233e", fontFamily: "Open Sans", fontWeight: 600, fontSize: 30 }}>
+                                        {farmDetail.ten_trang_trai}
+                                    </h1>
+                                </Col>
+                                <Col align="middle" span={12} offset={6}>
+                                    <Image
+                                        style={{ height: 400, width: 600, objectFit: "cover", display: "inline-block" }}
+                                        src={farmDetail.hinh_anh}
+                                        alt={farmDetail.ten_trang_trai}
+                                    ></Image>
+                                </Col>
+                            </Row>
+                            <Row align="middle" justify="center">
+                                <Col xs={15}>
+                                    <div style={{ textAlign: "center", paddingBottom: 50 }}>
+                                        <Row align="middle" justify="center">
+                                            <Col>
+                                                <h3 style={{ fontFamily: "Open Sans" }}>Danh Sách Cá Thể Tại Trại</h3>
+                                            </Col>
+                                        </Row>
+                                        <Row style={{ paddingTop: 0 }} align="middle" justify="center">
+                                            <Col>
+                                                <hr className="line"></hr>
+                                            </Col>
+                                        </Row>
 
-            <div id="portfolio" className="text-center">
-                <div className="container">
-                    <div className="section-title">
-                        <h2>Danh Sách Cá Thể</h2>
-                        {/* <p>Các loại lợn móng cái A...</p> */}
-                    </div>
-                    <div className="row">
-                        <div className="portfolio-items">
-                            {pigByFarmName
-                                ? pigByFarmName.map((d, i) => (
-                                      <div key={`${d.id}-${i}`} className="col-sm-6 col-md-4 col-lg-4">
-                                          <PigImage title={d.ma_so_ca_the} age={d.tuoi} id={d.id} smallImage={d.hinh_anh_1} />
-                                      </div>
-                                  ))
-                                : "Loading..."}
+                                        <Row align="middle" justify="center">
+                                            {pigByFarmName
+                                                ? pigByFarmName.map((d, i) => (
+                                                      <Col span={8}>
+                                                          <PigImage
+                                                              title={d.ma_so_ca_the}
+                                                              age={d.tuoi}
+                                                              id={d.id}
+                                                              smallImage={d.hinh_anh_1}
+                                                          />
+                                                      </Col>
+                                                  ))
+                                                : "Loading..."}
+                                            {pigByFarmName?.length === 0 ? (
+                                                <>
+                                                    <Empty description="Chưa Có Cá Thể" />
+                                                </>
+                                            ) : null}
+                                        </Row>
+                                    </div>
+                                </Col>
+                            </Row>
                         </div>
+                        <Contact />
                     </div>
-                </div>
-            </div>
-
-            {/* <main className="container-detail">
-                <div className="left-column-detail">
-                    <div style={{ width: "584px", height: "389px", objectFit: "cover", display: "inline-block" }}>
-                        <a href={farmDetail.hinh_anh} target="_blank">
-                            <img
-                                style={{ borderRadius: "5%" }}
-                                data-image="red"
-                                className="active"
-                                src={farmDetail.hinh_anh}
-                                alt={farmDetail.ten_trang_trai}
-                            />
-                        </a>
-                    </div>
-                </div>
-
-                <div className="right-column-detail">
-                    <div className="product-description-detail">
-                        <div className="site-card-border-less-wrapper">
-                            <div className="detail-box">
-                                <div style={{ paddingLeft: 10, paddingTop: 5 }}>
-                                    <span className="product-description-detail-span">Cơ Sở Chăn Nuôi: </span>
-                                    <br />
-                                    <h1>{farmDetail.ten_trang_trai}</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main> */}
-            {/* <ContentDetail data={pigDetail} /> */}
-            <Contact data={landingPageData.Contact} />
-            {/* <About data={landingPageData.About} /> */}
+                </>
+            )}
         </>
     );
 };

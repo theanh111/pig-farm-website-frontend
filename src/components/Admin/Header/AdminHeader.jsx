@@ -27,7 +27,14 @@ const AdminHeader = (props) => {
         let token = localStorage.getItem("token");
         if (token) {
             let decode = jwt.decode(token);
-            getUser(decode.sub);
+            if (decode) {
+                if (decode.sub !== null) {
+                    getUser(decode.sub);
+                }
+            } else {
+                localStorage.removeItem("token");
+                history("/dang-nhap");
+            }
         } else {
             localStorage.removeItem("token");
             history("/dang-nhap");

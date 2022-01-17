@@ -1,18 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Image } from "antd";
+import React from "react";
+import { Image, Card } from "antd";
 import { Link } from "react-router-dom";
-import { Card } from "antd";
 
 const { Meta } = Card;
 
 export const PigImage = ({ title, age, id, smallImage }) => {
-    const [viewInfo, setViewInfo] = useState(false);
     const handleClickImage = () => {
         return window.scrollTo(0, 0);
-    };
-
-    const handleMouseOver = () => {
-        console.log("ok");
     };
 
     return (
@@ -21,19 +15,19 @@ export const PigImage = ({ title, age, id, smallImage }) => {
                 <div className="container">
                     <Image
                         className="image"
-                        onMouseOver={handleMouseOver}
                         preview={false}
                         src={smallImage}
                         style={{ width: "389px", height: "260px", objectFit: "cover", display: "inline-block" }}
                         alt={title}
                     />
                     <div className="middle">
-                        <Card hoverable style={{ borderRadius: "5px" }}>
+                        <Card hoverable size="small" style={{ borderRadius: "5px" }}>
                             <Meta
+                                style={{ height: "50%" }}
                                 description={
                                     <>
-                                        <span style={{ fontSize: 30, color: "black" }}>{title}</span>
-                                        {age ? <p style={{ fontSize: 16, fontWeight: 500, color: "grey" }}>{age}</p> : null}
+                                        <span style={{ fontSize: 25, color: "black" }}>{title}</span>
+                                        {age ? <p style={{ fontSize: 15, fontWeight: 500, color: "grey" }}>{age}</p> : null}
                                     </>
                                 }
                             />

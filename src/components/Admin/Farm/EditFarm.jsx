@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import storage from "../../../../../firebase/index";
-import { Drawer, Form, Button, Input, Space, notification, Card, Modal, message } from "antd";
+import storage from "../../../firebase/index";
+import { Drawer, Form, Button, Input, Space, Modal, message } from "antd";
 
-import Loader from "../../../../Loader/Loader";
-import { updateFarm } from "../../../../../api/farm";
+import Loader from "../../Loader/Loader";
+import { updateFarm } from "../../../api/farm";
 
 const EditFarm = (props) => {
     const history = useNavigate();
     const [dataSubmit, setDataSubmit] = useState({});
-    const { viewEditFarm, closeDrawer, fetchData, id, ten_trang_trai, hinh_anh } = props;
+    const { viewEditFarm, closeDrawer, fetchData, id, ma_trang_trai, ten_trang_trai, hinh_anh } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
+    const [image, setImage] = useState("");
+    const [errorMessgae, setErrorMessage] = useState("");
+    const [url, setUrl] = useState("");
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -24,8 +29,6 @@ const EditFarm = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -39,10 +42,6 @@ const EditFarm = (props) => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
-    const [image, setImage] = useState("");
-    const [errorMessgae, setErrorMessage] = useState("");
-    const [url, setUrl] = useState("");
 
     const upload = async () => {
         setViewLoader(true);
@@ -79,8 +78,13 @@ const EditFarm = (props) => {
 
     const handleSaveFarm = () => {
         if (dataSubmit) {
-            if (dataSubmit.farmId !== null && dataSubmit.farmName !== "" && dataSubmit.farmImage !== "") {
-                let obj = { id: dataSubmit.farmId, ten_trang_trai: dataSubmit.farmName, hinh_anh: dataSubmit.farmImage };
+            if (dataSubmit.farmId !== null && dataSubmit.farmCode !== "" && dataSubmit.farmName !== "" && dataSubmit.farmImage !== "") {
+                let obj = {
+                    id: dataSubmit.farmId,
+                    ma_trang_trai: dataSubmit.farmCode,
+                    ten_trang_trai: dataSubmit.farmName,
+                    hinh_anh: dataSubmit.farmImage,
+                };
                 updateFarmAPI(obj);
             }
         }
@@ -128,24 +132,6 @@ const EditFarm = (props) => {
             });
     };
 
-    // const openSuccessNotification = (message) => {
-    //     notification.success({
-    //         message: <h5 style={{ color: "green" }}>Thành Công</h5>,
-    //         description: message,
-    //         placement: "topLeft",
-    //         duration: 10,
-    //     });
-    // };
-
-    // const openFailedNotification = (message) => {
-    //     notification.error({
-    //         message: <h5 style={{ color: "red" }}>Thất Bại</h5>,
-    //         description: message,
-    //         placement: "topLeft",
-    //         duration: 10,
-    //     });
-    // };
-
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
@@ -154,12 +140,13 @@ const EditFarm = (props) => {
         const fetchData2 = () => {
             setDataSubmit({
                 farmId: id,
+                farmCode: ma_trang_trai,
                 farmName: ten_trang_trai,
                 farmImage: hinh_anh,
             });
         };
         fetchData2();
-    }, [id, ten_trang_trai, hinh_anh]);
+    }, [id, ma_trang_trai, ten_trang_trai, hinh_anh]);
 
     return (
         <>
@@ -195,6 +182,22 @@ const EditFarm = (props) => {
                     }
                 >
                     <Form layout="vertical" hideRequiredMark>
+                        <Form.Item
+                            name="farm-code"
+                            label={<h4>Mã Cở Sở Chăn Nuôi</h4>}
+                            rules={[{ required: true, message: "Xin vui lòng nhập mã cơ sở chăn nuôi" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={({ target: { value } }) => {
+                                    setDisabledSave(false);
+                                    setDataSubmit({ ...dataSubmit, farmCode: value });
+                                }}
+                                placeholder="Nhập mã cơ sở chăn nuôi ..."
+                                value={dataSubmit.farmCode}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.farmCode}</span>
+                        </Form.Item>
                         <Form.Item
                             name="farm-name"
                             label={<h4>Tên Cở Sở Chăn Nuôi</h4>}

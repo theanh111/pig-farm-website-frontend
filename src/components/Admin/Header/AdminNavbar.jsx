@@ -70,14 +70,13 @@ const AdminNavbar = () => {
                         <Link to="/admin/quan-ly-tin-tuc" />
                     </Menu.Item>
                     <Menu.Item icon={<FolderOutlined />}>
-                        Quản Lý Người Dùng
-                        <Link to="/admin/quan-ly-nguoi-dung" />
+                        Thông Tin Liên Hệ
+                        <Link to="/admin/quan-ly-lien-he" />
                     </Menu.Item>
-                    {/* {/* <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                            <Menu.Item key="3">Tom</Menu.Item>
-                            <Menu.Item key="4">Bill</Menu.Item>
-                            <Menu.Item key="5">Alex</Menu.Item>
-                        </SubMenu> */}
+                    <Menu.Item icon={<FolderOutlined />}>
+                        Ảnh trình chiếu
+                        <Link to="/admin/anh-trinh-chieu" />
+                    </Menu.Item>
                 </Menu>
             </Sider>
         </>

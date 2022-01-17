@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import AdminNavbar from "./AdminNavbar";
+import AdminNavbar from "../Header/AdminNavbar";
 import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
-import AdminHeader from "./AdminHeader";
+import AdminHeader from "../Header/AdminHeader";
 import { PlusOutlined, EditOutlined } from "@ant-design/icons";
 import AddNewFarm from "./AddNewFarm";
 import Loader from "../../Loader/Loader";
 import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
-import EditFarm from "./Farm/CRUD/EditFarm";
+import EditFarm from "./EditFarm";
+import { checkToken } from "../../../api/auth";
 
 const { Content } = Layout;
 
@@ -22,6 +23,7 @@ const AdminFarms = (props) => {
     const [dataEditFarm, setDataEditFarm] = useState({});
 
     const showAddNewFarm = () => {
+        checkTokenAPI();
         let token = checkTokenLocalStorage();
         if (token) {
             setViewLoader(true);
@@ -36,7 +38,6 @@ const AdminFarms = (props) => {
 
     const backToLogin = () => {
         localStorage.removeItem("token");
-        alert("Hết phiên đăng nhập");
         history("/dang-nhap");
     };
 
@@ -54,6 +55,7 @@ const AdminFarms = (props) => {
     };
 
     const handleEditFarm = (farm) => {
+        checkTokenAPI();
         setDataEditFarm(farm);
         setViewEditFarm(true);
     };
@@ -63,33 +65,38 @@ const AdminFarms = (props) => {
             title: "Hình Ảnh",
             key: "hinh_anh",
             width: "5%",
-            editable: true,
+            align: "center",
             render: (record) => {
                 return (
-                    <Image style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh} />
+                    <Image style={{ width: "50px", height: "50px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh} />
                 );
             },
+        },
+        {
+            title: "Mã Trang Trại",
+            key: "ma_trang_trai",
+            width: "40%",
+            render: (record) => (
+                <>
+                    <a target="_blank" href={"/co-so-chan-nuoi/" + record.ma_trang_trai}>
+                        <div style={{ cursor: "pointer", fontWeight: 500, fontSize: 15, color: "#34568B" }}>
+                            <p>{record.ma_trang_trai}</p>
+                        </div>
+                    </a>
+                </>
+            ),
         },
         {
             title: "Tên Trang Trại",
             key: "ten_trang_trai",
             width: "40%",
-            editable: true,
-            render: (record) => (
-                // <Link to={"/co-so/" + record.id} target="_blank">
-                <div
-                    style={{ cursor: "pointer", fontWeight: 500, fontSize: 15, color: "#34568B" }}
-                    dangerouslySetInnerHTML={{ __html: record.ten_trang_trai }}
-                ></div>
-                // </Link>
-            ),
+            render: (record) => <p>{record.ten_trang_trai}</p>,
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
             width: "30%",
-            editable: true,
         },
         {
             title: "Sửa",
@@ -125,12 +132,28 @@ const AdminFarms = (props) => {
             });
     };
 
-    useEffect(() => {
-        getAllFarmAPI();
-    }, []);
+    const checkTokenAPI = async () => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            await checkToken(token)
+                .then((res) => {
+                    if (res.status) {
+                        if (res.status !== 200) {
+                            backToLogin();
+                        }
+                    }
+                })
+                .catch((err) => {
+                    backToLogin();
+                    console.log(err);
+                });
+        }
+    };
 
     useEffect(() => {
         document.title = "Danh Sách Cơ Sở Chăn Nuôi - Admin";
+        checkTokenAPI();
+        getAllFarmAPI();
     }, []);
 
     return (
@@ -179,6 +202,7 @@ const AdminFarms = (props) => {
                             {viewEditFarm ? (
                                 <EditFarm
                                     id={dataEditFarm.id}
+                                    ma_trang_trai={dataEditFarm.ma_trang_trai}
                                     ten_trang_trai={dataEditFarm.ten_trang_trai}
                                     hinh_anh={dataEditFarm.hinh_anh}
                                     fetchData={() => getAllFarmAPI()}

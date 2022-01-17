@@ -49,26 +49,29 @@ export const Contact = (props) => {
     ];
     return (
         <>
-            <Row align="center" className="footer-fix" justify="center" gutter={[20, 20]}>
-                <Col xs={12} style={{ paddingTop: 30 }}>
-                    {/* <Table dataSource={dataSource} columns={columns} /> */}
-                    {/* <Descriptions title="Thông Tin Liên Hệ" style={{ color: "white" }}>
+            <div id="footer-fix">
+                <Row align="middle" justify="center" gutter={[20, 20]}>
+                    <Col xs={12}>
+                        {/* <Table dataSource={dataSource} columns={columns} /> */}
+                        {/* <Descriptions title="Thông Tin Liên Hệ" style={{ color: "white" }}>
                         <Descriptions.Item label="SĐT">0123456789</Descriptions.Item>
                         <Descriptions.Item label="Địa Chỉ">Trâu Quỳ, Gia Lâm, Hà Nội</Descriptions.Item>
                         <Descriptions.Item label="Live">Hangzhou, Zhejiang</Descriptions.Item>
                     </Descriptions> */}
-                    <div style={{ align: "center" }}>
-                        &copy; 2021
-                        <a href="/" rel="nofollow">
-                            Mong Cai Pig.
-                        </a>
-                        <br></br>
-                        <p>
-                            Website giới thiệu kết quả đề tài đánh giá đa dạng di truyền giống lợn Móng Cái ở thành phố Móng Cái 2021-2023
-                        </p>
-                    </div>
-                </Col>
-            </Row>
+                        <div style={{ alignContent: "center", color: "white" }}>
+                            <span>&copy; 2021 </span>
+                            <a href="/" rel="nofollow">
+                                Mong Cai Pig.
+                            </a>
+                            <br></br>
+                            <p>
+                                Website giới thiệu kết quả đề tài đánh giá đa dạng di truyền giống lợn Móng Cái ở thành phố Móng Cái
+                                2021-2023
+                            </p>
+                        </div>
+                    </Col>
+                </Row>
+            </div>
         </>
     );
 };

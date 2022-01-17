@@ -1,20 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import storage from "../../../firebase/index";
-import { Drawer, Form, Button, Input, Space, notification, Card, Modal, message } from "antd";
+import { Drawer, Form, Button, Input, Space, Modal, message, Select, Divider } from "antd";
 
 import Loader from "../../Loader/Loader";
-import { saveFarm } from "../../../api/farm";
+import { saveGallery } from "../../../api/gallery";
 
-const AddNewFarm = (props) => {
+const jwt = require("jsonwebtoken");
+const { Option } = Select;
+
+const AddNewGallery = (props) => {
     const history = useNavigate();
     const { viewAddNewFarm, closeDrawer, fetchData } = props;
-    const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
-    const [disabled, setDisabled] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
-    const [farm, setFarm] = useState({ farmName: "", farmImage: "" });
+    const [image, setImage] = useState("");
+    const [errorMessgae, setErrorMessage] = useState("");
+    const [url, setUrl] = useState("");
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [gallery, setGallery] = useState({ imageName: "", imageType: "", imageUrl: "", whoEntered: "" });
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -26,8 +31,6 @@ const AddNewFarm = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -41,10 +44,6 @@ const AddNewFarm = (props) => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
-
-    const [image, setImage] = useState("");
-    const [errorMessgae, setErrorMessage] = useState("");
-    const [url, setUrl] = useState("");
 
     const upload = async () => {
         setViewLoader(true);
@@ -66,7 +65,7 @@ const AddNewFarm = (props) => {
             .getDownloadURL()
             .then((res) => {
                 if (res) {
-                    setFarm({ ...farm, farmImage: res });
+                    setGallery({ ...gallery, imageUrl: res });
                     setUrl(res);
                     setUploadBtn(false);
                     setDisabledSave(false);
@@ -79,11 +78,16 @@ const AddNewFarm = (props) => {
             });
     };
 
-    const handleSaveFarm = () => {
-        if (farm) {
-            if (farm.farmName !== "" && farm.farmImage !== "") {
-                let obj = { ten_trang_trai: farm.farmName, hinh_anh: farm.farmImage };
-                saveFarmAPI(obj);
+    const handleSaveGallery = () => {
+        if (gallery) {
+            if (gallery.imageName !== "" && gallery.imageType !== "" && gallery.imageUrl !== "") {
+                let obj = {
+                    ten_anh: gallery.imageName,
+                    the_loai: gallery.imageType,
+                    hinh_anh: gallery.imageUrl,
+                    nguoi_nhap: gallery.whoEntered,
+                };
+                saveGalleryAPI(obj);
             }
         }
     };
@@ -101,12 +105,12 @@ const AddNewFarm = (props) => {
         }
     };
 
-    const saveFarmAPI = async (farm) => {
-        await saveFarm(farm)
+    const saveGalleryAPI = async (gallery) => {
+        await saveGallery(gallery)
             .then((res) => {
                 if (res) {
                     if (res.status == 200) {
-                        message.success("Lưu cơ sở chăn nuôi thành công");
+                        message.success("Lưu ảnh trình chiếu thành công");
                         setViewLoader(true);
                         sleep(500).then(() => {
                             setViewLoader(false);
@@ -130,9 +134,22 @@ const AddNewFarm = (props) => {
             });
     };
 
+    const getUserCurrent = () => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setGallery({ ...gallery, whoEntered: user });
+        }
+    };
+
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
+
+    useEffect(() => {
+        getUserCurrent();
+    }, []);
 
     return (
         <>
@@ -152,8 +169,8 @@ const AddNewFarm = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Thêm Cơ Sở Chăn Nuôi"
-                    width="40%"
+                    title="Thêm Ảnh Trình Chiếu"
+                    width="30%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewAddNewFarm}
                     bodyStyle={{ paddingBottom: 80 }}
@@ -161,26 +178,45 @@ const AddNewFarm = (props) => {
                         <Space>
                             <Button onClick={() => handleCloseDrawer()}>Hủy</Button>
 
-                            <Button onClick={handleSaveFarm} disabled={disabledSave} onClose={() => handleCloseConfirm()} type="primary">
+                            <Button onClick={handleSaveGallery} disabled={disabledSave} onClose={() => handleCloseConfirm()} type="primary">
                                 Lưu
                             </Button>
                         </Space>
                     }
                 >
                     <Form layout="vertical" hideRequiredMark>
-                        <Form.Item
-                            name="farm-name"
-                            label="Tên Cở Sở Chăn Nuôi"
-                            rules={[{ required: true, message: "Xin vui lòng nhập tên cơ sở chăn nuôi" }]}
-                        >
+                        <Divider orientation="left" plain>
+                            Tên Ảnh
+                        </Divider>
+                        <Form.Item name="image-name" rules={[{ required: true, message: "Xin vui lòng nhập tên ảnh!" }]}>
                             <Input
                                 autoComplete="off"
-                                onChange={(e) => setFarm({ ...farm, farmName: e.target.value })}
-                                placeholder="Nhập tên cơ sở chăn nuôi ..."
+                                onChange={(e) => setGallery({ ...gallery, imageName: e.target.value })}
+                                placeholder="VD: Ảnh nghiên cứu lợn móng cái"
                             />
                         </Form.Item>
-                        <h4>Hình Ảnh</h4>
-                        <Form.Item name="farm-image" rules={[{ required: true, message: "Xin vui lòng nhập ảnh cơ sở" }]}>
+                        <Divider orientation="left" plain>
+                            Thể Loại
+                        </Divider>
+                        <Form.Item name="image-type" rules={[{ required: true, message: "Xin vui lòng nhập thể loại!" }]}>
+                            <Select
+                                placeholder="Chọn Thể Loại"
+                                optionFilterProp="children"
+                                filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                                filterSort={(optionA, optionB) =>
+                                    optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                                }
+                                onChange={(value) => setGallery({ ...gallery, imageType: value })}
+                            >
+                                <Option value="Nhóm Nghiên Cứu">Nhóm Nghiên Cứu</Option>
+                                <Option value="Cá Thể">Cá Thể</Option>
+                                <Option value="Trang Trại">Trang Trại</Option>
+                            </Select>
+                        </Form.Item>
+                        <Divider orientation="left" plain>
+                            Hình Ảnh
+                        </Divider>
+                        <Form.Item name="image-url" rules={[{ required: true, message: "Xin vui lòng nhập ảnh trình chiếu!" }]}>
                             {url !== "" ? (
                                 <>
                                     <span>Xem trước ảnh</span>
@@ -189,8 +225,8 @@ const AddNewFarm = (props) => {
                                             verticalAlign: "middle",
                                             textAlign: "center",
                                             border: "solid 1px",
-                                            height: "400px",
-                                            width: "700px",
+                                            height: "300px",
+                                            width: "530px",
                                         }}
                                     >
                                         <img
@@ -215,8 +251,8 @@ const AddNewFarm = (props) => {
                                             textAlign: "center",
                                             border: "solid 1px",
                                             align: "center",
-                                            height: "400px",
-                                            width: "700px",
+                                            height: "300px",
+                                            width: "530px",
                                         }}
                                     >
                                         <img
@@ -255,4 +291,4 @@ const AddNewFarm = (props) => {
     );
 };
 
-export default AddNewFarm;
+export default AddNewGallery;

@@ -1,33 +1,30 @@
 import "./App.css";
 import LandingPage from "./components/LandingPage/LandingPage";
 import { Login } from "./components/Login/login";
-import { Route, Routes, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "./components/Notfound/notfound";
 import { SignUp } from "./components/SignUp/signup";
 import { Detail } from "./components/Detail/Detail";
 import { Farm } from "./components/Farm/Farm";
-import AdminDashboard from "./components/Admin/Header/AdminDashboard";
-import { checkToken } from "./api/auth";
-import React, { useState, useEffect } from "react";
-import AdminPigs from "./components/Admin/Header/AdminPigs";
-import AdminFarms from "./components/Admin/Header/AdminFarms";
-import AdminNavbar from "./components/Admin/Header/AdminNavbar";
-import AdminHeader from "./components/Admin/Header/AdminHeader";
+import React, { useState } from "react";
 import { FarmDetail } from "./components/Detail/Farm/FarmDetail";
 import { ContactPage } from "./components/Contact/ContactPage";
-import { FindOutNow } from "./components/FindOutNow/FindOutNow";
 import Profile from "./components/Admin/Header/User/Profile";
+import { BlogPage } from "./components/Blog/BlogPage";
+import { NewsPage } from "./components/News/NewsPage";
+import { BlogDetail } from "./components/Blog/BlogDetail";
+import { PigPage } from "./components/Pig/PigPage";
+import { NewsDetail } from "./components/News/NewsDetail";
+import AdminDashboard from "./components/Admin/Header/AdminDashboard";
+import AdminPigs from "./components/Admin/Pig/AdminPigs";
+import AdminFarms from "./components/Admin/Farm/AdminFarms";
 import AdminBlog from "./components/Admin/Blog/AdminBlog";
+import AdminNews from "./components/Admin/News/AdminNews";
+import AdminContact from "./components/Admin/Contact/AdminContact";
+import AdminGallery from "./components/Admin/Gallery/AdminGallery";
 
 const App = (props) => {
-    const history = useNavigate();
-    const location = useLocation();
     const [authen, setAuthen] = useState(false);
-
-    // const LoginRoute = ({ children }) => {
-    //     useAuth();
-    //     return authen ? children : <Navigate to="/admin" />;
-    // };
 
     const PrivateRoute = ({ children }) => {
         let token = localStorage.getItem("token");
@@ -41,39 +38,6 @@ const App = (props) => {
         );
     };
 
-    const checkUser = async () => {
-        // let obj = { token: token };
-        // await checkToken(obj)
-        //     .then((res) => {
-        //         console.log(res.data.data.message);
-        //         // setAuthen(true);
-        //     })
-        //     .catch((err) => {
-        //         // setAuthen(false);
-        //     });
-    };
-
-    useEffect(() => {
-        // checkUser();
-    }, []);
-    // const useAuth = async () => {
-    //     const token = localStorage.getItem("token");
-    //     if (token) {
-    //         setAuthen(true);
-    //         // let obj = { token: token };
-    //         // await checkToken(obj)
-    //         //     .then((res) => {
-    //         //         console.log(res);
-    //         //         setAuthen(true);
-    //         //     })
-    //         //     .catch((err) => {
-    //         //         setAuthen(false);
-    //         //     });
-    //     } else {
-    //         setAuthen(false);
-    //     }
-    // };
-
     return (
         <Routes>
             <Route path="*" element={<NotFound />} />
@@ -81,11 +45,15 @@ const App = (props) => {
             <Route path="/" element={<LandingPage />} />
             <Route path="/dang-nhap" element={<Login />} />
             <Route path="/dang-ky" element={<SignUp />} />
-            <Route path="/co-so/:id" element={<FarmDetail />} />
+            <Route path="/co-so-chan-nuoi/:farmcode" element={<FarmDetail />} />
+            <Route path="/ca-the" element={<PigPage />} />
             <Route path="/ca-the/:id" element={<Detail />} />
             <Route path="/co-so-chan-nuoi" element={<Farm />} />
             <Route path="/lien-he" element={<ContactPage />} />
-            <Route path="/tim-hieu-ngay" element={<FindOutNow />} />
+            <Route path="/thong-tin-du-an/:blogcode" element={<BlogDetail />} />
+            <Route path="/thong-tin-du-an" element={<BlogPage />} />
+            <Route path="/tin-tuc" element={<NewsPage />} />
+            <Route path="/tin-tuc/:newscode" element={<NewsDetail />} />
 
             <Route
                 path="/admin"
@@ -130,10 +98,26 @@ const App = (props) => {
                 }
             />
             <Route
-                path="/admin/quan-ly-nguoi-dung"
+                path="/admin/quan-ly-tin-tuc"
                 element={
                     <PrivateRoute>
-                        <AdminBlog />
+                        <AdminNews />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/admin/quan-ly-lien-he"
+                element={
+                    <PrivateRoute>
+                        <AdminContact />
+                    </PrivateRoute>
+                }
+            />
+            <Route
+                path="/admin/anh-trinh-chieu"
+                element={
+                    <PrivateRoute>
+                        <AdminGallery />
                     </PrivateRoute>
                 }
             />

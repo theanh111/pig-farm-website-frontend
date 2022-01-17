@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllBlog } from "../../../api/blog";
 import BlogViewDetail from "./BlogViewDetail";
 import AddNewBlog from "./AddNewBlog";
+import { checkToken } from "../../../api/auth";
 
 const { Content } = Layout;
 
@@ -25,6 +26,7 @@ const AdminBlog = (props) => {
     const [blogData, setBlogData] = useState({});
 
     const showAddNewFarm = () => {
+        checkTokenAPI();
         let token = checkTokenLocalStorage();
         if (token) {
             setViewLoader(true);
@@ -39,7 +41,6 @@ const AdminBlog = (props) => {
 
     const backToLogin = () => {
         localStorage.removeItem("token");
-        alert("Hết phiên đăng nhập");
         history("/dang-nhap");
     };
 
@@ -57,18 +58,31 @@ const AdminBlog = (props) => {
     };
 
     const handleEditFarm = (farm) => {
+        checkTokenAPI();
         setDataEditFarm(farm);
         setViewEditFarm(true);
     };
 
     const handleViewDetail = (blog) => {
+        checkTokenAPI();
         setBlogData(blog);
         setViewDetailBlog(true);
     };
 
     const columns = [
         {
-            title: "Mã Blog",
+            title: "Hình Ảnh",
+            key: "hinh_anh",
+            width: "5%",
+            align: "center",
+            render: (record) => {
+                return (
+                    <Image style={{ width: "50px", height: "50px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh} />
+                );
+            },
+        },
+        {
+            title: "Mã Thông Tin Dự Án",
             key: "ma_blog",
             width: "20%",
             editable: true,
@@ -81,7 +95,7 @@ const AdminBlog = (props) => {
             },
         },
         {
-            title: "Tên Blog",
+            title: "Tiêu Đề Thông Tin Dự Án",
             dataIndex: "ten_blog",
             width: "30%",
             editable: true,
@@ -106,10 +120,10 @@ const AdminBlog = (props) => {
             width: "20%",
             render: (record) => {
                 return (
-                    <Tooltip title="Sửa Blog">
-                        <Typography.Link>
-                            <EditOutlined onClick={() => handleEditFarm(record)} style={{ fontSize: 25 }} />
-                        </Typography.Link>
+                    <Tooltip title="Sửa Thông Tin Dự Án">
+                        <Button onClick={() => handleEditFarm(record)}>
+                            <EditOutlined style={{ fontSize: 20 }} />
+                        </Button>
                     </Tooltip>
                 );
             },
@@ -121,9 +135,9 @@ const AdminBlog = (props) => {
             render: (record) => {
                 return (
                     <Tooltip title="Xem trước">
-                        <Typography.Link>
-                            <EyeOutlined onClick={() => handleViewDetail(record)} style={{ fontSize: 25 }} />
-                        </Typography.Link>
+                        <Button onClick={() => handleViewDetail(record)}>
+                            <EyeOutlined style={{ fontSize: 20 }} />
+                        </Button>
                     </Tooltip>
                 );
             },
@@ -135,11 +149,11 @@ const AdminBlog = (props) => {
             render: (record) => {
                 return (
                     <Tooltip title="Live">
-                        <Typography.Link>
-                            <Link to={"/blog/" + record.ma_blog} target="_blank">
-                                <SelectOutlined style={{ fontSize: 25 }} />
-                            </Link>
-                        </Typography.Link>
+                        <Link to={"/thong-tin-du-an/" + record.ma_blog} target="_blank">
+                            <Button>
+                                <SelectOutlined style={{ fontSize: 20 }} />
+                            </Button>
+                        </Link>
                     </Tooltip>
                 );
             },
@@ -164,12 +178,31 @@ const AdminBlog = (props) => {
             });
     };
 
+    const checkTokenAPI = async () => {
+        let token = localStorage.getItem("token");
+        if (token) {
+            await checkToken(token)
+                .then((res) => {
+                    if (res.status) {
+                        if (res.status !== 200) {
+                            backToLogin();
+                        }
+                    }
+                })
+                .catch((err) => {
+                    backToLogin();
+                    console.log(err);
+                });
+        }
+    };
+
     useEffect(() => {
+        checkTokenAPI();
         getAllFarmAPI();
     }, []);
 
     useEffect(() => {
-        document.title = "Quản lý Blog - Admin";
+        document.title = "Quản lý Thông Tin Dự An - Admin";
     }, []);
 
     return (
@@ -185,7 +218,7 @@ const AdminBlog = (props) => {
                                 <Breadcrumb.Item>
                                     <Link to="/admin"> MONGCAIPIG</Link>
                                 </Breadcrumb.Item>
-                                <Breadcrumb.Item>Blog ({data ? data.length : 0})</Breadcrumb.Item>
+                                <Breadcrumb.Item>Thông Tin Dự Án ({data ? data.length : 0})</Breadcrumb.Item>
                             </Breadcrumb>
 
                             <Row gutter={[8, 8]}>
@@ -197,7 +230,7 @@ const AdminBlog = (props) => {
                                         }}
                                         icon={<PlusOutlined />}
                                     >
-                                        Thêm Bài Viết
+                                        Thêm Thông Tin Dự Án
                                     </Button>
                                 </Col>
                                 {/* <Col span={2}>

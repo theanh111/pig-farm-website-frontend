@@ -1,21 +1,74 @@
 import { useState, useEffect } from "react";
-import { List, Typography, Divider } from "antd";
-import { FileTextOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Typography, Table } from "antd";
 
-const data = [
-    "Racing car sprays burning fuel into crowd.",
-    "Japanese princess to wed commoner.",
-    "Australian walks 100km after outback crash.",
-    "Man charged over missing wedding girl.",
-    "Los Angeles battles huge wildfires.",
-];
+import { NotificationOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { getAllNews } from "../../api/news";
 
 const News = () => {
+    const [data, setData] = useState([]);
+    const getAllNewsAPI = async () => {
+        setData([]);
+        await getAllNews()
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setData(result);
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const columns = [
+        {
+            title: (
+                <>
+                    <Link className="news-text" to="/tin-tuc" style={{ cursor: "pointer" }}>
+                        <span style={{ color: "brown", fontWeight: 500, fontSize: 18 }}>Tin Tức</span>
+                    </Link>
+                </>
+            ),
+            key: "ma_tin_tuc",
+            render: (record) => {
+                return (
+                    <>
+                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} style={{ color: "black", fontSize: 12 }}>
+                            <Typography.Text>
+                                <NotificationOutlined />
+                            </Typography.Text>{" "}
+                            <span className="title-text">{record.ten_tin_tuc}</span>
+                        </Link>
+                    </>
+                );
+            },
+        },
+    ];
+    useEffect(() => {
+        getAllNewsAPI();
+    }, []);
+
     return (
         <>
+            <div
+                style={{
+                    overflowX: "hidden",
+                    overflowY: "auto",
+                    borderTop: "3px solid brown",
+                    borderLeft: "1px solid black",
+                    borderRight: "1px solid black",
+                    borderBottom: "1px solid black",
+                    height: 300,
+                }}
+            >
+                <Table scroll={{ y: 250 }} size="small" bordered pagination={false} dataSource={data} columns={columns} />
+            </div>
+
             {/* <Divider orientation="center">Tin Tức</Divider> */}
-            <List
+            {/* <List
                 header={<div style={{ fontWeight: 500, fontSize: 16 }}>Tin Tức</div>}
                 bordered
                 dataSource={data}
@@ -29,7 +82,7 @@ const News = () => {
                         </Link>
                     </List.Item>
                 )}
-            />
+            /> */}
         </>
     );
 };

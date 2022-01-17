@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Popover, Drawer, Button, Row, Input, Select, DatePicker, Space, Table, Modal, message } from "antd";
+import React, { useState } from "react";
+import { Drawer, Button, Space, Table, Modal, message, Divider } from "antd";
 import { EyeOutlined, PlusOutlined, DownloadOutlined } from "@ant-design/icons";
 import * as XLSX from "xlsx";
 import { savePigImport } from "../../../api/pig";
@@ -13,6 +13,7 @@ const AddNewPigImport = (props) => {
     // on change states
     const [excelFile, setExcelFile] = useState(null);
     const [viewSendButton, setViewSendButton] = useState(true);
+    const [viewSaveButton, setViewSaveButton] = useState(true);
     const [excelFileError, setExcelFileError] = useState(null);
 
     // submit
@@ -445,8 +446,8 @@ const AddNewPigImport = (props) => {
                                 </Button>
                             </Link>
                             <Button
+                                disabled={viewSaveButton}
                                 onClick={handleSaveDataImport}
-                                style={{ backgroundColor: "#1cb21c" }}
                                 onClose={() => handleCloseConfirm()}
                                 type="primary"
                             >
@@ -457,9 +458,11 @@ const AddNewPigImport = (props) => {
                 >
                     {/* upload file section */}
 
-                    <div className="form">
+                    <div className="form" style={{ paddingBottom: 10 }}>
                         <form className="form-group" autoComplete="off" onSubmit={handleSubmit}>
-                            <h5>Tải lên</h5>
+                            <Divider orientation="left" plain>
+                                Tải Lên File
+                            </Divider>
                             <input
                                 type="file"
                                 className="form-control"
@@ -473,14 +476,22 @@ const AddNewPigImport = (props) => {
                                     {excelFileError}
                                 </div>
                             )}
-                            <button disabled={viewSendButton} type="submit" className="btn btn-primary" style={{ marginTop: 5 + "px" }}>
+                            <button
+                                onClick={() => setViewSaveButton(false)}
+                                disabled={viewSendButton}
+                                type="submit"
+                                className="btn btn-primary"
+                                style={{ marginTop: 5 + "px" }}
+                            >
                                 <EyeOutlined /> Xem trước dữ liệu
                             </button>
                         </form>
                     </div>
 
                     {/* view file section */}
-                    <h5>Xem trước dữ liệu tải lên</h5>
+                    <Divider orientation="left" plain>
+                        Xem trước dữ liệu tải lên
+                    </Divider>
                     <div className="viewer">
                         {excelData === null && <>Chưa có file</>}
                         {excelData !== null && (

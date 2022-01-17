@@ -5,14 +5,6 @@ import { FileTextOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { getAllBlog } from "../../api/blog";
 
-// const data = [
-//     "Racing car sprays burning fuel into crowd.",
-//     "Japanese princess to wed commoner.",
-//     "Australian walks 100km after outback crash.",
-//     "Man charged over missing wedding girl.",
-//     "Los Angeles battles huge wildfires.",
-// ];
-
 const Blog = () => {
     const [data, setData] = useState([]);
     const [blogName, setBlogName] = useState([]);
@@ -37,76 +29,28 @@ const Blog = () => {
                 console.log(err);
             });
     };
-    const dataSource = [
-        {
-            key: "1",
-            name: "Mike",
-            age: 32,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-        {
-            key: "2",
-            name: "John",
-            age: 42,
-            address: "10 Downing Street",
-        },
-    ];
 
     const columns = [
         {
-            title: "Hoạt Động",
+            title: (
+                <>
+                    <Link className="blog-text" to="/thong-tin-du-an" style={{ cursor: "pointer" }}>
+                        <span style={{ color: "green", fontWeight: 500, fontSize: 18 }}>Hoạt Động</span>
+                    </Link>
+                </>
+            ),
             key: "ma_blog",
             render: (record) => {
-                <>
-                    <Link to={"/blog/" + record.ma_blog} style={{ color: "black" }}>
-                        <Typography.Text>
-                            <FileTextOutlined />
-                        </Typography.Text>{" "}
-                        {record.ten_blog}
-                    </Link>
-                </>;
+                return (
+                    <>
+                        <Link to={"/thong-tin-du-an/" + record.ma_blog} style={{ color: "black", fontSize: 12 }}>
+                            <Typography.Text>
+                                <FileTextOutlined />
+                            </Typography.Text>{" "}
+                            <span className="title-text">{record.ten_blog}</span>
+                        </Link>
+                    </>
+                );
             },
         },
     ];
@@ -117,15 +61,20 @@ const Blog = () => {
     return (
         <>
             {/* <Divider orientation="center">Hoạt Động</Divider> */}
-            <Table
-                scroll={{ y: 240 }}
-                size="medium"
-                style={{ border: "1px solid black", height: 300 }}
-                bordered
-                pagination={false}
-                dataSource={dataSource}
-                columns={columns}
-            />
+            <div
+                style={{
+                    overflowX: "hidden",
+                    overflowY: "auto",
+                    borderTop: "3px solid green",
+                    borderLeft: "1px solid black",
+                    borderRight: "1px solid black",
+                    borderBottom: "1px solid black",
+                    height: 300,
+                }}
+            >
+                <Table scroll={{ y: 250 }} size="small" bordered pagination={false} dataSource={data} columns={columns} />
+            </div>
+
             {/* <List
                 header={<div style={{ fontWeight: 500, fontSize: 16 }}>Hoạt Động</div>}
                 bordered

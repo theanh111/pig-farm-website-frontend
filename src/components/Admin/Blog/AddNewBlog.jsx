@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Drawer, Form, Button, Input, Space, Modal, message, Divider } from "antd";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
 import Loader from "../../Loader/Loader";
-import { saveFarm } from "../../../api/farm";
-import { Editor, convertToRaw } from "react-draft-wysiwyg";
+import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import htmlToDraft from "html-to-draftjs";
 import { saveBlog } from "../../../api/blog";
 
 const jwt = require("jsonwebtoken");
@@ -17,11 +14,12 @@ const AddNewBlog = (props) => {
     const { viewAddNewFarm, closeDrawer, fetchData } = props;
     const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
-    const [uploadBtn, setUploadBtn] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [disabledSave, setDisabledSave] = useState(true);
     const [errorMessgae, setErrorMessage] = useState(null);
-    const [blog, setBlog] = useState({ blogCode: "", blogName: "", blogContent: "", whoEntered: "" });
+    const [blog, setBlog] = useState({ blogCode: "", blogImage: "", blogName: "", blogContent: "", whoEntered: "" });
+    const [editorState, setEditorState] = useState(null);
+    const [content, setContent] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -33,8 +31,6 @@ const AddNewBlog = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -51,10 +47,15 @@ const AddNewBlog = (props) => {
 
     const handleSaveBlog = () => {
         if (blog) {
-            console.log(blog);
-            if (blog.blogCode !== "" && blog.blogName !== "" && blog.blogContent !== "") {
+            if (blog.blogImage !== "" && blog.blogCode !== "" && blog.blogName !== "" && blog.blogContent !== "") {
                 setErrorMessage(null);
-                let obj = { ma_blog: blog.blogCode, ten_blog: blog.blogName, noi_dung: blog.blogContent, nguoi_nhap: blog.whoEntered };
+                let obj = {
+                    ma_blog: blog.blogCode,
+                    hinh_anh: blog.blogImage,
+                    ten_blog: blog.blogName,
+                    noi_dung: blog.blogContent,
+                    nguoi_nhap: blog.whoEntered,
+                };
                 saveBlogAPI(obj);
                 getUserCurrent();
             } else {
@@ -95,9 +96,6 @@ const AddNewBlog = (props) => {
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
-
-    const [editorState, setEditorState] = useState(null);
-    const [content, setContent] = useState(null);
 
     const onEditorStateChange = (content) => {
         setErrorMessage(null);
@@ -196,6 +194,21 @@ const AddNewBlog = (props) => {
                                 autoComplete="off"
                                 onChange={(e) => setBlog({ ...blog, blogName: e.target.value })}
                                 placeholder="VD: Tên Blog Sẽ Hiển Thị Như Này"
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh"
+                            label={
+                                <>
+                                    <span>Hình Ảnh </span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setBlog({ ...blog, blogImage: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
                             />
                         </Form.Item>
                         <Form.Item

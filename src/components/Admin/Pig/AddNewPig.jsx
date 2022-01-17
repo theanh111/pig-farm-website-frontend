@@ -5,6 +5,7 @@ const { Option } = Select;
 
 const AddNewPig = (props) => {
     const { viewAddNewPig, closeDrawer } = props;
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -16,8 +17,6 @@ const AddNewPig = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -83,16 +82,6 @@ const AddNewPig = (props) => {
                                     <Input placeholder="Nhập người đánh giá" />
                                 </Form.Item>
                             </Col>
-                            {/* <Col span={12}>
-                                <Form.Item name="url" label="Url" rules={[{ required: true, message: "Please enter url" }]}>
-                                    <Input
-                                        style={{ width: "100%" }}
-                                        addonBefore="http://"
-                                        addonAfter=".com"
-                                        placeholder="Please enter url"
-                                    />
-                                </Form.Item>
-                            </Col> */}
                         </Row>
                         <Row gutter={16}>
                             <Col span={12}>

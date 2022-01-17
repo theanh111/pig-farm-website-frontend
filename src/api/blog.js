@@ -1,13 +1,20 @@
 import axios from "axios";
 import { Config } from "../config";
 
-const LIVE_API = Config.baseAPI;
-const LOCAL_API = "http://192.168.1.38:8080";
-
-const ENDPOINT = LIVE_API;
+const ENDPOINT = Config.baseAPI;
 
 const GET_ALL_BLOG = ENDPOINT + "/get-blog";
 const SAVE_BLOG = ENDPOINT + "/save-blog";
+const GET_BLOG_BY_BLOG_CODE = ENDPOINT + "/get-blog-by-blog-code/";
+
+export const getBlogByBlogCode = async (blogcode) => {
+    try {
+        let data = await axios.get(GET_BLOG_BY_BLOG_CODE + `${blogcode}`);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
 
 export const getAllBlog = async () => {
     try {
