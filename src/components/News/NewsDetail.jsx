@@ -67,9 +67,9 @@ export const NewsDetail = () => {
                                         <Descriptions layout="vertical" bordered>
                                             <Descriptions.Item
                                                 label={
-                                                    <span style={{ color: "#006544", fontWeight: 600, paddingLeft: 20, fontSize: 20 }}>
+                                                    <p style={{ color: "#006544", fontWeight: 600, paddingLeft: 20, fontSize: 20 }}>
                                                         {newsDetail.ten_tin_tuc}
-                                                    </span>
+                                                    </p>
                                                 }
                                                 span={3}
                                             >

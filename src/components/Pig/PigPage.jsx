@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { PigImage } from "../PigImage";
 import { getAllPig } from "../../api/pig";
 import { Row, Col, Breadcrumb, Layout, Select, Image, Table } from "antd";
 import { Navigation } from "../Navigation/navigation";

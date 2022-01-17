@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { PigImage } from "../PigImage";
+import { PigImage } from "../Pig/PigImage";
 import { getPigLimit12 } from "../../api/pig";
 import { Row, Col } from "antd";
 

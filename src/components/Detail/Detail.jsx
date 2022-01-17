@@ -1,7 +1,6 @@
 import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import JsonData from "../../data/data.json";
 import { Contact } from "../Contact/contact";
 import { getPigById } from "../../api/pig";
 import { Carousel, Image, Row, Col, Table, Tag, Space, Card, Breadcrumb, Layout } from "antd";
@@ -59,11 +58,9 @@ export const Detail = () => {
         setViewLoader(false);
     };
     const params = useParams();
-    const [landingPageData, setLandingPageData] = useState({});
 
     useEffect(() => {
         getDataPigById(params.id);
-        setLandingPageData(JsonData);
     }, []);
 
     const columns = [

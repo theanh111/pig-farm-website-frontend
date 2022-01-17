@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { FarmImage } from "../FarmImage";
+import { FarmImage } from "./FarmImage";
 import { Navigation } from "../Navigation/navigation";
 import { Contact } from "../Contact/contact";
-import JsonData from "../../data/data.json";
 import { getAllFarm } from "../../api/farm";
 import { Layout, Row, Col, Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
@@ -12,7 +11,6 @@ const { Content } = Layout;
 export const Farm = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [farm, setFarm] = useState([]);
-    const [landingPageData, setLandingPageData] = useState({});
 
     const getData = async () => {
         setViewLoader(true);
@@ -29,7 +27,6 @@ export const Farm = (props) => {
 
     useEffect(() => {
         getData();
-        setLandingPageData(JsonData);
     }, []);
 
     useEffect(() => {

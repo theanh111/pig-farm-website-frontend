@@ -1,12 +1,11 @@
 import { Navigation } from "../../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import JsonData from "../../../data/data.json";
 import { Contact } from "../../Contact/contact";
 import { getFarmByFarmCode, getFarmById } from "../../../api/farm";
 import { Image, Col, Row, Empty, Breadcrumb, Layout } from "antd";
 import { getPigByFarmName } from "../../../api/pig";
-import { PigImage } from "../../PigImage";
+import { PigImage } from "../../Pig/PigImage";
 import { Link } from "react-router-dom";
 import Loader from "../../Loader/Loader";
 
@@ -17,7 +16,6 @@ export const FarmDetail = () => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigByFarmName, setPigByFarmName] = useState([]);
     const [farmDetail, setFarmDetail] = useState({});
-    const [landingPageData, setLandingPageData] = useState({});
 
     const getDataFarmByFarmCode = async (farmcode) => {
         setViewLoader(true);
@@ -53,7 +51,6 @@ export const FarmDetail = () => {
 
     useEffect(() => {
         getDataFarmByFarmCode(params.farmcode);
-        setLandingPageData(JsonData);
     }, []);
 
     return (
