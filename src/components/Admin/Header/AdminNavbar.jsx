@@ -45,7 +45,7 @@ const AdminNavbar = () => {
             <Sider collapsible>
                 <div className="logo">
                     <a href="/" target="_blank">
-                        <p style={{ cursor: "pointer", color: "white", fontSize: 20, fontWeight: 700 }}>MONGCAIPIG</p>
+                        <span className="webtitle-text">MONGCAIPIG</span>
                     </a>
                 </div>
                 <Menu onClick={checkUser} theme="dark" mode="inline">

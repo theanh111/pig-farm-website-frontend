@@ -168,7 +168,7 @@ const EditGallery = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Sửa Ảnh Trình Chiếu"
+                    title="Cập Nhật Ảnh Trình Chiếu"
                     width="30%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewEditGallery}

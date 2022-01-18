@@ -1,13 +1,13 @@
-import { Navigation } from "../../Navigation/navigation";
+import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Contact } from "../../Contact/contact";
-import { getFarmByFarmCode, getFarmById } from "../../../api/farm";
+import { Contact } from "../Contact/contact";
+import { getFarmByFarmCode } from "../../api/farm";
 import { Image, Col, Row, Empty, Breadcrumb, Layout } from "antd";
-import { getPigByFarmName } from "../../../api/pig";
-import { PigImage } from "../../Pig/PigImage";
+import { getPigByFarmName } from "../../api/pig";
+import { PigImage } from "../Pig/PigImage";
 import { Link } from "react-router-dom";
-import Loader from "../../Loader/Loader";
+import Loader from "../Loader/Loader";
 
 const { Content } = Layout;
 

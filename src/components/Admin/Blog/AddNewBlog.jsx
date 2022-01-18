@@ -110,10 +110,10 @@ const AddNewBlog = (props) => {
                 if (text === "") {
                     setBlog({ ...blog, blogContent: "" });
                 } else {
+                    console.log(content);
                     let contentConvert = draftToHtml(content);
                     setContent(contentConvert);
                     setBlog({ ...blog, blogContent: contentConvert });
-                    // console.log("as HTML:", draftToHtml(content));
                 }
             }
         }

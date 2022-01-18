@@ -11,7 +11,7 @@ import Loader from "../Loader/Loader";
 
 const { Content } = Layout;
 
-export const Detail = () => {
+export const PigDetail = () => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigDetail, setPigDetail] = useState({});
     const [data, setData] = useState([]);
@@ -138,7 +138,7 @@ export const Detail = () => {
                                 </Breadcrumb>
                             </Content>
                             <Row justify="center" gutter={[20, 20]}>
-                                <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%" }}>
+                                <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%", paddingTop: 12 }}>
                                     <ImageGallery
                                         renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                                         renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -159,31 +159,60 @@ export const Detail = () => {
                                             </>
                                         }
                                         bordered={true}
-                                        style={{ width: 600, height: 380, boxShadow: "0 0 2px black", borderRadius: "2%" }}
+                                        style={{ width: 720, height: 445, boxShadow: "0 0 2px black", borderRadius: "2%" }}
                                     >
-                                        <span>
+                                        <p style={{ height: "8px" }}>
                                             - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
-                                        </span>
-                                        <br></br>
-                                        <span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
                                             - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
-                                        </span>
-                                        <br></br>
-                                        <span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
                                             - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
-                                        </span>
-                                        <br></br>
-                                        <span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
                                             - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
-                                        </span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Người Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.nguoi_danh_gia}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Nhân Trung Trắng: <span style={{ fontWeight: 500 }}>{pigDetail.nhan_trung_trang}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Tai Mèo: <span style={{ fontWeight: 500 }}>{pigDetail.tai_meo}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Mõm: <span style={{ fontWeight: 500 }}>{pigDetail.mom}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Vành Trắng Quanh Mõm:
+                                            <span style={{ fontWeight: 500 }}>{pigDetail.vanh_trang_quanh_mom}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Khoang Đen Phụ: <span style={{ fontWeight: 500 }}>{pigDetail.khoang_den_phu}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Kiểu Lưng Bụng: <span style={{ fontWeight: 500 }}>{pigDetail.kieu_lung_bung}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Chân: <span style={{ fontWeight: 500 }}>{pigDetail.chan}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Kiểu Đuôi: <span style={{ fontWeight: 500 }}>{pigDetail.kieu_duoi}</span>
+                                        </p>
+                                        <p style={{ height: "8px" }}>
+                                            - Dấu Thời Gian: <span style={{ fontWeight: 500 }}>{pigDetail.dau_thoi_gian}</span>
+                                        </p>
                                     </Card>
                                 </Col>
+                                <Col xs={1}></Col>
                             </Row>
-                            <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50, paddingBottom: 80 }}>
+                            {/* <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 50, paddingBottom: 80 }}>
                                 <Col xs={16}>
                                     <Table size="small" bordered columns={columns} dataSource={data} pagination={false} />
                                 </Col>
-                            </Row>
+                            </Row> */}
                         </div>
                         <Contact />
                     </div>

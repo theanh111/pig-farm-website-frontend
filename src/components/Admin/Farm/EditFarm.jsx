@@ -166,7 +166,7 @@ const EditFarm = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Sửa Cơ Sở Chăn Nuôi"
+                    title="Cập Nhật Cơ Sở Chăn Nuôi"
                     width="40%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewEditFarm}

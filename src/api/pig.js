@@ -10,6 +10,7 @@ const GET_PIG_BY_FARM_NAME = ENDPOINT + "/get-pig-by-farm-name";
 const GET_ALL_PIG = ENDPOINT + "/get-pig";
 const SAVE_PIG_IMPORT = ENDPOINT + "/save-pig-import";
 const UPDATE_PIG = ENDPOINT + "/update-pig";
+const DELETE_PIG = ENDPOINT + "/delete-pig";
 const UPDATE_PIG_STATUS = ENDPOINT + "/update-pig-status";
 const COUNT_PIG = ENDPOINT + "/count-pig";
 
@@ -43,6 +44,22 @@ export const updatePig = async (pig) => {
         let token = localStorage.getItem("token");
         if (token) {
             let data = await axios.post(UPDATE_PIG, pig, {
+                headers: {
+                    access_token: token,
+                },
+            });
+            return data;
+        }
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const deletePig = async (pig) => {
+    try {
+        let token = localStorage.getItem("token");
+        if (token) {
+            let data = await axios.post(DELETE_PIG, pig, {
                 headers: {
                     access_token: token,
                 },

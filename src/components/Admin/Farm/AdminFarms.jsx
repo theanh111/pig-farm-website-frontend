@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
+import { Layout, Breadcrumb, Table, Form, Modal, message, Button, Row, Col, Image, Tooltip } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddNewFarm from "./AddNewFarm";
 import Loader from "../../Loader/Loader";
-import { getAllFarm } from "../../../api/farm";
+import { deleteFarm, getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
 import EditFarm from "./EditFarm";
 import { checkToken } from "../../../api/auth";
@@ -15,12 +15,14 @@ const { Content } = Layout;
 const AdminFarms = (props) => {
     const history = useNavigate();
     const [viewLoader, setViewLoader] = useState(false);
+    const [viewConfirm, setViewConfirm] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
     const [viewEditFarm, setViewEditFarm] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditFarm, setDataEditFarm] = useState({});
+    const [dataDeleteFarm, setDataDeleteFarm] = useState({});
 
     const showAddNewFarm = () => {
         checkTokenAPI();
@@ -58,6 +60,23 @@ const AdminFarms = (props) => {
         checkTokenAPI();
         setDataEditFarm(farm);
         setViewEditFarm(true);
+    };
+
+    const handleClickDelete = (farm) => {
+        checkTokenAPI();
+        setDataDeleteFarm(farm);
+        setViewConfirm(true);
+    };
+
+    const handleCancelDelete = () => {
+        checkTokenAPI();
+        setDataDeleteFarm({});
+        setViewConfirm(false);
+    };
+
+    const handleOkDelete = (farm) => {
+        checkTokenAPI();
+        deleteFarmAPI(farm);
     };
 
     const columns = [
@@ -112,7 +131,52 @@ const AdminFarms = (props) => {
                 );
             },
         },
+        {
+            title: "Xóa",
+            align: "center",
+            width: "20%",
+            render: (record) => {
+                return (
+                    <Tooltip title="Xóa">
+                        <Button type="default" danger onClick={() => handleClickDelete(record)}>
+                            <DeleteOutlined style={{ fontSize: 20 }} />
+                        </Button>
+                    </Tooltip>
+                );
+            },
+        },
     ];
+
+    const deleteFarmAPI = async (farm) => {
+        setViewLoader(true);
+        await deleteFarm(farm)
+            .then((res) => {
+                if (res) {
+                    if (res.status == 200) {
+                        message.success("Xóa cơ sở chăn nuôi thành công");
+                        setViewConfirm(false);
+                        sleep(500).then(() => {
+                            setViewLoader(false);
+                            setDataDeleteFarm({});
+                            getAllFarmAPI();
+                        });
+                    } else if (res.status == 400) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    } else if (res.status == 401) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    }
+                }
+            })
+            .catch((err) => {
+                alert("Hết phiên đăng nhập");
+                history("/dang-nhap");
+            });
+        setViewLoader(false);
+    };
 
     const getAllFarmAPI = async () => {
         setViewLoader(true);
@@ -125,11 +189,11 @@ const AdminFarms = (props) => {
                         setViewLoader(false);
                     }
                 }
-                setViewLoader(false);
             })
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
     };
 
     const checkTokenAPI = async () => {
@@ -147,6 +211,8 @@ const AdminFarms = (props) => {
                     backToLogin();
                     console.log(err);
                 });
+        } else {
+            backToLogin();
         }
     };
 
@@ -158,6 +224,21 @@ const AdminFarms = (props) => {
 
     return (
         <div>
+            {viewConfirm ? (
+                <Modal
+                    centered
+                    okType="danger"
+                    style={{ zIndex: 9 }}
+                    title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
+                    visible={viewConfirm}
+                    onOk={() => handleOkDelete(dataDeleteFarm)}
+                    onCancel={() => handleCancelDelete()}
+                    cancelText="Hủy"
+                    okText="Xóa"
+                >
+                    <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeleteFarm.ten_trang_trai}</p>
+                </Modal>
+            ) : null}
             {viewLoader ? <Loader /> : null}
             <div>
                 <Layout style={{ minHeight: "100vh" }}>

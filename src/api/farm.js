@@ -4,6 +4,7 @@ import { Config } from "../config";
 const ENDPOINT = Config.baseAPI;
 
 const SAVE_FARM = ENDPOINT + "/save-farm";
+const DELETE_FARM = ENDPOINT + "/delete-farm";
 const UPDATE_FARM = ENDPOINT + "/update-farm";
 const GET_ALL_FARM = ENDPOINT + "/get-farm";
 const GET_FARM_BY_ID = ENDPOINT + "/get-farm-by-id/";
@@ -67,6 +68,22 @@ export const updateFarm = async (farm) => {
         let token = localStorage.getItem("token");
         if (token) {
             let data = await axios.post(UPDATE_FARM, farm, {
+                headers: {
+                    access_token: token,
+                },
+            });
+            return data;
+        }
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const deleteFarm = async (farm) => {
+    try {
+        let token = localStorage.getItem("token");
+        if (token) {
+            let data = await axios.post(DELETE_FARM, farm, {
                 headers: {
                     access_token: token,
                 },

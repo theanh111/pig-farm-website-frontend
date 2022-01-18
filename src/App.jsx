@@ -4,10 +4,10 @@ import { Login } from "./components/Login/login";
 import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "./components/Notfound/notfound";
 import { SignUp } from "./components/SignUp/signup";
-import { Detail } from "./components/Detail/Detail";
-import { Farm } from "./components/Farm/Farm";
+import { PigDetail } from "./components/Pig/PigDetail";
+import { FarmPage } from "./components/Farm/FarmPage";
 import React, { useState } from "react";
-import { FarmDetail } from "./components/Detail/Farm/FarmDetail";
+import { FarmDetail } from "./components/Farm/FarmDetail";
 import { ContactPage } from "./components/Contact/ContactPage";
 import Profile from "./components/Admin/Header/User/Profile";
 import { BlogPage } from "./components/Blog/BlogPage";
@@ -47,8 +47,8 @@ const App = (props) => {
             <Route path="/dang-ky" element={<SignUp />} />
             <Route path="/co-so-chan-nuoi/:farmcode" element={<FarmDetail />} />
             <Route path="/ca-the" element={<PigPage />} />
-            <Route path="/ca-the/:id" element={<Detail />} />
-            <Route path="/co-so-chan-nuoi" element={<Farm />} />
+            <Route path="/ca-the/:id" element={<PigDetail />} />
+            <Route path="/co-so-chan-nuoi" element={<FarmPage />} />
             <Route path="/lien-he" element={<ContactPage />} />
             <Route path="/thong-tin-du-an/:blogcode" element={<BlogDetail />} />
             <Route path="/thong-tin-du-an" element={<BlogPage />} />

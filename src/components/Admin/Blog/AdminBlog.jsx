@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Modal, message } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined, EyeOutlined, SelectOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Loader from "../../Loader/Loader";
-import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllBlog } from "../../../api/blog";
+import { deleteBlog, getAllBlog } from "../../../api/blog";
 import BlogViewDetail from "./BlogViewDetail";
 import AddNewBlog from "./AddNewBlog";
+import EditBlog from "./EditBlog";
 import { checkToken } from "../../../api/auth";
 
 const { Content } = Layout;
@@ -16,13 +16,15 @@ const { Content } = Layout;
 const AdminBlog = (props) => {
     const history = useNavigate();
     const [viewLoader, setViewLoader] = useState(false);
+    const [viewConfirm, setViewConfirm] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
-    const [viewEditFarm, setViewEditFarm] = useState(false);
+    const [viewEditBlog, setViewEditBlog] = useState(false);
     const [viewDetailBlog, setViewDetailBlog] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
-    const [dataEditFarm, setDataEditFarm] = useState({});
+    const [dataEditBlog, setDataEditBlog] = useState({});
+    const [dataDeleteBlog, setDataDeleteBlog] = useState({});
     const [blogData, setBlogData] = useState({});
 
     const showAddNewFarm = () => {
@@ -57,16 +59,33 @@ const AdminBlog = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const handleEditFarm = (farm) => {
+    const handleEditBlog = (blog) => {
         checkTokenAPI();
-        setDataEditFarm(farm);
-        setViewEditFarm(true);
+        setDataEditBlog(blog);
+        setViewEditBlog(true);
     };
 
     const handleViewDetail = (blog) => {
         checkTokenAPI();
         setBlogData(blog);
         setViewDetailBlog(true);
+    };
+
+    const handleClickDelete = (blog) => {
+        checkTokenAPI();
+        setDataDeleteBlog(blog);
+        setViewConfirm(true);
+    };
+
+    const handleCancelDelete = () => {
+        checkTokenAPI();
+        setDataDeleteBlog({});
+        setViewConfirm(false);
+    };
+
+    const handleOkDelete = (blog) => {
+        checkTokenAPI();
+        deleteBlogAPI(blog);
     };
 
     const columns = [
@@ -88,9 +107,11 @@ const AdminBlog = (props) => {
             editable: true,
             render: (record) => {
                 return (
-                    <div style={{ fontWeight: 500, color: "#34568B" }}>
-                        <span>{record.ma_blog}</span>
-                    </div>
+                    <Link to={"/thong-tin-du-an/" + record.ma_blog} target="_blank">
+                        <div style={{ fontWeight: 500, color: "#34568B", cursor: "pointer" }}>
+                            <span>{record.ma_blog}</span>
+                        </div>
+                    </Link>
                 );
             },
         },
@@ -121,7 +142,7 @@ const AdminBlog = (props) => {
             render: (record) => {
                 return (
                     <Tooltip title="Sửa Thông Tin Dự Án">
-                        <Button onClick={() => handleEditFarm(record)}>
+                        <Button onClick={() => handleEditBlog(record)}>
                             <EditOutlined style={{ fontSize: 20 }} />
                         </Button>
                     </Tooltip>
@@ -143,17 +164,15 @@ const AdminBlog = (props) => {
             },
         },
         {
-            title: "Live",
+            title: "Xóa",
             align: "center",
             width: "20%",
             render: (record) => {
                 return (
-                    <Tooltip title="Live">
-                        <Link to={"/thong-tin-du-an/" + record.ma_blog} target="_blank">
-                            <Button>
-                                <SelectOutlined style={{ fontSize: 20 }} />
-                            </Button>
-                        </Link>
+                    <Tooltip title="Xóa">
+                        <Button type="default" danger onClick={() => handleClickDelete(record)}>
+                            <DeleteOutlined style={{ fontSize: 20 }} />
+                        </Button>
                     </Tooltip>
                 );
             },
@@ -178,6 +197,37 @@ const AdminBlog = (props) => {
             });
     };
 
+    const deleteBlogAPI = async (blog) => {
+        setViewLoader(true);
+        await deleteBlog(blog)
+            .then((res) => {
+                if (res) {
+                    if (res.status == 200) {
+                        message.success("Xóa thông tin dự án thành công");
+                        setViewConfirm(false);
+                        sleep(500).then(() => {
+                            setViewLoader(false);
+                            setDataDeleteBlog({});
+                            getAllFarmAPI();
+                        });
+                    } else if (res.status == 400) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    } else if (res.status == 401) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    }
+                }
+            })
+            .catch((err) => {
+                alert("Hết phiên đăng nhập");
+                history("/dang-nhap");
+            });
+        setViewLoader(false);
+    };
+
     const checkTokenAPI = async () => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -193,6 +243,8 @@ const AdminBlog = (props) => {
                     backToLogin();
                     console.log(err);
                 });
+        } else {
+            backToLogin();
         }
     };
 
@@ -207,6 +259,21 @@ const AdminBlog = (props) => {
 
     return (
         <div>
+            {viewConfirm ? (
+                <Modal
+                    centered
+                    okType="danger"
+                    style={{ zIndex: 9 }}
+                    title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
+                    visible={viewConfirm}
+                    onOk={() => handleOkDelete(dataDeleteBlog)}
+                    onCancel={() => handleCancelDelete()}
+                    cancelText="Hủy"
+                    okText="Xóa"
+                >
+                    <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeleteBlog.ten_blog}</p>
+                </Modal>
+            ) : null}
             {viewLoader ? <Loader /> : null}
             <div>
                 <Layout style={{ minHeight: "100vh" }}>
@@ -233,11 +300,6 @@ const AdminBlog = (props) => {
                                         Thêm Thông Tin Dự Án
                                     </Button>
                                 </Col>
-                                {/* <Col span={2}>
-                                    <Button type="primary" onClick={showAddNewFarm} icon={<PlusOutlined />}>
-                                        Import File Excel
-                                    </Button>
-                                </Col> */}
                             </Row>
 
                             {viewAddNewFarm ? (
@@ -245,6 +307,22 @@ const AdminBlog = (props) => {
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
+                                />
+                            ) : null}
+
+                            {viewEditBlog ? (
+                                <EditBlog
+                                    id={dataEditBlog.id}
+                                    ma_blog={dataEditBlog.ma_blog}
+                                    ten_blog={dataEditBlog.ten_blog}
+                                    noi_dung={dataEditBlog.noi_dung}
+                                    hinh_anh={dataEditBlog.hinh_anh}
+                                    fetchData={() => getAllFarmAPI()}
+                                    closeDrawer={() => {
+                                        setViewEditBlog(false);
+                                        setDataEdit([]);
+                                    }}
+                                    viewEditBlog={viewEditBlog}
                                 />
                             ) : null}
 

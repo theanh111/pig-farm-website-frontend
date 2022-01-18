@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 const { Content } = Layout;
 
-export const Farm = (props) => {
+export const FarmPage = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [farm, setFarm] = useState([]);
 

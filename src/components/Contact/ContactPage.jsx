@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Navigation } from "../Navigation/navigation";
 import { Contact } from "../Contact/contact";
 import { Link } from "react-router-dom";
-import { List, Row, Col, Breadcrumb, Image, Layout, Descriptions, Badge, Input } from "antd";
-import { CalendarOutlined, HomeOutlined, WhatsAppOutlined, MailOutlined } from "@ant-design/icons";
+import { List, Row, Col, Breadcrumb, Layout } from "antd";
+import { HomeOutlined, WhatsAppOutlined, MailOutlined } from "@ant-design/icons";
 import { getAllContact } from "../../api/contact";
 import Loader from "../Loader/Loader";
 
 const { Content } = Layout;
 
 export const ContactPage = (props) => {
-    const [contact, setContact] = useState([]);
     const [viewLoader, setViewLoader] = useState(false);
     const [listData, setListData] = useState([]);
 
@@ -99,10 +98,6 @@ export const ContactPage = (props) => {
                                         )}
                                     />
                                 </Col>
-                                {/* <Col xs={1}></Col>
-                        <Col xs={3}>
-                            <Input />
-                        </Col> */}
                             </Row>
                         </div>
                         <Contact />

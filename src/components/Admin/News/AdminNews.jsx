@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Typography, Button, Row, Col, Image, Tooltip } from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Modal, message } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined, EyeOutlined, SelectOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, EyeOutlined, DeleteOutlined } from "@ant-design/icons";
 import Loader from "../../Loader/Loader";
-import { getAllFarm } from "../../../api/farm";
 import { Link, useNavigate } from "react-router-dom";
-import { getAllBlog } from "../../../api/blog";
 import BlogViewDetail from "./NewsViewDetail";
 import AddNewNews from "./AddNewNews";
 import { checkToken } from "../../../api/auth";
-import { getAllNews } from "../../../api/news";
+import { getAllNews, saveNews } from "../../../api/news";
+import { deleteNews } from "../../../api/news";
 
 const { Content } = Layout;
 
 const AdminNews = (props) => {
     const history = useNavigate();
     const [viewLoader, setViewLoader] = useState(false);
+    const [viewConfirm, setViewConfirm] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
     const [viewEditFarm, setViewEditFarm] = useState(false);
     const [viewDetailBlog, setViewDetailBlog] = useState(false);
@@ -24,6 +24,7 @@ const AdminNews = (props) => {
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditFarm, setDataEditFarm] = useState({});
+    const [dataDeleteNews, setDataDeleteNews] = useState({});
     const [blogData, setBlogData] = useState({});
 
     const showAddNewFarm = () => {
@@ -70,6 +71,23 @@ const AdminNews = (props) => {
         setViewDetailBlog(true);
     };
 
+    const handleClickDelete = (news) => {
+        checkTokenAPI();
+        setDataDeleteNews(news);
+        setViewConfirm(true);
+    };
+
+    const handleCancelDelete = () => {
+        checkTokenAPI();
+        setDataDeleteNews({});
+        setViewConfirm(false);
+    };
+
+    const handleOkDelete = (news) => {
+        checkTokenAPI();
+        deleteNewsAPI(news);
+    };
+
     const columns = [
         {
             title: "Hình Ảnh",
@@ -89,9 +107,11 @@ const AdminNews = (props) => {
             editable: true,
             render: (record) => {
                 return (
-                    <div style={{ fontWeight: 500, color: "#34568B" }}>
-                        <span>{record.ma_tin_tuc}</span>
-                    </div>
+                    <Link to={"/tin-tuc/" + record.ma_tin_tuc} target="_blank">
+                        <div style={{ fontWeight: 500, color: "#34568B", cursor: "pointer" }}>
+                            <span>{record.ma_tin_tuc}</span>
+                        </div>
+                    </Link>
                 );
             },
         },
@@ -144,22 +164,51 @@ const AdminNews = (props) => {
             },
         },
         {
-            title: "Live",
+            title: "Xóa",
             align: "center",
             width: "20%",
             render: (record) => {
                 return (
-                    <Tooltip title="Live">
-                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} target="_blank">
-                            <Button>
-                                <SelectOutlined style={{ fontSize: 20 }} />
-                            </Button>
-                        </Link>
+                    <Tooltip title="Xóa">
+                        <Button type="default" danger onClick={() => handleClickDelete(record)}>
+                            <DeleteOutlined style={{ fontSize: 20 }} />
+                        </Button>
                     </Tooltip>
                 );
             },
         },
     ];
+
+    const deleteNewsAPI = async (news) => {
+        setViewLoader(true);
+        await deleteNews(news)
+            .then((res) => {
+                if (res) {
+                    if (res.status == 200) {
+                        message.success("Xóa tin tức thành công");
+                        setViewConfirm(false);
+                        sleep(500).then(() => {
+                            setViewLoader(false);
+                            setDataDeleteNews({});
+                            getAllNewsAPI();
+                        });
+                    } else if (res.status == 400) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    } else if (res.status == 401) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    }
+                }
+            })
+            .catch((err) => {
+                alert("Hết phiên đăng nhập");
+                history("/dang-nhap");
+            });
+        setViewLoader(false);
+    };
 
     const getAllNewsAPI = async () => {
         setViewLoader(true);
@@ -194,6 +243,8 @@ const AdminNews = (props) => {
                     backToLogin();
                     console.log(err);
                 });
+        } else {
+            backToLogin();
         }
     };
 
@@ -208,6 +259,21 @@ const AdminNews = (props) => {
 
     return (
         <div>
+            {viewConfirm ? (
+                <Modal
+                    centered
+                    okType="danger"
+                    style={{ zIndex: 9 }}
+                    title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
+                    visible={viewConfirm}
+                    onOk={() => handleOkDelete(dataDeleteNews)}
+                    onCancel={() => handleCancelDelete()}
+                    cancelText="Hủy"
+                    okText="Xóa"
+                >
+                    <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeleteNews.ten_tin_tuc}</p>
+                </Modal>
+            ) : null}
             {viewLoader ? <Loader /> : null}
             <div>
                 <Layout style={{ minHeight: "100vh" }}>

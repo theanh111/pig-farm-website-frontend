@@ -33,6 +33,13 @@
     color: #0072b5;
 }
 
+.webtitle-text {
+    font-size: 20;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+}
+
 .container {
     position: relative;
     width: 100%;
@@ -144,8 +151,8 @@
 
 .loader {
     position: fixed;
-    border: 8px solid #ffffff; /* Light grey */
-    border-top: 8px solid #3498db; /* Blue */
+    border: 8px solid hsl(0, 0%, 75%); /* Light grey */
+    border-top: 8px solid #50dcff; /* Blue */
     border-radius: 50%;
     width: 80px;
     height: 80px;

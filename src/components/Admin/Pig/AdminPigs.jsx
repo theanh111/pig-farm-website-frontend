@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, message } from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, Modal, message } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddNewPig from "./AddNewPig";
 import AddNewPigImport from "./AddNewPigImport";
 import { Link } from "react-router-dom";
-import { getAllPig, updatePigStatus } from "../../../api/pig";
+import { deletePig, getAllPig, updatePigStatus } from "../../../api/pig";
 import Loader from "../../Loader/Loader";
 import PigDetail from "./PigDetail";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ const AdminPigs = (props) => {
     const history = useNavigate();
     const [pigById, setPigById] = useState([]);
     const [viewLoader, setViewLoader] = useState(false);
+    const [viewConfirm, setViewConfirm] = useState(false);
     const [viewPigDetail, setViewPigDetail] = useState(false);
     const [viewAddNewPig, setViewAddNewPig] = useState(false);
     const [viewAddNewPigImport, setViewAddNewPigImport] = useState(false);
@@ -27,6 +28,11 @@ const AdminPigs = (props) => {
     const [viewEditPig, setViewEditPig] = useState(false);
     const [pigStatus, setPigStatus] = useState(false);
     const [dataEditPig, setDataEditPig] = useState({});
+    const [dataDeletePig, setDataDeletePig] = useState({});
+
+    const sleep = (time) => {
+        return new Promise((resolve) => setTimeout(resolve, time));
+    };
 
     const showAddNewPig = () => {
         let token = checkTokenLocalStorage();
@@ -77,6 +83,23 @@ const AdminPigs = (props) => {
         checkTokenAPI();
         setDataEditPig(pig);
         setViewEditPig(true);
+    };
+
+    const handleClickDelete = (pig) => {
+        checkTokenAPI();
+        setDataDeletePig(pig);
+        setViewConfirm(true);
+    };
+
+    const handleCancelDelete = () => {
+        checkTokenAPI();
+        setDataDeletePig({});
+        setViewConfirm(false);
+    };
+
+    const handleOkDelete = (pig) => {
+        checkTokenAPI();
+        deletePigAPI(pig);
     };
 
     const columns = [
@@ -230,6 +253,19 @@ const AdminPigs = (props) => {
                 );
             },
         },
+        {
+            title: "Xóa",
+            align: "center",
+            render: (record) => {
+                return (
+                    <Tooltip title="Xóa">
+                        <Button type="default" danger onClick={() => handleClickDelete(record)}>
+                            <DeleteOutlined style={{ fontSize: 20 }} />
+                        </Button>
+                    </Tooltip>
+                );
+            },
+        },
     ];
 
     const handlePigStatus = (record) => {
@@ -297,6 +333,37 @@ const AdminPigs = (props) => {
             });
     };
 
+    const deletePigAPI = async (pig) => {
+        setViewLoader(true);
+        await deletePig(pig)
+            .then((res) => {
+                if (res) {
+                    if (res.status == 200) {
+                        message.success("Xóa cá thể thành công");
+                        setViewConfirm(false);
+                        sleep(500).then(() => {
+                            setViewLoader(false);
+                            setDataDeletePig({});
+                            getAllPigAPI();
+                        });
+                    } else if (res.status == 400) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    } else if (res.status == 401) {
+                        localStorage.removeItem("token");
+                        alert("Hết phiên đăng nhập");
+                        history("/dang-nhap");
+                    }
+                }
+            })
+            .catch((err) => {
+                alert("Hết phiên đăng nhập");
+                history("/dang-nhap");
+            });
+        setViewLoader(false);
+    };
+
     const checkTokenAPI = async () => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -312,6 +379,8 @@ const AdminPigs = (props) => {
                     backToLogin();
                     console.log(err);
                 });
+        } else {
+            backToLogin();
         }
     };
 
@@ -327,6 +396,21 @@ const AdminPigs = (props) => {
     return (
         <>
             <div>
+                {viewConfirm ? (
+                    <Modal
+                        centered
+                        okType="danger"
+                        style={{ zIndex: 9 }}
+                        title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
+                        visible={viewConfirm}
+                        onOk={() => handleOkDelete(dataDeletePig)}
+                        onCancel={() => handleCancelDelete()}
+                        cancelText="Hủy"
+                        okText="Xóa"
+                    >
+                        <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeletePig.ma_so_ca_the}</p>
+                    </Modal>
+                ) : null}
                 {viewLoader ? <Loader /> : null}
                 <Layout style={{ minHeight: "100vh" }}>
                     <AdminNavbar />

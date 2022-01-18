@@ -4,22 +4,20 @@ import { Drawer, Form, Button, Input, Space, Modal, message, Divider } from "ant
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import Loader from "../../Loader/Loader";
-import { saveFarm } from "../../../api/farm";
 import { Editor, convertToRaw } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import { saveBlog } from "../../../api/blog";
 
 const jwt = require("jsonwebtoken");
 
-const EditBlog = (props) => {
+const EditContact = (props) => {
     const history = useNavigate();
-    const { viewEditBlog, closeDrawer, fetchData } = props;
-    const [viewEndOfSession, setViewEndOfSession] = useState(false);
+    const { viewEditContact, closeDrawer, fetchData } = props;
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
-    const [uploadBtn, setUploadBtn] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [disabledSave, setDisabledSave] = useState(true);
     const [errorMessgae, setErrorMessage] = useState(null);
+    const [editorState, setEditorState] = useState(null);
+    const [content, setContent] = useState(null);
     const [blog, setBlog] = useState({ blogCode: "", blogName: "", blogContent: "", whoEntered: "" });
     const onCloseDrawer = () => {
         closeDrawer();
@@ -32,8 +30,6 @@ const EditBlog = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -95,9 +91,6 @@ const EditBlog = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const [editorState, setEditorState] = useState(null);
-    const [content, setContent] = useState(null);
-
     const onEditorStateChange = (content) => {
         setErrorMessage(null);
         setEditorState(content);
@@ -151,10 +144,10 @@ const EditBlog = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Thêm Blog Mới"
-                    width="85%"
+                    title="Cập Nhật Thông Tin Liên Hệ"
+                    width="30%"
                     onClose={() => handleCloseDrawer()}
-                    visible={viewEditBlog}
+                    visible={viewEditContact}
                     bodyStyle={{ paddingBottom: 80 }}
                     extra={
                         <Space>
@@ -229,4 +222,4 @@ const EditBlog = (props) => {
     );
 };
 
-export default EditBlog;
+export default EditContact;
