@@ -12,6 +12,7 @@ const { Content } = Layout;
 
 export const PigPage = () => {
     const [pig, setPig] = useState([]);
+    const [pigSearch, setPigSearch] = useState([]);
     const [viewLoader, setViewLoader] = useState(false);
 
     const getAllPigAPI = async () => {
@@ -21,6 +22,7 @@ export const PigPage = () => {
                 let result = res.data.data;
                 if (result) {
                     setPig(result);
+                    setPigSearch(result);
                 }
             })
             .catch((err) => {
@@ -40,9 +42,11 @@ export const PigPage = () => {
                 let result = res.data.data;
                 if (result) {
                     setPig(result);
+                    setPigSearch(result);
                 }
                 if (res.status == 400) {
                     setPig([]);
+                    setPigSearch([]);
                 }
             })
             .catch((err) => {
@@ -51,8 +55,19 @@ export const PigPage = () => {
         setViewLoader(false);
     };
 
-    useEffect(() => {
+    const handleDataSearchByFilter = (arr) => {
+        setViewLoader(true);
+        setPigSearch([]);
+        setPigSearch(arr);
+        setViewLoader(false);
+    };
+
+    const fetchData = () => {
         getAllPigAPI();
+    };
+
+    useEffect(() => {
+        fetchData();
     }, []);
 
     const columns = [
@@ -200,7 +215,7 @@ export const PigPage = () => {
                                     <Link to="/">Trang Chủ</Link>
                                 </Breadcrumb.Item>
                                 <Breadcrumb.Item className="txt">
-                                    <Link to="/ca-the">Cá Thể ({pig ? pig.length : 0})</Link>
+                                    <Link to="/ca-the">Cá Thể ({pigSearch ? pigSearch.length : 0})</Link>
                                 </Breadcrumb.Item>
                             </Breadcrumb>
                         </Content>
@@ -209,7 +224,13 @@ export const PigPage = () => {
                             <Col xs={18}>
                                 <div>
                                     <>
-                                        <PigFilter fetchDataSearchAPI={(pig) => fetchDataSearchAPI(pig)} />
+                                        <PigFilter
+                                            fetchData={() => fetchData()}
+                                            handleDataSearchByFilter={(arr) => handleDataSearchByFilter(arr)}
+                                            pig={pig}
+                                            pigSearch={pigSearch}
+                                            fetchDataSearchAPI={(pig) => fetchDataSearchAPI(pig)}
+                                        />
                                     </>
                                 </div>
                                 {viewLoader ? (
@@ -219,7 +240,7 @@ export const PigPage = () => {
                                         className="table-view-data"
                                         size="small"
                                         bordered
-                                        dataSource={pig}
+                                        dataSource={pigSearch}
                                         columns={columns}
                                         pagination={{
                                             pageSizeOptions: [5, 10, 20],

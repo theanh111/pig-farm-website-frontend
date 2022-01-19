@@ -19,7 +19,19 @@
 }
 
 .vietnam-flag-button:hover .vietnam-flag {
-    background-color: wheat;
+    opacity: 0.9;
+}
+
+.vietnam-flag {
+    filter: brightness(110%);
+}
+
+.england-flag-button:hover .england-flag {
+    opacity: 0.9;
+}
+
+.login-button:hover .login-icon {
+    opacity: 0.9;
 }
 
 .news-text:hover {

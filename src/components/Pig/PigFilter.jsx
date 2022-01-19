@@ -1,15 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Select, Input, Space } from "antd";
+import { Row, Col, Select, Input, Space, Button } from "antd";
 
 const { Option } = Select;
 const { Search } = Input;
 
 export const PigFilter = (props) => {
-    const { fetchDataSearchAPI } = props;
-    const [filterData, setFilterData] = useState({});
+    const { fetchDataSearchAPI, pig, pigSearch, handleDataSearchByFilter, fetchData } = props;
+    const [filterData, setFilterData] = useState({
+        gioi_tinh: null,
+        nhan_trung_trang: null,
+        tai_meo: null,
+    });
 
-    const handleSearch = (value) => {
-        setFilterData({ ...filterData, keyWord: value.trim() });
+    const handleSearch = () => {
+        console.log(filterData);
+
+        let arr = pig.filter(
+            (el) =>
+                (filterData.gioi_tinh ? el.gioi_tinh.toLowerCase() == filterData.gioi_tinh.toLowerCase() : 1 == 1) &&
+                (filterData.nhan_trung_trang ? el.nhan_trung_trang.toLowerCase() == filterData.nhan_trung_trang.toLowerCase() : 1 == 1) &&
+                (filterData.tai_meo ? el.tai_meo.toLowerCase() == filterData.tai_meo.toLowerCase() : 1 == 1) &&
+                (filterData.mom ? el.mom.toLowerCase() == filterData.mom.toLowerCase() : 1 == 1) &&
+                (filterData.vanh_trang_quanh_mom
+                    ? el.vanh_trang_quanh_mom.toLowerCase() == filterData.vanh_trang_quanh_mom.toLowerCase()
+                    : 1 == 1) &&
+                (filterData.mat ? el.mat.toLowerCase() == filterData.mat.toLowerCase() : 1 == 1) &&
+                (filterData.da_co_khoang_den ? el.da_co_khoang_den.toLowerCase() == filterData.da_co_khoang_den.toLowerCase() : 1 == 1) &&
+                (filterData.khoang_den_phu ? el.khoang_den_phu.toLowerCase() == filterData.khoang_den_phu.toLowerCase() : 1 == 1) &&
+                (filterData.chan ? el.chan.toLowerCase() == filterData.chan.toLowerCase() : 1 == 1) &&
+                (filterData.da_mat ? el.da_mat.toLowerCase() == filterData.da_mat.toLowerCase() : 1 == 1) &&
+                (filterData.kieu_duoi ? el.kieu_duoi.toLowerCase() == filterData.kieu_duoi.toLowerCase() : 1 == 1) &&
+                (filterData.kieu_tai ? el.kieu_tai.toLowerCase() == filterData.kieu_tai.toLowerCase() : 1 == 1) &&
+                (filterData.huong_tai ? el.huong_tai.toLowerCase() == filterData.huong_tai.toLowerCase() : 1 == 1) &&
+                (filterData.kieu_long ? el.kieu_long.toLowerCase() == filterData.kieu_long.toLowerCase() : 1 == 1) &&
+                (filterData.loai_mau_long ? el.loai_mau_long.toLowerCase() == filterData.loai_mau_long.toLowerCase() : 1 == 1) &&
+                (filterData.hinh_dang_dau ? el.hinh_dang_dau.toLowerCase() == filterData.hinh_dang_dau.toLowerCase() : 1 == 1) &&
+                (filterData.kieu_lung_bung ? el.kieu_lung_bung.toLowerCase() == filterData.kieu_lung_bung.toLowerCase() : 1 == 1)
+        );
+        console.log(arr);
+        fetchDataSearchByFilter(arr);
+    };
+
+    const handleFetchData = () => {
+        setFilterData({});
+        fetchData();
+    };
+    const fetchDataSearchByFilter = (arr) => {
+        handleDataSearchByFilter(arr);
     };
 
     const fetchDataSearch = (pig) => {
@@ -21,10 +58,6 @@ export const PigFilter = (props) => {
         fetchDataSearch(obj);
     };
 
-    useEffect(() => {
-        console.log(filterData);
-    }, [filterData]);
-
     return (
         <>
             <Space direction="vertical">
@@ -33,7 +66,7 @@ export const PigFilter = (props) => {
                         <Space>
                             <Search
                                 style={{ width: 530 }}
-                                placeholder="Tìm kiếm với Mã số cá thể, Loại Con Giống, Đỉa Điểm Đánh Giá ..."
+                                placeholder="Tìm kiếm với Mã số cá thể, Loại con giống, Địa điểm đánh giá"
                                 allowClear
                                 onSearch={handleSearchInput}
                             />
@@ -48,7 +81,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Giới Tính...</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Giới tính...</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -63,7 +96,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Nhân Trung Trắng</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Nhân trung trắng</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -79,7 +112,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Tai Mèo</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Tai mèo</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -94,7 +127,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Mõm</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mõm</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -109,7 +142,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Vành Trắng Quanh Mõm</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Vành trắng quanh mõm</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -126,7 +159,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Mắt</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mắt</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -141,7 +174,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Da Có Khoang Đen</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da có khoang đen</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -157,7 +190,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Khoang Đen Phụ</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Khoang đen phụ</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -180,7 +213,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Chân</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Chân</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -195,7 +228,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Da Mắt</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da mắt</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -211,7 +244,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Kiểu Đuôi</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu đuôi</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -227,7 +260,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Kiểu Tai</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu tai</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -243,7 +276,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Hướng Tai</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hướng tai</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -258,7 +291,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Kiểu Lông</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lông</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -274,7 +307,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Loại Màu Lông</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Loại màu lông</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -293,7 +326,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Hình Dạng Đầu</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hình dạng đầu</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -317,7 +350,7 @@ export const PigFilter = (props) => {
                                     allowClear
                                     showSearch
                                     style={{ width: 171 }}
-                                    placeholder={<span style={{ fontSize: 12, color: "black" }}>Kiểu Lưng Bụng</span>}
+                                    placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lưng bụng</span>}
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                     filterSort={(optionA, optionB) =>
@@ -329,6 +362,7 @@ export const PigFilter = (props) => {
                                     <Option value="võng vừa">Võng vừa</Option>
                                     <Option value="võng nhiều">Võng nhiều</Option>
                                 </Select>
+                                <Button onClick={handleSearch}>Tìm Kiếm</Button>
                             </Space>
                         </Col>
                     </Space>

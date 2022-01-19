@@ -1,6 +1,6 @@
 import { Col, Row, Menu, Space, Input } from "antd";
 import { Link } from "react-router-dom";
-import { ExportOutlined, SearchOutlined } from "@ant-design/icons";
+import { ExportOutlined } from "@ant-design/icons";
 const { Search } = Input;
 export const Navigation = () => {
     const onSearch = (value) => console.log(value);
@@ -28,31 +28,16 @@ export const Navigation = () => {
                 <Space>
                     <Col>
                         <span className="vietnam-flag-button">
-                            <img
-                                title="Vietnamese"
-                                className="vietnam-flag"
-                                style={{ height: 40, width: 40, cursor: "pointer" }}
-                                src="/images/vietnam-flag.png"
-                            />
+                            <img title="Vietnamese" className="vietnam-flag" style={{ cursor: "pointer" }} src="/images/vi-vn.gif" />
                         </span>
-
-                        {/* <span style={{ paddingLeft: 5, paddingRight: 5, paddingTop: 5, color: "white", fontWeight: 700, fontSize: 22 }}>
-                            |
-                        </span> */}
-                        {/* <span style={{ paddingLeft: 10, paddingTop: 5, color: "white", fontWeight: 700, fontSize: 22 }}>VIE | </span> */}
-                        {/* <span style={{ paddingTop: 5, color: "white", fontWeight: 700, fontSize: 22 }}>ENG</span> */}
                         <span> </span>
-                        <img
-                            title="English"
-                            className="england-flag"
-                            style={{ height: 40, width: 40, cursor: "pointer" }}
-                            src="/images/england-flag.png"
-                        />
-                        {/* <span style={{ paddingTop: 5, paddingRight: 5, color: "white", fontWeight: 700, fontSize: 22 }}> | </span> */}
+                        <span className="england-flag-button">
+                            <img title="English" className="england-flag" style={{ cursor: "pointer" }} src="/images/en-GB.gif" />
+                        </span>
                     </Col>
                     <Col>
-                        <Link to="/dang-nhap">
-                            <ExportOutlined title="Đăng Nhập" style={{ color: "white", fontSize: 30 }} />
+                        <Link to="/dang-nhap" className="login-button">
+                            <ExportOutlined title="Đăng Nhập" className="login-icon" style={{ color: "white", fontSize: 30 }} />
                         </Link>
                     </Col>
                 </Space>
