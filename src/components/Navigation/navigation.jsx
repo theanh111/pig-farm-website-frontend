@@ -7,10 +7,39 @@ export const Navigation = () => {
 
     return (
         <>
-            <Row align="middle" justify="center" style={{ height: 70, backgroundColor: "#006544" }}>
+            <div style={{ backgroundColor: "#006544", padding: "5px", textAlign: "center" }}>
+                <a href="/" className="title-web" style={{ color: "white", fontSize: 25, fontWeight: 800, cursor: "pointer" }}>
+                    <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 40, width: 40 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN GEN
+                    GIỐNG LỢN MÓNG CÁI
+                </a>
+                <div style={{ textAlign: "center" }}>
+                    <Search
+                        style={{ width: "50%" }}
+                        title="Tìm kiếm"
+                        placeholder="Nhập nội dung tìm kiếm..."
+                        allowClear
+                        onSearch={onSearch}
+                    />
+                </div>
+                <span className="vietnam-flag-button">
+                    <img title="Vietnamese" className="vietnam-flag" style={{ cursor: "pointer" }} src="/images/vi-vn.gif" />
+                </span>
+                <span> </span>
+                <span className="england-flag-button">
+                    <img title="English" className="england-flag" style={{ cursor: "pointer" }} src="/images/en-GB.gif" />
+                </span>
+                <span> </span>
+                <span className="england-flag-button">
+                    <Link to="/dang-nhap">
+                        <img title="Đăng nhập" className="england-flag" style={{ cursor: "pointer" }} src="/images/en-GB.gif" />
+                    </Link>
+                </span>
+            </div>
+
+            {/* <Row align="middle" justify="center" style={{ height: 60, backgroundColor: "#006544" }}>
                 <Col>
-                    <a href="/" style={{ color: "white", fontSize: 35, fontWeight: 900, cursor: "pointer" }}>
-                        <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 50, width: 50 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN
+                    <a href="/" style={{ color: "white", fontSize: 25, fontWeight: 800, cursor: "pointer" }}>
+                        <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 40, width: 40 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN
                         GEN GIỐNG LỢN MÓNG CÁI
                     </a>
                 </Col>
@@ -37,12 +66,16 @@ export const Navigation = () => {
                     </Col>
                     <Col>
                         <Link to="/dang-nhap" className="login-button">
-                            <ExportOutlined title="Đăng Nhập" className="login-icon" style={{ color: "white", fontSize: 30 }} />
+                            <ExportOutlined
+                                title="Đăng Nhập"
+                                className="login-icon"
+                                style={{ color: "white", fontSize: 22, paddingTop: 3 }}
+                            />
                         </Link>
                     </Col>
                 </Space>
             </Row>
-            <Menu className="navbar" mode="horizontal" style={{ paddingLeft: 380 }}>
+            <Menu className="navbar" mode="horizontal" style={{ paddingLeft: 360 }}>
                 <Menu.Item key="trang-chu">
                     <Link to="/" style={{ fontSize: 22, fontWeight: 600 }}>
                         Trang Chủ
@@ -73,7 +106,7 @@ export const Navigation = () => {
                         Liên Hệ
                     </Link>
                 </Menu.Item>
-            </Menu>
+            </Menu> */}
         </>
     );
 };

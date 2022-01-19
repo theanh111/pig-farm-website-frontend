@@ -41,7 +41,46 @@ export const FarmPage = (props) => {
                 <Loader />
             ) : (
                 <>
-                    <div id="wrapper">
+                    <div style={{ overflow: "auto" }}>
+                        <div className="menu">
+                            <Link className="link" to="/" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Trang Chủ
+                            </Link>
+                            <Link className="link" to="/ca-the" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Cá Thể
+                            </Link>
+                            <Link className="link" to="/co-so-chan-nuoi" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Cơ Sở Chăn Nuôi
+                            </Link>
+                            <Link className="link" to="/thong-tin-du-an" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Thông Tin Dự Án
+                            </Link>
+                            <Link className="link" to="/tin-tuc" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Tin Tức
+                            </Link>
+                            <Link className="link" to="/lien-he" style={{ fontSize: 22, fontWeight: 600 }}>
+                                Liên Hệ
+                            </Link>
+                        </div>
+
+                        <div className="main">
+                            <h2>Lorum Ipsum</h2>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
+                                dolore magna aliquam erat volutpat.
+                            </p>
+                        </div>
+
+                        <div className="right">
+                            <h2>About</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                        </div>
+                    </div>
+
+                    <div style={{ backgroundColor: "#e5e5e5", textAlign: "center", padding: "10px", marginTop: "7px" }}>
+                        © copyright w3schools.com
+                    </div>
+                    {/* <div id="wrapper">
                         <div id="content-fix">
                             <Content style={{ padding: "0px 400px 0px" }}>
                                 <Breadcrumb style={{ margin: "8px 0" }}>
@@ -87,7 +126,7 @@ export const FarmPage = (props) => {
                             </Row>
                         </div>
                         <Contact />
-                    </div>
+                    </div> */}
                 </>
             )}
         </>
