@@ -62,11 +62,10 @@ export const GalleryImage = (props) => {
                 ) : (
                     <>
                         <Col xs={8}>
-                            {/* <Divider orientation="center">Nhóm Nghiên Cứu</Divider> */}
                             <ImageGallery
                                 renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                                 renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
-                                slideDuration={800}
+                                slideDuration={6000}
                                 autoPlay={true}
                                 showPlayButton={false}
                                 showFullscreenButton={false}
@@ -77,11 +76,10 @@ export const GalleryImage = (props) => {
                             />
                         </Col>
                         <Col xs={8}>
-                            {/* <Divider orientation="center">Cá Thể</Divider> */}
                             <ImageGallery
                                 renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                                 renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
-                                slideDuration={800}
+                                slideDuration={6000}
                                 autoPlay={true}
                                 showPlayButton={false}
                                 showFullscreenButton={false}
@@ -92,11 +90,10 @@ export const GalleryImage = (props) => {
                             />
                         </Col>
                         <Col xs={8}>
-                            {/* <Divider orientation="center">Cơ Sở Chăn Nuôi</Divider> */}
                             <ImageGallery
                                 renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                                 renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
-                                slideDuration={800}
+                                slideDuration={6000}
                                 autoPlay={true}
                                 showPlayButton={false}
                                 showFullscreenButton={false}

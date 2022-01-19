@@ -9,10 +9,10 @@ export const Header = (props) => {
         <>
             <GalleryImage />
             <Row justify="center" gutter={[20, 20]} style={{ paddingTop: 40 }}>
-                <Col xs={7}>
+                <Col xs={9}>
                     <News></News>
                 </Col>
-                <Col xs={7}>
+                <Col xs={9}>
                     <Blog></Blog>
                 </Col>
             </Row>

@@ -86,7 +86,13 @@ const AdminContact = (props) => {
             width: "15%",
             align: "center",
             render: (record) => {
-                return <span style={{ fontWeight: 500, color: "#34568B" }}>{record.ten_lien_he}</span>;
+                return (
+                    <>
+                        <Link to={"/lien-he"} target="_blank">
+                            <span style={{ fontWeight: 500, color: "#34568B", cursor: "pointer" }}>{record.ten_lien_he}</span>
+                        </Link>
+                    </>
+                );
             },
         },
         {

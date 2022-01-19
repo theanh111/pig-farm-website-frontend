@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, Modal, message } from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, Modal, message, Input } from "antd";
 import AdminHeader from "../Header/AdminHeader";
 import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined, DeleteOutlined } from "@ant-design/icons";
 import AddNewPig from "./AddNewPig";
 import AddNewPigImport from "./AddNewPigImport";
+import AdminPigFilter from "./AdminPigFilter";
 import { Link } from "react-router-dom";
-import { deletePig, getAllPig, updatePigStatus } from "../../../api/pig";
+import { deletePig, getAllPig, getPigByFilter, updatePigStatus } from "../../../api/pig";
 import Loader from "../../Loader/Loader";
 import PigDetail from "./PigDetail";
 import { useNavigate } from "react-router-dom";
 import EditPig from "./EditPig";
 import { checkToken } from "../../../api/auth";
 
+const { Search } = Input;
 const { Content } = Layout;
 
 const AdminPigs = (props) => {
@@ -25,6 +27,7 @@ const AdminPigs = (props) => {
     const [viewAddNewPigImport, setViewAddNewPigImport] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
+    const [dataSearch, setDataSearch] = useState([]);
     const [viewEditPig, setViewEditPig] = useState(false);
     const [pigStatus, setPigStatus] = useState(false);
     const [dataEditPig, setDataEditPig] = useState({});
@@ -32,6 +35,10 @@ const AdminPigs = (props) => {
 
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
+    };
+
+    const fetchDataSearch = (pig) => {
+        getAllPigFilterAPI(pig);
     };
 
     const showAddNewPig = () => {
@@ -323,14 +330,34 @@ const AdminPigs = (props) => {
                 if (result) {
                     if (result.length > 0) {
                         setData(result);
-                        setViewLoader(false);
                     }
                 }
-                setViewLoader(false);
             })
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
+    };
+
+    const getAllPigFilterAPI = async (pig) => {
+        setViewLoader(true);
+        await getPigByFilter(pig)
+            .then((res) => {
+                console.log(res);
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setData(result);
+                    }
+                }
+                if (res.status === 400) {
+                    setData([]);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        setViewLoader(false);
     };
 
     const deletePigAPI = async (pig) => {
@@ -385,107 +412,107 @@ const AdminPigs = (props) => {
     };
 
     useEffect(() => {
-        checkTokenAPI();
-        getAllPigAPI();
+        fetchData();
     }, []);
 
     useEffect(() => {
         document.title = "Danh Sách Cá Thể - Admin";
+        checkTokenAPI();
     }, []);
 
     return (
         <>
-            <div>
-                {viewConfirm ? (
-                    <Modal
-                        centered
-                        okType="danger"
-                        style={{ zIndex: 9 }}
-                        title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
-                        visible={viewConfirm}
-                        onOk={() => handleOkDelete(dataDeletePig)}
-                        onCancel={() => handleCancelDelete()}
-                        cancelText="Hủy"
-                        okText="Xóa"
-                    >
-                        <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeletePig.ma_so_ca_the}</p>
-                    </Modal>
-                ) : null}
-                {viewLoader ? <Loader /> : null}
-                <Layout style={{ minHeight: "100vh" }}>
-                    <AdminNavbar />
-                    <Layout className="site-layout">
-                        <AdminHeader />
-                        <Content style={{ margin: "0 16px" }}>
-                            <Breadcrumb style={{ margin: "16px 0" }}>
-                                <Breadcrumb.Item>
-                                    <Link to="/admin"> MONGCAIPIG</Link>
-                                </Breadcrumb.Item>
-                                <Breadcrumb.Item>Danh Sách Cá Thể ({data ? data.length : 0})</Breadcrumb.Item>
-                            </Breadcrumb>
+            {viewConfirm ? (
+                <Modal
+                    centered
+                    okType="danger"
+                    style={{ zIndex: 9 }}
+                    title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
+                    visible={viewConfirm}
+                    onOk={() => handleOkDelete(dataDeletePig)}
+                    onCancel={() => handleCancelDelete()}
+                    cancelText="Hủy"
+                    okText="Xóa"
+                >
+                    <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeletePig.ma_so_ca_the}</p>
+                </Modal>
+            ) : null}
 
-                            <Row gutter={[8, 8]}>
-                                <Col span={2}>
-                                    <Button type="primary" onClick={showAddNewPigImport} icon={<PlusOutlined />}>
-                                        Import File Excel
-                                    </Button>
-                                </Col>
-                            </Row>
-
-                            {viewPigDetail ? (
-                                <>
-                                    <PigDetail
-                                        pigById={pigById}
-                                        viewPigDetail={viewPigDetail}
-                                        closeDrawer={() => {
-                                            setPigById([]);
-                                            setViewPigDetail(false);
-                                        }}
-                                    />
-                                </>
-                            ) : null}
-
-                            {viewAddNewPig ? (
-                                <AddNewPig
-                                    fetchData={() => getAllPigAPI()}
-                                    closeDrawer={() => setViewAddNewPig(false)}
-                                    viewAddNewPig={viewAddNewPig}
-                                />
-                            ) : null}
-
-                            {viewAddNewPigImport ? (
-                                <AddNewPigImport
-                                    fetchData={() => getAllPigAPI()}
-                                    closeDrawer={() => setViewAddNewPigImport(false)}
-                                    viewAddNewPigImport={viewAddNewPigImport}
-                                />
-                            ) : null}
-
-                            {viewEditPig ? (
-                                <EditPig
-                                    fetchData={() => getAllPigAPI()}
-                                    closeDrawer={() => setViewEditPig(false)}
-                                    viewEditPig={viewEditPig}
-                                    pig={dataEditPig}
-                                />
-                            ) : null}
-
-                            <Form form={form} component={false}>
-                                <Table
-                                    className="table-view-data"
-                                    size="small"
-                                    bordered
-                                    dataSource={data}
-                                    columns={columns}
-                                    pagination={{
-                                        pageSizeOptions: [5, 10, 20],
+            <Layout style={{ minHeight: "100vh" }}>
+                <AdminNavbar />
+                <Layout className="site-layout">
+                    <AdminHeader />
+                    <Content style={{ margin: "0 16px" }}>
+                        <Breadcrumb style={{ margin: "16px 0" }}>
+                            <Breadcrumb.Item>
+                                <Link to="/admin"> MONGCAIPIG</Link>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>Danh Sách Cá Thể ({data ? data.length : 0})</Breadcrumb.Item>
+                        </Breadcrumb>
+                        <Row gutter={[8, 8]}>
+                            <Col span={2}>
+                                <Button type="primary" onClick={showAddNewPigImport} icon={<PlusOutlined />}>
+                                    Import File Excel
+                                </Button>
+                            </Col>
+                        </Row>
+                        {viewPigDetail ? (
+                            <>
+                                <PigDetail
+                                    pigById={pigById}
+                                    viewPigDetail={viewPigDetail}
+                                    closeDrawer={() => {
+                                        setPigById([]);
+                                        setViewPigDetail(false);
                                     }}
                                 />
-                            </Form>
-                        </Content>
-                    </Layout>
+                            </>
+                        ) : null}
+                        {viewAddNewPig ? (
+                            <AddNewPig
+                                fetchData={() => getAllPigAPI()}
+                                closeDrawer={() => setViewAddNewPig(false)}
+                                viewAddNewPig={viewAddNewPig}
+                            />
+                        ) : null}
+                        {viewAddNewPigImport ? (
+                            <AddNewPigImport
+                                fetchData={() => getAllPigAPI()}
+                                closeDrawer={() => setViewAddNewPigImport(false)}
+                                viewAddNewPigImport={viewAddNewPigImport}
+                            />
+                        ) : null}
+                        {viewEditPig ? (
+                            <EditPig
+                                fetchData={() => getAllPigAPI()}
+                                closeDrawer={() => setViewEditPig(false)}
+                                viewEditPig={viewEditPig}
+                                pig={dataEditPig}
+                            />
+                        ) : null}
+
+                        <div>
+                            <>
+                                <AdminPigFilter fetchDataSearch={(pig) => fetchDataSearch(pig)} />
+                            </>
+                        </div>
+                        {viewLoader ? (
+                            <Loader />
+                        ) : (
+                            <Table
+                                className="table-view-data"
+                                size="small"
+                                bordered
+                                dataSource={data}
+                                columns={columns}
+                                pagination={{
+                                    pageSizeOptions: [5, 10, 20],
+                                }}
+                            />
+                        )}
+                    </Content>
                 </Layout>
-            </div>
+            </Layout>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { getAllPig } from "../../api/pig";
-import { Row, Col, Breadcrumb, Layout, Select, Image, Table } from "antd";
+import { getAllPig, getPigByFilter } from "../../api/pig";
+import { Row, Col, Breadcrumb, Layout, Select, Image, Table, Tooltip } from "antd";
 import { Navigation } from "../Navigation/navigation";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
@@ -29,6 +29,28 @@ export const PigPage = () => {
         setViewLoader(false);
     };
 
+    const fetchDataSearchAPI = (pig) => {
+        getAllPigByFilterAPI(pig);
+    };
+
+    const getAllPigByFilterAPI = async (pig) => {
+        setViewLoader(true);
+        await getPigByFilter(pig)
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    setPig(result);
+                }
+                if (res.status == 400) {
+                    setPig([]);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        setViewLoader(false);
+    };
+
     useEffect(() => {
         getAllPigAPI();
     }, []);
@@ -41,7 +63,9 @@ export const PigPage = () => {
             render: (record) => (
                 <>
                     <Link to={"/ca-the/" + record.id}>
-                        <div style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{record.ma_so_ca_the}</div>
+                        <Tooltip title="Bấm Để Xem Chi Tiết">
+                            <div style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{record.ma_so_ca_the}</div>
+                        </Tooltip>
                     </Link>
                 </>
             ),
@@ -167,47 +191,47 @@ export const PigPage = () => {
     return (
         <>
             <Navigation />
-            {viewLoader ? (
-                <Loader />
-            ) : (
-                <>
-                    <div id="wrapper">
-                        <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/ca-the">Cá Thể</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
+            <>
+                <div id="wrapper">
+                    <div id="content-fix">
+                        <Content style={{ padding: "0px 400px 0px" }}>
+                            <Breadcrumb style={{ margin: "8px 0" }}>
+                                <Breadcrumb.Item className="txt">
+                                    <Link to="/">Trang Chủ</Link>
+                                </Breadcrumb.Item>
+                                <Breadcrumb.Item className="txt">
+                                    <Link to="/ca-the">Cá Thể ({pig ? pig.length : 0})</Link>
+                                </Breadcrumb.Item>
+                            </Breadcrumb>
+                        </Content>
 
-                            <Row align="middle" justify="center">
-                                <Col xs={18}>
+                        <Row align="middle" justify="center">
+                            <Col xs={18}>
+                                <div>
+                                    <>
+                                        <PigFilter fetchDataSearchAPI={(pig) => fetchDataSearchAPI(pig)} />
+                                    </>
+                                </div>
+                                {viewLoader ? (
+                                    <Loader />
+                                ) : (
                                     <Table
                                         className="table-view-data"
                                         size="small"
                                         bordered
                                         dataSource={pig}
-                                        title={() => (
-                                            <>
-                                                <PigFilter />
-                                            </>
-                                        )}
                                         columns={columns}
                                         pagination={{
                                             pageSizeOptions: [5, 10, 20],
                                         }}
                                     />
-                                </Col>
-                            </Row>
-                        </div>
-                        <Contact />
+                                )}
+                            </Col>
+                        </Row>
                     </div>
-                </>
-            )}
+                    <Contact />
+                </div>
+            </>
         </>
     );
 };

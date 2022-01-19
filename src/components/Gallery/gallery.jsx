@@ -26,7 +26,7 @@ export const Gallery = () => {
     return (
         <Row align="middle" justify="center">
             <Col xs={15}>
-                <div style={{ textAlign: "center", paddingTop: 30, paddingBottom: 50 }}>
+                <div style={{ textAlign: "center", paddingBottom: 50 }}>
                     <Row align="middle" justify="center">
                         <Col>
                             <h1>Lợn Móng Cái</h1>

@@ -18,6 +18,10 @@
     max-height: unset;
 }
 
+.vietnam-flag-button:hover .vietnam-flag {
+    background-color: wheat;
+}
+
 .news-text:hover {
     color: brown;
     opacity: 0.8;
@@ -112,11 +116,6 @@
 .text-image {
     font-size: 16px;
     padding: 16px 32px;
-}
-
-.image-gallery-slide img {
-    object-fit: cover;
-    display: inline-block;
 }
 
 .txt {

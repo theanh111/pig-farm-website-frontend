@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Drawer, Form, Button, Input, Space, Modal, Row, Col, InputNumber, message } from "antd";
+import { Drawer, Form, Button, Input, Space, Modal, Row, Col, message } from "antd";
 
 import Loader from "../../Loader/Loader";
 import { updatePig } from "../../../api/pig";
@@ -40,7 +40,6 @@ const EditPig = (props) => {
     };
 
     const handleSavePig = () => {
-        console.log(dataSubmit);
         if (dataSubmit) {
             if (dataSubmit.id !== null && dataSubmit.ma_so_ca_the !== "" && dataSubmit.dau_thoi_gian !== "") {
                 updatePigAPI(dataSubmit);

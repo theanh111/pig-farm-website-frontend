@@ -28,7 +28,7 @@ const News = () => {
             title: (
                 <>
                     <Link className="news-text" to="/tin-tuc" style={{ cursor: "pointer" }}>
-                        <span style={{ color: "brown", fontWeight: 500, fontSize: 18 }}>Tin Tức</span>
+                        <span style={{ color: "brown", fontWeight: 700, fontSize: 38 }}>Tin Tức</span>
                     </Link>
                 </>
             ),
@@ -36,7 +36,7 @@ const News = () => {
             render: (record) => {
                 return (
                     <>
-                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} style={{ color: "black", fontSize: 12 }}>
+                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} style={{ color: "black", fontSize: 28, fontWeight: 500 }}>
                             <Typography.Text>
                                 <NotificationOutlined />
                             </Typography.Text>{" "}
@@ -57,14 +57,14 @@ const News = () => {
                 style={{
                     overflowX: "hidden",
                     overflowY: "auto",
-                    borderTop: "3px solid brown",
-                    borderLeft: "1px solid black",
-                    borderRight: "1px solid black",
-                    borderBottom: "1px solid black",
-                    height: 300,
+                    // borderTop: "3px solid brown",
+                    // borderLeft: "1px solid black",
+                    // borderRight: "1px solid black",
+                    // borderBottom: "1px solid black",
+                    height: 450,
                 }}
             >
-                <Table scroll={{ y: 250 }} size="small" bordered pagination={false} dataSource={data} columns={columns} />
+                <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
             </div>
 
             {/* <Divider orientation="center">Tin Tức</Divider> */}

@@ -35,7 +35,7 @@ const Blog = () => {
             title: (
                 <>
                     <Link className="blog-text" to="/thong-tin-du-an" style={{ cursor: "pointer" }}>
-                        <span style={{ color: "green", fontWeight: 500, fontSize: 18 }}>Hoạt Động</span>
+                        <span style={{ color: "green", fontWeight: 700, fontSize: 38 }}>Hoạt Động</span>
                     </Link>
                 </>
             ),
@@ -43,7 +43,7 @@ const Blog = () => {
             render: (record) => {
                 return (
                     <>
-                        <Link to={"/thong-tin-du-an/" + record.ma_blog} style={{ color: "black", fontSize: 12 }}>
+                        <Link to={"/thong-tin-du-an/" + record.ma_blog} style={{ color: "black", fontSize: 28, fontWeight: 500 }}>
                             <Typography.Text>
                                 <FileTextOutlined />
                             </Typography.Text>{" "}
@@ -65,14 +65,14 @@ const Blog = () => {
                 style={{
                     overflowX: "hidden",
                     overflowY: "auto",
-                    borderTop: "3px solid green",
-                    borderLeft: "1px solid black",
-                    borderRight: "1px solid black",
-                    borderBottom: "1px solid black",
-                    height: 300,
+                    // borderTop: "3px solid green",
+                    // borderLeft: "1px solid black",
+                    // borderRight: "1px solid black",
+                    // borderBottom: "1px solid black",
+                    height: 450,
                 }}
             >
-                <Table scroll={{ y: 250 }} size="small" bordered pagination={false} dataSource={data} columns={columns} />
+                <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
             </div>
 
             {/* <List

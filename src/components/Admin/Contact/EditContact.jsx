@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Drawer, Form, Button, Input, Space, Modal, message, Divider } from "antd";
-import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Drawer, Form, Button, Input, Space, Modal, message } from "antd";
 
 import Loader from "../../Loader/Loader";
-import { Editor, convertToRaw } from "react-draft-wysiwyg";
-import draftToHtml from "draftjs-to-html";
-import { saveBlog } from "../../../api/blog";
-
-const jwt = require("jsonwebtoken");
+import { updateContact } from "../../../api/contact";
 
 const EditContact = (props) => {
     const history = useNavigate();
-    const { viewEditContact, closeDrawer, fetchData } = props;
+    const { viewEditContact, closeDrawer, fetchData, id, ten_lien_he, email, sdt, dia_chi } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
-    const [editorState, setEditorState] = useState(null);
-    const [content, setContent] = useState(null);
-    const [blog, setBlog] = useState({ blogCode: "", blogName: "", blogContent: "", whoEntered: "" });
+    const [dataSubmit, setDataSubmit] = useState({});
+
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -45,25 +39,35 @@ const EditContact = (props) => {
     };
 
     const handleSaveBlog = () => {
-        if (blog) {
-            console.log(blog);
-            if (blog.blogCode !== "" && blog.blogName !== "" && blog.blogContent !== "") {
+        if (dataSubmit) {
+            if (
+                dataSubmit.contactId !== "" &&
+                dataSubmit.contactName !== "" &&
+                dataSubmit.contactAddress !== "" &&
+                dataSubmit.contactEmail !== "" &&
+                dataSubmit.contactPhone !== ""
+            ) {
                 setErrorMessage(null);
-                let obj = { ma_blog: blog.blogCode, ten_blog: blog.blogName, noi_dung: blog.blogContent, nguoi_nhap: blog.whoEntered };
-                saveBlogAPI(obj);
-                getUserCurrent();
+                let obj = {
+                    id: dataSubmit.contactId,
+                    ten_lien_he: dataSubmit.contactName,
+                    dia_chi: dataSubmit.contactAddress,
+                    email: dataSubmit.contactEmail,
+                    sdt: dataSubmit.contactPhone,
+                };
+                updateContactAPI(obj);
             } else {
                 setErrorMessage("Xin vui lòng nhập đầy đủ thông tin!");
             }
         }
     };
 
-    const saveBlogAPI = async (blog) => {
-        await saveBlog(blog)
+    const updateContactAPI = async (contact) => {
+        await updateContact(contact)
             .then((res) => {
                 if (res) {
                     if (res.status == 200) {
-                        message.success("Lưu blog thành công");
+                        message.success("Cập nhật thông tin liên hệ thành công");
                         setViewLoader(true);
                         sleep(500).then(() => {
                             setViewLoader(false);
@@ -91,40 +95,18 @@ const EditContact = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const onEditorStateChange = (content) => {
-        setErrorMessage(null);
-        setEditorState(content);
-    };
-
-    const onContentStateChange = (content) => {
-        setErrorMessage(null);
-        if (content.blocks) {
-            if (content.blocks.length > 0) {
-                let text = content.blocks[0].text;
-                if (text === "") {
-                    setBlog({ ...blog, blogContent: "" });
-                } else {
-                    let contentConvert = draftToHtml(content);
-                    setContent(contentConvert);
-                    setBlog({ ...blog, blogContent: contentConvert });
-                    // console.log("as HTML:", draftToHtml(content));
-                }
-            }
-        }
-    };
-
-    const getUserCurrent = () => {
-        let token = localStorage.getItem("token");
-        if (token) {
-            let objJwt = jwt.decode(token);
-            let user = objJwt.sub;
-            setBlog({ ...blog, whoEntered: user });
-        }
-    };
-
     useEffect(() => {
-        getUserCurrent();
-    }, []);
+        const fetchData2 = () => {
+            setDataSubmit({
+                contactId: id,
+                contactName: ten_lien_he,
+                contactAddress: dia_chi,
+                contactPhone: sdt,
+                contactEmail: email,
+            });
+        };
+        fetchData2();
+    }, [id, ten_lien_he, dia_chi, sdt, email]);
 
     return (
         <>
@@ -161,60 +143,73 @@ const EditContact = (props) => {
                 >
                     <Form layout="vertical" hideRequiredMark>
                         <Form.Item
-                            name="ma-blog"
+                            name="ten-lien-he"
                             label={
                                 <>
-                                    <span>Mã Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Tiêu đề liên hệ </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập mã blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập tiêu đề liên hệ!" }]}
                         >
                             <Input
                                 autoComplete="off"
-                                onChange={(e) => setBlog({ ...blog, blogCode: e.target.value })}
-                                placeholder="VD: ma-blog-se-hien-thi-nhu-nay"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, contactName: e.target.value })}
+                                placeholder="VD: Văn Phòng Chính"
+                                value={dataSubmit.contactName}
                             />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.contactName}</span>
                         </Form.Item>
                         <Form.Item
-                            name="ten-blog"
+                            name="dia-chi"
                             label={
                                 <>
-                                    <span>Tên Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Địa Chỉ </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập tên blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập địa chỉ!" }]}
                         >
                             <Input
                                 autoComplete="off"
-                                onChange={(e) => setBlog({ ...blog, blogName: e.target.value })}
-                                placeholder="VD: Tên Blog Sẽ Hiển Thị Như Này"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, contactAddress: e.target.value })}
+                                placeholder="VD: 123 Lý Thánh Tông, Trâu Quỳ, Gia Lâm, Hà Nội"
+                                value={dataSubmit.contactAddress}
                             />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.contactAddress}</span>
                         </Form.Item>
                         <Form.Item
-                            name="noi-dung"
+                            name="sdt"
                             label={
                                 <>
-                                    <span>Nội Dung Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Số Điện Thoại </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
+                            rules={[{ required: true, message: "Xin vui lòng nhập số điện thoại!" }]}
                         >
-                            <div style={errorMessgae == null ? { border: "1px solid black" } : { border: "1px solid red" }}>
-                                <Editor
-                                    editorState={editorState}
-                                    wrapperClassName="demo-wrapper"
-                                    editorClassName="demo-editor"
-                                    onEditorStateChange={onEditorStateChange}
-                                    onContentStateChange={onContentStateChange}
-                                />
-                            </div>
-                            {errorMessgae !== null ? (
-                                <>
-                                    <span style={{ color: "red" }}>{errorMessgae}</span>
-                                </>
-                            ) : null}
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, contactPhone: e.target.value })}
+                                placeholder="VD: 091.827.3645 / 091.827.3645"
+                                value={dataSubmit.contactPhone}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.contactPhone}</span>
                         </Form.Item>
-                        <Divider plain>Code</Divider>
-                        <textarea style={{ width: "100%" }} disabled value={content} />
+                        <Form.Item
+                            name="email"
+                            label={
+                                <>
+                                    <span>Email </span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập số email!" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, contactEmail: e.target.value })}
+                                placeholder="VD: auto@gmail.com / contact@gmail.com"
+                                value={dataSubmit.contactEmail}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.contactEmail}</span>
+                        </Form.Item>
                     </Form>
                 </Drawer>
             </>

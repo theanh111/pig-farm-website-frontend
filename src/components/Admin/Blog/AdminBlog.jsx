@@ -103,7 +103,7 @@ const AdminBlog = (props) => {
         {
             title: "Mã Thông Tin Dự Án",
             key: "ma_blog",
-            width: "20%",
+            width: "40%",
             editable: true,
             render: (record) => {
                 return (
@@ -118,27 +118,27 @@ const AdminBlog = (props) => {
         {
             title: "Tiêu Đề Thông Tin Dự Án",
             dataIndex: "ten_blog",
-            width: "30%",
+            width: "40%",
             editable: true,
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "20%",
+            width: "5%",
             editable: true,
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
-            width: "30%",
+            width: "10%",
             editable: true,
         },
         {
             title: "Sửa",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Sửa Thông Tin Dự Án">
@@ -152,7 +152,7 @@ const AdminBlog = (props) => {
         {
             title: "Xem trước",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Xem trước">
@@ -166,7 +166,7 @@ const AdminBlog = (props) => {
         {
             title: "Xóa",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Xóa">

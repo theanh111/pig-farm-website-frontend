@@ -8,8 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import BlogViewDetail from "./NewsViewDetail";
 import AddNewNews from "./AddNewNews";
 import { checkToken } from "../../../api/auth";
-import { getAllNews, saveNews } from "../../../api/news";
+import { getAllNews } from "../../../api/news";
 import { deleteNews } from "../../../api/news";
+import EditNews from "./EditNews";
 
 const { Content } = Layout;
 
@@ -18,12 +19,12 @@ const AdminNews = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [viewConfirm, setViewConfirm] = useState(false);
     const [viewAddNewFarm, setViewAddNewFarm] = useState(false);
-    const [viewEditFarm, setViewEditFarm] = useState(false);
+    const [viewEditNews, setViewEditNews] = useState(false);
     const [viewDetailBlog, setViewDetailBlog] = useState(false);
     const [form] = Form.useForm();
     const [data, setData] = useState([]);
     const [dataEdit, setDataEdit] = useState([]);
-    const [dataEditFarm, setDataEditFarm] = useState({});
+    const [dataEditNews, setDataEditNews] = useState({});
     const [dataDeleteNews, setDataDeleteNews] = useState({});
     const [blogData, setBlogData] = useState({});
 
@@ -59,15 +60,15 @@ const AdminNews = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const handleEditFarm = (farm) => {
+    const handleEditNews = (news) => {
         checkTokenAPI();
-        setDataEditFarm(farm);
-        setViewEditFarm(true);
+        setDataEditNews(news);
+        setViewEditNews(true);
     };
 
-    const handleViewDetail = (blog) => {
+    const handleViewDetail = (news) => {
         checkTokenAPI();
-        setBlogData(blog);
+        setBlogData(news);
         setViewDetailBlog(true);
     };
 
@@ -103,7 +104,7 @@ const AdminNews = (props) => {
         {
             title: "Mã Tin Tức",
             key: "ma_tin_tuc",
-            width: "20%",
+            width: "40%",
             editable: true,
             render: (record) => {
                 return (
@@ -118,31 +119,31 @@ const AdminNews = (props) => {
         {
             title: "Tiêu Đề Tin Tức",
             dataIndex: "ten_tin_tuc",
-            width: "30%",
+            width: "40%",
             editable: true,
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "20%",
+            width: "5%",
             editable: true,
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
-            width: "30%",
+            width: "10%",
             editable: true,
         },
         {
             title: "Sửa",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
-                    <Tooltip title="Sửa Blog">
-                        <Button onClick={() => handleEditFarm(record)}>
+                    <Tooltip title="Sửa Tin Tức">
+                        <Button onClick={() => handleEditNews(record)}>
                             <EditOutlined style={{ fontSize: 20 }} />
                         </Button>
                     </Tooltip>
@@ -152,7 +153,7 @@ const AdminNews = (props) => {
         {
             title: "Xem trước",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Xem trước">
@@ -166,7 +167,7 @@ const AdminNews = (props) => {
         {
             title: "Xóa",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Xóa">
@@ -307,6 +308,22 @@ const AdminNews = (props) => {
                                     fetchData={() => getAllNewsAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
+                                />
+                            ) : null}
+
+                            {viewEditNews ? (
+                                <EditNews
+                                    id={dataEditNews.id}
+                                    ma_tin_tuc={dataEditNews.ma_tin_tuc}
+                                    ten_tin_tuc={dataEditNews.ten_tin_tuc}
+                                    noi_dung={dataEditNews.noi_dung}
+                                    hinh_anh={dataEditNews.hinh_anh}
+                                    fetchData={() => getAllNewsAPI()}
+                                    closeDrawer={() => {
+                                        setViewEditNews(false);
+                                        setDataEdit([]);
+                                    }}
+                                    viewEditNews={viewEditNews}
                                 />
                             ) : null}
 

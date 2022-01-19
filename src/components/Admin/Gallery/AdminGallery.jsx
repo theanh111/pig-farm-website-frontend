@@ -106,25 +106,25 @@ const AdminGallery = (props) => {
         {
             title: "Thể Loại",
             key: "the_loai",
-            width: "20%",
+            width: "40%",
             render: (record) => <p>{record.the_loai}</p>,
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "10%",
+            width: "5%",
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
-            width: "30%",
+            width: "10%",
         },
         {
             title: "Sửa",
             align: "center",
-            width: "10%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Sửa Ảnh Trình Chiếu">
@@ -138,7 +138,7 @@ const AdminGallery = (props) => {
         {
             title: "Xóa",
             align: "center",
-            width: "20%",
+            width: "5%",
             render: (record) => {
                 return (
                     <Tooltip title="Xóa">

@@ -16,6 +16,7 @@ export const PigDetail = () => {
     const [pigDetail, setPigDetail] = useState({});
     const [data, setData] = useState([]);
     const [items, setItems] = useState([]);
+
     const getDataPigById = async (id) => {
         setViewLoader(true);
         setItems([]);
@@ -138,7 +139,7 @@ export const PigDetail = () => {
                                 </Breadcrumb>
                             </Content>
                             <Row justify="center" gutter={[20, 20]}>
-                                <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%", paddingTop: 12 }}>
+                                <Col xs={5} style={{ boxShadow: "0 0 2px black", borderRadius: "2%", paddingTop: 35 }}>
                                     <ImageGallery
                                         renderRightNav={(onClick, disabled) => <RightNav onClick={onClick} disabled={disabled} />}
                                         renderLeftNav={(onClick, disabled) => <LeftNav onClick={onClick} disabled={disabled} />}
@@ -154,54 +155,53 @@ export const PigDetail = () => {
                                     <Card
                                         title={
                                             <>
-                                                <span>Mã Số Cá Thể: </span>
+                                                <span style={{ fontSize: 23 }}>Mã Số Cá Thể: </span>
                                                 <span style={{ color: "blue", fontSize: 25 }}>{pigDetail.ma_so_ca_the}</span>
                                             </>
                                         }
-                                        bordered={true}
-                                        style={{ width: 720, height: 445, boxShadow: "0 0 2px black", borderRadius: "2%" }}
+                                        style={{ width: 720, height: 490, boxShadow: "0 0 2px black", borderRadius: "2%" }}
                                     >
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Tuổi: <span style={{ fontWeight: 500 }}>{pigDetail.tuoi}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Giới Tính: <span style={{ fontWeight: 500 }}>{pigDetail.gioi_tinh}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Trọng Lượng (kg): <span style={{ fontWeight: 500 }}>{pigDetail.trong_luong_co_the_kg}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Địa Điểm Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.dia_diem_danh_gia}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Người Đánh Giá: <span style={{ fontWeight: 500 }}>{pigDetail.nguoi_danh_gia}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Nhân Trung Trắng: <span style={{ fontWeight: 500 }}>{pigDetail.nhan_trung_trang}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Tai Mèo: <span style={{ fontWeight: 500 }}>{pigDetail.tai_meo}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Mõm: <span style={{ fontWeight: 500 }}>{pigDetail.mom}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Vành Trắng Quanh Mõm:
                                             <span style={{ fontWeight: 500 }}>{pigDetail.vanh_trang_quanh_mom}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Khoang Đen Phụ: <span style={{ fontWeight: 500 }}>{pigDetail.khoang_den_phu}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Kiểu Lưng Bụng: <span style={{ fontWeight: 500 }}>{pigDetail.kieu_lung_bung}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Chân: <span style={{ fontWeight: 500 }}>{pigDetail.chan}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Kiểu Đuôi: <span style={{ fontWeight: 500 }}>{pigDetail.kieu_duoi}</span>
                                         </p>
-                                        <p style={{ height: "8px" }}>
+                                        <p style={{ height: "8px", fontSize: 18 }}>
                                             - Dấu Thời Gian: <span style={{ fontWeight: 500 }}>{pigDetail.dau_thoi_gian}</span>
                                         </p>
                                     </Card>

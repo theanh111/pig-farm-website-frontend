@@ -2,25 +2,23 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Drawer, Form, Button, Input, Space, Modal, message, Divider } from "antd";
 import "../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-
+import { EditorState, ContentState } from "draft-js";
 import Loader from "../../Loader/Loader";
-import { saveFarm } from "../../../api/farm";
-import { Editor, convertToRaw } from "react-draft-wysiwyg";
+import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
-import { saveBlog } from "../../../api/blog";
-
-const jwt = require("jsonwebtoken");
+import htmlToDraft from "html-to-draftjs";
+import { updateNews } from "../../../api/news";
 
 const EditNews = (props) => {
     const history = useNavigate();
-    const { viewEditBlog, closeDrawer, fetchData } = props;
-    const [viewEndOfSession, setViewEndOfSession] = useState(false);
+    const { viewEditNews, closeDrawer, fetchData, id, ma_tin_tuc, ten_tin_tuc, noi_dung, hinh_anh } = props;
+    const [dataSubmit, setDataSubmit] = useState({});
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
-    const [uploadBtn, setUploadBtn] = useState(false);
-    const [disabled, setDisabled] = useState(false);
-    const [disabledSave, setDisabledSave] = useState(true);
     const [errorMessgae, setErrorMessage] = useState(null);
-    const [blog, setBlog] = useState({ blogCode: "", blogName: "", blogContent: "", whoEntered: "" });
+    const [editorState, setEditorState] = useState(null);
+    const [content, setContent] = useState(null);
+
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -32,8 +30,6 @@ const EditNews = (props) => {
     const handleCloseDrawer = () => {
         showModal();
     };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
         setIsModalVisible(true);
@@ -49,25 +45,34 @@ const EditNews = (props) => {
     };
 
     const handleSaveBlog = () => {
-        if (blog) {
-            console.log(blog);
-            if (blog.blogCode !== "" && blog.blogName !== "" && blog.blogContent !== "") {
-                setErrorMessage(null);
-                let obj = { ma_blog: blog.blogCode, ten_blog: blog.blogName, noi_dung: blog.blogContent, nguoi_nhap: blog.whoEntered };
-                saveBlogAPI(obj);
-                getUserCurrent();
+        if (dataSubmit) {
+            if (
+                dataSubmit.newsCode !== "" &&
+                dataSubmit.newsName !== "" &&
+                dataSubmit.newsContent !== "" &&
+                dataSubmit.newsImage !== "" &&
+                dataSubmit.newsId !== null
+            ) {
+                let obj = {
+                    id: dataSubmit.newsId,
+                    ma_tin_tuc: dataSubmit.newsCode,
+                    ten_tin_tuc: dataSubmit.newsName,
+                    noi_dung: dataSubmit.newsContent,
+                    hinh_anh: dataSubmit.newsImage,
+                };
+                updateNewsAPI(obj);
             } else {
                 setErrorMessage("Xin vui lòng nhập đầy đủ thông tin!");
             }
         }
     };
 
-    const saveBlogAPI = async (blog) => {
-        await saveBlog(blog)
+    const updateNewsAPI = async (news) => {
+        await updateNews(news)
             .then((res) => {
                 if (res) {
                     if (res.status == 200) {
-                        message.success("Lưu blog thành công");
+                        message.success("Cập nhật tin tức thành công");
                         setViewLoader(true);
                         sleep(500).then(() => {
                             setViewLoader(false);
@@ -95,9 +100,6 @@ const EditNews = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const [editorState, setEditorState] = useState(null);
-    const [content, setContent] = useState(null);
-
     const onEditorStateChange = (content) => {
         setErrorMessage(null);
         setEditorState(content);
@@ -109,28 +111,39 @@ const EditNews = (props) => {
             if (content.blocks.length > 0) {
                 let text = content.blocks[0].text;
                 if (text === "") {
-                    setBlog({ ...blog, blogContent: "" });
+                    setDataSubmit({ ...dataSubmit, newsContent: "" });
                 } else {
                     let contentConvert = draftToHtml(content);
                     setContent(contentConvert);
-                    setBlog({ ...blog, blogContent: contentConvert });
-                    // console.log("as HTML:", draftToHtml(content));
+                    setDataSubmit({ ...dataSubmit, newsContent: contentConvert });
                 }
             }
         }
     };
 
-    const getUserCurrent = () => {
-        let token = localStorage.getItem("token");
-        if (token) {
-            let objJwt = jwt.decode(token);
-            let user = objJwt.sub;
-            setBlog({ ...blog, whoEntered: user });
-        }
-    };
+    useEffect(() => {
+        const fetchData2 = () => {
+            setDataSubmit({
+                newsId: id,
+                newsCode: ma_tin_tuc,
+                newsName: ten_tin_tuc,
+                newsContent: noi_dung,
+                newsImage: hinh_anh,
+            });
+        };
+        fetchData2();
+    }, [id, ma_tin_tuc, ten_tin_tuc, hinh_anh, noi_dung]);
 
     useEffect(() => {
-        getUserCurrent();
+        const fetchData3 = () => {
+            setContent(noi_dung);
+            const blocksFromHtml = htmlToDraft(noi_dung);
+            const { contentBlocks, entityMap } = blocksFromHtml;
+            const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap);
+            const editorState = EditorState.createWithContent(contentState);
+            setEditorState(editorState);
+        };
+        fetchData3();
     }, []);
 
     return (
@@ -151,10 +164,10 @@ const EditNews = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Thêm Blog Mới"
+                    title="Cập Nhật Thông Tin Dự Án"
                     width="85%"
                     onClose={() => handleCloseDrawer()}
-                    visible={viewEditBlog}
+                    visible={viewEditNews}
                     bodyStyle={{ paddingBottom: 80 }}
                     extra={
                         <Space>
@@ -166,46 +179,55 @@ const EditNews = (props) => {
                         </Space>
                     }
                 >
+                    {errorMessgae !== null ? (
+                        <>
+                            <span style={{ color: "red", textAlign: "center", fontWeight: 500 }}>{errorMessgae}</span>
+                        </>
+                    ) : null}
                     <Form layout="vertical" hideRequiredMark>
                         <Form.Item
                             name="ma-blog"
                             label={
                                 <>
-                                    <span>Mã Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Mã Tin Tức: </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập mã blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập mã tin tức" }]}
                         >
                             <Input
                                 autoComplete="off"
-                                onChange={(e) => setBlog({ ...blog, blogCode: e.target.value })}
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, newsCode: e.target.value })}
                                 placeholder="VD: ma-blog-se-hien-thi-nhu-nay"
+                                value={dataSubmit.newsCode}
                             />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.newsCode}</span>
                         </Form.Item>
                         <Form.Item
                             name="ten-blog"
                             label={
                                 <>
-                                    <span>Tên Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Tiêu Đề Tin Tức: </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập tên blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập tiêu đề tin tức" }]}
                         >
                             <Input
                                 autoComplete="off"
-                                onChange={(e) => setBlog({ ...blog, blogName: e.target.value })}
-                                placeholder="VD: Tên Blog Sẽ Hiển Thị Như Này"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, newsName: e.target.value })}
+                                placeholder="VD: Tiêu Đề Tin Tức Sẽ Hiển Thị Như Này"
+                                value={dataSubmit.newsName}
                             />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.newsName}</span>
                         </Form.Item>
                         <Form.Item
                             name="noi-dung"
                             label={
                                 <>
-                                    <span>Nội Dung Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Nội Dung Tin Tức: </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
                         >
-                            <div style={errorMessgae == null ? { border: "1px solid black" } : { border: "1px solid red" }}>
+                            <div style={{ border: "1px solid black" }}>
                                 <Editor
                                     editorState={editorState}
                                     wrapperClassName="demo-wrapper"
@@ -214,11 +236,6 @@ const EditNews = (props) => {
                                     onContentStateChange={onContentStateChange}
                                 />
                             </div>
-                            {errorMessgae !== null ? (
-                                <>
-                                    <span style={{ color: "red" }}>{errorMessgae}</span>
-                                </>
-                            ) : null}
                         </Form.Item>
                         <Divider plain>Code</Divider>
                         <textarea style={{ width: "100%" }} disabled value={content} />
