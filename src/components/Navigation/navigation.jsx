@@ -7,7 +7,7 @@ export const Navigation = () => {
 
     return (
         <>
-            <div style={{ backgroundColor: "#006544", padding: "5px", textAlign: "center" }}>
+            {/* <div style={{ backgroundColor: "#006544", padding: "5px", textAlign: "center" }}>
                 <a href="/" className="title-web" style={{ color: "white", fontSize: 25, fontWeight: 800, cursor: "pointer" }}>
                     <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 40, width: 40 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN GEN
                     GIỐNG LỢN MÓNG CÁI
@@ -34,6 +34,41 @@ export const Navigation = () => {
                         <img title="Đăng nhập" className="england-flag" style={{ cursor: "pointer" }} src="/images/en-GB.gif" />
                     </Link>
                 </span>
+            </div> */}
+
+            <div class="w3-bar  w3-large" style={{ backgroundColor: "#006544" }}>
+                <a
+                    href="/"
+                    style={{ color: "white", fontSize: 23, fontWeight: 800, cursor: "pointer", backgroundColor: "#006544" }}
+                    class="w3-bar-item w3-button w3-mobile"
+                >
+                    <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 35, width: 35 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN GEN
+                    GIỐNG LỢN MÓNG CÁI
+                </a>
+            </div>
+            <div class="w3-bar w3-green w3-small" style={{ backgroundColor: "#006544" }}>
+                <Link to="/" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Trang Chủ
+                </Link>
+
+                <Link to="/ca-the" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Cá Thể
+                </Link>
+                <Link to="/co-so-chan-nuoi" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Cơ Sở Chăn Nuôi
+                </Link>
+                <Link to="/thong-tin-du-an" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Thông Tin Dự Án
+                </Link>
+                <Link to="/tin-tuc" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Tin Tức
+                </Link>
+                <Link to="/lien-he" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
+                    Liên Hệ
+                </Link>
+                <a href="#contact" class="w3-bar-item w3-button w3-right w3-green w3-mobile" style={{ fontSize: 16, fontWeight: 600 }}>
+                    Book Now
+                </a>
             </div>
 
             {/* <Row align="middle" justify="center" style={{ height: 60, backgroundColor: "#006544" }}>
