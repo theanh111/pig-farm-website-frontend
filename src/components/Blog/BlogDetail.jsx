@@ -1,12 +1,12 @@
 import React from "react";
-import { Navigation } from "../Navigation/navigation";
+import { Navigation } from "../Navigation/Navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Contact } from "../Contact/contact";
 import { Link } from "react-router-dom";
-import { Row, Col, Breadcrumb, Image, Descriptions, Layout, Empty } from "antd";
+import { Row, Col, Breadcrumb, Image, Descriptions, Layout, Empty, Card } from "antd";
 import { getBlogByBlogCode } from "../../api/blog";
 import Loader from "../Loader/Loader";
+import { Footer } from "../Footer/Footer";
 const { Content } = Layout;
 
 export const BlogDetail = () => {
@@ -48,6 +48,38 @@ export const BlogDetail = () => {
                 <>
                     <div id="wrapper">
                         <div id="content-fix">
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m12">
+                                        <Content style={{ padding: 10 }}>
+                                            <Breadcrumb>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/">Trang Chủ</Link>
+                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/thong-tin-du-an">Thông Tin Dự Án</Link>
+                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to={"/thong-tin-du-an/" + blogDetail.ma_blog}>{blogDetail.ten_blog}</Link>
+                                                </Breadcrumb.Item>
+                                            </Breadcrumb>
+                                        </Content>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding w3-padding-small">
+                                    <Card style={{ color: "#006544", fontWeight: 700, fontSize: 20 }}>{blogDetail.ten_blog}</Card>
+                                    <Card>
+                                        <div dangerouslySetInnerHTML={{ __html: blogDetail.noi_dung }} />
+                                    </Card>
+                                </div>
+                            </div>
+                        </div>
+                        <Footer />
+                    </div>
+                    {/* <div id="wrapper">
+                        <div id="content-fix">
                             <Content style={{ padding: "0px 400px 0px" }}>
                                 <Breadcrumb style={{ margin: "8px 0" }}>
                                     <Breadcrumb.Item className="txt">
@@ -86,8 +118,8 @@ export const BlogDetail = () => {
                                 </Col>
                             </Row>
                         </div>
-                        <Contact />
-                    </div>
+                        <Footer />
+                    </div> */}
                 </>
             )}
         </>

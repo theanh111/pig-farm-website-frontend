@@ -223,7 +223,7 @@ const EditFarm = (props) => {
                                     textAlign: "center",
                                     border: "solid 1px",
                                     height: "400px",
-                                    width: "700px",
+                                    width: "100%",
                                 }}
                             >
                                 <img
@@ -231,8 +231,8 @@ const EditFarm = (props) => {
                                         marginTop: "auto",
                                         marginLeft: "auto",
                                         marginRight: "auto",
-                                        maxWidth: "100%",
-                                        maxHeight: "100%",
+                                        height: "400px",
+                                        width: "100%",
                                         objectFit: "cover",
                                         display: "block",
                                     }}

@@ -30,6 +30,10 @@
     opacity: 0.9;
 }
 
+.pig-image:hover {
+    opacity: 0.8;
+}
+
 .login-button:hover .login-icon {
     opacity: 0.9;
 }
@@ -119,10 +123,27 @@
 #footer-fix {
     background-color: #006544;
     width: 100%;
-    height: 100px;
+    height: 150px;
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.text-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.small-content {
+    transform: scale(0.9, 0.9);
+    -ms-transform: scale(0.9, 0.9); /* IE 9 */
+    -webkit-transform: scale(0.9, 0.9); /* Safari and Chrome */
+    -o-transform: scale(0.9, 0.9); /* Opera */
+    -moz-transform: scale(0.9, 0.9); /* Firefox */
 }
 
 .text-image {
@@ -136,14 +157,6 @@
 
 .txt:hover {
     text-decoration: underline;
-}
-
-.header-fix {
-    background-color: white;
-    position: sticky;
-    top: 0;
-    z-index: 10000;
-    height: 60px;
 }
 
 .site-layout-content {

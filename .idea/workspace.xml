@@ -34,11 +34,6 @@
       <change beforePath="$PROJECT_DIR$/src/components/Farm/Farm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Farm/Farm.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Features/features.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FindOutNow/FindOutNow.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Gallery/gallery.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Gallery/gallery.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Gallery/gallery2.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/LeftNav.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/RightNav.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Header/header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Header/header.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Header/styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/LandingPage/LandingPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LandingPage/LandingPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Login/login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Login/login.jsx" afterDir="false" />

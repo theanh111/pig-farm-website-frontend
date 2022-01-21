@@ -1,8 +1,8 @@
 import React from "react";
-import { Navigation } from "../Navigation/navigation";
+import { Navigation } from "../Navigation/Navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Contact } from "../Contact/contact";
+import { Footer } from "../Footer/Footer";
 import { CalendarOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { List, Avatar, Space, Row, Col, Breadcrumb, Image, Layout } from "antd";
@@ -59,99 +59,76 @@ export const BlogPage = () => {
                 <>
                     <div id="wrapper">
                         <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/thong-tin-du-an">Thông Tin Dự Án</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m12">
+                                        <Content style={{ padding: 10 }}>
+                                            <Breadcrumb>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/">Trang Chủ</Link>
+                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/thong-tin-du-an">Thông Tin Dự Án ({listData.length})</Link>
+                                                </Breadcrumb.Item>
+                                            </Breadcrumb>
+                                        </Content>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding w3-padding-small">
+                                    {listData
+                                        ? listData.map((item, index) => (
+                                              <>
+                                                  <Link style={{ cursor: "pointer" }} to={"/thong-tin-du-an/" + item.ma_blog}>
+                                                      <div class="w3-row-padding w3-padding-small" id="about">
+                                                          <div class="w3-col l10">
+                                                              <h4 className="title-text" style={{ cursor: "pointer" }}>
+                                                                  {item.ten_blog}
+                                                              </h4>
 
-                            <Row align="middle" justify="center">
-                                <Col xs={15}>
-                                    <List
-                                        itemLayout="vertical"
-                                        size="small"
-                                        pagination={{
-                                            onChange: (page) => {
-                                                console.log(page);
-                                            },
-                                            pageSize: 10,
-                                        }}
-                                        dataSource={listData}
-                                        renderItem={(item) => (
-                                            <List.Item
-                                                key={item.title}
-                                                extra={
-                                                    <>
-                                                        {item.hinh_anh ? (
-                                                            <Image
-                                                                style={{
-                                                                    width: 120,
-                                                                    height: 90,
-                                                                    objectFit: "cover",
-                                                                    display: "inline-block",
-                                                                }}
-                                                                alt={item.title}
-                                                                src={item.hinh_anh}
-                                                            />
-                                                        ) : (
-                                                            <Image
-                                                                style={{
-                                                                    width: 120,
-                                                                    height: 90,
-                                                                    objectFit: "cover",
-                                                                    display: "inline-block",
-                                                                }}
-                                                                alt="Hinh Anh"
-                                                                src="/images/user/imageerror.png"
-                                                            />
-                                                        )}
-                                                    </>
-                                                }
-                                            >
-                                                <List.Item.Meta
-                                                    style={{ height: 20 }}
-                                                    title={
-                                                        <>
-                                                            <Link style={{ cursor: "pointer" }} to={"/thong-tin-du-an/" + item.ma_blog}>
-                                                                <span
-                                                                    className="blog-list"
-                                                                    style={{ fontWeight: 600, fontSize: 18, fontFamily: "Open Sans" }}
-                                                                >
-                                                                    {item.ten_blog}
-                                                                </span>
-                                                            </Link>
-
-                                                            <p style={{ color: "grey", fontSize: 12, fontFamily: "Open Sans" }}>
-                                                                <CalendarOutlined /> {item.ngay_nhap}
-                                                            </p>
-                                                            <div
-                                                                style={{
-                                                                    fontFamily: "Open Sans",
-                                                                    fontSize: 13,
-                                                                    wordWrap: "break-word",
-                                                                    width: "950px",
-                                                                    whiteSpace: "nowrap",
-                                                                    overflow: "hidden",
-                                                                    textOverflow: "ellipsis",
-                                                                }}
-                                                            >
-                                                                {extractContent(item.noi_dung)}
-                                                            </div>
-                                                        </>
-                                                    }
-                                                />
-                                            </List.Item>
-                                        )}
-                                    />
-                                </Col>
-                            </Row>
+                                                              <span
+                                                                  style={{
+                                                                      color: "grey",
+                                                                      fontSize: 12,
+                                                                      fontFamily: "Open Sans",
+                                                                  }}
+                                                              >
+                                                                  <CalendarOutlined /> {item.ngay_nhap}
+                                                              </span>
+                                                              <div
+                                                                  className="text-content"
+                                                                  style={{
+                                                                      color: "black",
+                                                                      fontFamily: "Open Sans",
+                                                                      fontSize: 13,
+                                                                  }}
+                                                              >
+                                                                  {extractContent(item.noi_dung)}
+                                                              </div>
+                                                          </div>
+                                                          <div class="w3-col l2">
+                                                              <img
+                                                                  src={item.hinh_anh}
+                                                                  class="w3-image"
+                                                                  style={{
+                                                                      width: "100%",
+                                                                      height: "150px",
+                                                                      objectFit: "cover",
+                                                                      display: "inline-block",
+                                                                  }}
+                                                              />
+                                                          </div>
+                                                      </div>
+                                                      <hr style={{ width: "100%" }}></hr>
+                                                  </Link>
+                                              </>
+                                          ))
+                                        : null}
+                                </div>
+                            </div>
                         </div>
-                        <Contact />
+                        <Footer />
                     </div>
                 </>
             )}

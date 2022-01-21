@@ -500,6 +500,7 @@ const AdminPigs = (props) => {
                             <Loader />
                         ) : (
                             <Table
+                                scroll={{ x: 800 }}
                                 className="table-view-data"
                                 size="small"
                                 bordered

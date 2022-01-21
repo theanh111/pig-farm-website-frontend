@@ -11,7 +11,7 @@ import { updateNews } from "../../../api/news";
 
 const EditNews = (props) => {
     const history = useNavigate();
-    const { viewEditNews, closeDrawer, fetchData, id, ma_tin_tuc, ten_tin_tuc, noi_dung, hinh_anh } = props;
+    const { viewEditNews, closeDrawer, fetchData, id, ma_tin_tuc, ten_tin_tuc, noi_dung, hinh_anh, hinh_anh_1, hinh_anh_2 } = props;
     const [dataSubmit, setDataSubmit] = useState({});
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
@@ -51,6 +51,8 @@ const EditNews = (props) => {
                 dataSubmit.newsName !== "" &&
                 dataSubmit.newsContent !== "" &&
                 dataSubmit.newsImage !== "" &&
+                dataSubmit.newsImage1 !== "" &&
+                dataSubmit.newsImage2 !== "" &&
                 dataSubmit.newsId !== null
             ) {
                 let obj = {
@@ -59,6 +61,8 @@ const EditNews = (props) => {
                     ten_tin_tuc: dataSubmit.newsName,
                     noi_dung: dataSubmit.newsContent,
                     hinh_anh: dataSubmit.newsImage,
+                    hinh_anh_1: dataSubmit.newsImage1,
+                    hinh_anh_2: dataSubmit.newsImage2,
                 };
                 updateNewsAPI(obj);
             } else {
@@ -129,10 +133,12 @@ const EditNews = (props) => {
                 newsName: ten_tin_tuc,
                 newsContent: noi_dung,
                 newsImage: hinh_anh,
+                newsImage1: hinh_anh_1,
+                newsImage2: hinh_anh_2,
             });
         };
         fetchData2();
-    }, [id, ma_tin_tuc, ten_tin_tuc, hinh_anh, noi_dung]);
+    }, [id, ma_tin_tuc, ten_tin_tuc, hinh_anh, hinh_anh_1, hinh_anh_2, noi_dung]);
 
     useEffect(() => {
         const fetchData3 = () => {
@@ -218,6 +224,58 @@ const EditNews = (props) => {
                                 value={dataSubmit.newsName}
                             />
                             <span style={{ visibility: "hidden" }}>{dataSubmit.newsName}</span>
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Bài Viết</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh bài viết" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, newsImage: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.newsImage}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.newsImage}</span>
+                        </Form.Item>
+
+                        <Form.Item
+                            name="hinh-anh-1"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 1</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 1" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, newsImage1: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.newsImage1}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.newsImage1}</span>
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh-2"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 2</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 2" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, newsImage2: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.newsImage2}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.newsImage2}</span>
                         </Form.Item>
                         <Form.Item
                             name="noi-dung"

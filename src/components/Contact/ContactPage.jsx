@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Navigation } from "../Navigation/navigation";
-import { Contact } from "../Contact/contact";
+import { Navigation } from "../Navigation/Navigation";
+import { Footer } from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { List, Row, Col, Breadcrumb, Layout } from "antd";
 import { HomeOutlined, WhatsAppOutlined, MailOutlined } from "@ant-design/icons";
@@ -46,61 +46,62 @@ export const ContactPage = (props) => {
                 <>
                     <div id="wrapper">
                         <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/lien-he">Liên Hệ</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
-                            <Row justify="center" align="left">
-                                <Col xs={10}>
-                                    <List
-                                        itemLayout="vertical"
-                                        size="small"
-                                        pagination={false}
-                                        dataSource={listData}
-                                        renderItem={(item) => (
-                                            <List.Item key={item.title}>
-                                                <List.Item.Meta
-                                                    title={
-                                                        <>
-                                                            <span
-                                                                className="blog-list"
-                                                                style={{
-                                                                    fontWeight: 600,
-                                                                    fontSize: 18,
-                                                                    fontFamily: "Open Sans",
-                                                                    cursor: "pointer",
-                                                                }}
-                                                            >
-                                                                {item.ten_lien_he}
-                                                            </span>
-                                                            <br></br>
-                                                            <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
-                                                                <HomeOutlined /> Địa chỉ: {item.dia_chi}
-                                                            </span>
-                                                            <br></br>
-                                                            <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
-                                                                <WhatsAppOutlined /> SĐT: {item.sdt}
-                                                            </span>
-                                                            <br></br>
-                                                            <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
-                                                                <MailOutlined /> Email: {item.email}
-                                                            </span>
-                                                        </>
-                                                    }
-                                                />
-                                            </List.Item>
-                                        )}
-                                    />
-                                </Col>
-                            </Row>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m12">
+                                        <Content style={{ padding: 10 }}>
+                                            <Breadcrumb>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/">Trang Chủ</Link>
+                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/lien-he">Liên Hệ</Link>
+                                                </Breadcrumb.Item>
+                                            </Breadcrumb>
+                                        </Content>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w3-content" style={{ maxWidth: "500px" }}>
+                                <div class="w3-row-padding w3-padding-small">
+                                    {listData
+                                        ? listData.map((item, index) => (
+                                              <>
+                                                  <div class="w3-row-padding w3-padding-small" id="about">
+                                                      <div class="w3-col l12">
+                                                          <span
+                                                              className="blog-list"
+                                                              style={{
+                                                                  fontWeight: 600,
+                                                                  fontSize: 18,
+                                                                  fontFamily: "Open Sans",
+                                                                  cursor: "pointer",
+                                                              }}
+                                                          >
+                                                              {item.ten_lien_he}
+                                                          </span>
+                                                          <br></br>
+                                                          <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
+                                                              <HomeOutlined /> Địa chỉ: {item.dia_chi}
+                                                          </span>
+                                                          <br></br>
+                                                          <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
+                                                              <WhatsAppOutlined /> SĐT: {item.sdt}
+                                                          </span>
+                                                          <br></br>
+                                                          <span style={{ color: "black", fontSize: 14, fontFamily: "Open Sans" }}>
+                                                              <MailOutlined /> Email: {item.email}
+                                                          </span>
+                                                      </div>
+                                                  </div>
+                                                  <hr style={{ width: "100%" }}></hr>
+                                              </>
+                                          ))
+                                        : null}
+                                </div>
+                            </div>
                         </div>
-                        <Contact />
+                        <Footer />
                     </div>
                 </>
             )}

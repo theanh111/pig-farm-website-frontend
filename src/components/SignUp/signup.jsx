@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigation } from "../Navigation/navigation";
+import { Navigation } from "../Navigation/Navigation";
 import { Link } from "react-router-dom";
 import { Form, Input, Button, Card } from "antd";
 

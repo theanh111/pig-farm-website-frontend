@@ -303,6 +303,7 @@ const AdminContact = (props) => {
 
                             <Form form={form} component={false}>
                                 <Table
+                                    scroll={{ x: 800 }}
                                     className="table-view-data"
                                     size="small"
                                     bordered

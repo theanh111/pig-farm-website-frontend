@@ -90,7 +90,7 @@ const App = (props) => {
                 }
             />
             <Route
-                path="/admin/quan-ly-blog"
+                path="/admin/quan-ly-thong-tin-du-an"
                 element={
                     <PrivateRoute>
                         <AdminBlog />

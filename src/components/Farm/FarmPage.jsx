@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FarmImage } from "./FarmImage";
-import { Navigation } from "../Navigation/navigation";
-import { Contact } from "../Contact/contact";
+import { Navigation } from "../Navigation/Navigation";
 import { getAllFarm } from "../../api/farm";
-import { Layout, Row, Col, Breadcrumb } from "antd";
+import { Layout, Row, Col, Breadcrumb, Image } from "antd";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
+import { Footer } from "../Footer/Footer";
+import { PigGallery } from "../Gallery/PigGallery";
 const { Content } = Layout;
 
 export const FarmPage = (props) => {
@@ -41,92 +42,65 @@ export const FarmPage = (props) => {
                 <Loader />
             ) : (
                 <>
-                    <div style={{ overflow: "auto" }}>
-                        <div className="menu">
-                            <Link className="link" to="/" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Trang Chủ
-                            </Link>
-                            <Link className="link" to="/ca-the" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Cá Thể
-                            </Link>
-                            <Link className="link" to="/co-so-chan-nuoi" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Cơ Sở Chăn Nuôi
-                            </Link>
-                            <Link className="link" to="/thong-tin-du-an" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Thông Tin Dự Án
-                            </Link>
-                            <Link className="link" to="/tin-tuc" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Tin Tức
-                            </Link>
-                            <Link className="link" to="/lien-he" style={{ fontSize: 22, fontWeight: 600 }}>
-                                Liên Hệ
-                            </Link>
-                        </div>
-
-                        <div className="main">
-                            <h2>Lorum Ipsum</h2>
-                            <p>
-                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet
-                                dolore magna aliquam erat volutpat.
-                            </p>
-                        </div>
-
-                        <div className="right">
-                            <h2>About</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
-                        </div>
-                    </div>
-
-                    <div style={{ backgroundColor: "#e5e5e5", textAlign: "center", padding: "10px", marginTop: "7px" }}>
-                        © copyright w3schools.com
-                    </div>
-                    {/* <div id="wrapper">
+                    <div id="wrapper">
                         <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
-                            <Row align="middle" justify="center">
-                                <Col xs={15}>
-                                    <div style={{ textAlign: "center", paddingBottom: 50 }}>
-                                        <Row justify="center">
-                                            <Col>
-                                                <h3 style={{ fontFamily: "Open Sans", fontSize: 30 }}>Danh Sách Trang Trại</h3>
-                                                <p style={{ fontFamily: "Open Sans" }}>Các trang trại lợn móng cái</p>
-                                            </Col>
-                                        </Row>
-                                        <Row style={{ paddingTop: 0 }} justify="center">
-                                            <Col>
-                                                <hr className="line"></hr>
-                                            </Col>
-                                        </Row>
-
-                                        <Row>
-                                            {farm
-                                                ? farm.map((d, i) => (
-                                                      <Col span={8}>
-                                                          <FarmImage
-                                                              title={d.ten_trang_trai}
-                                                              id={d.id}
-                                                              farmcode={d.ma_trang_trai}
-                                                              smallImage={d.hinh_anh}
-                                                          />
-                                                      </Col>
-                                                  ))
-                                                : "Loading..."}
-                                        </Row>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-row-padding">
+                                    <div class="w3-col m12">
+                                        <Content style={{ padding: 10 }}>
+                                            <Breadcrumb>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/">Trang Chủ</Link>
+                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">
+                                                    <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi ({farm.length})</Link>
+                                                </Breadcrumb.Item>
+                                            </Breadcrumb>
+                                        </Content>
                                     </div>
-                                </Col>
-                            </Row>
+                                </div>
+                            </div>
+                            <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                                <div class="w3-container " id="rooms">
+                                    <h1 style={{ textAlign: "center" }}>Danh Sách Cơ Sở Chăn Nuôi</h1>
+                                    <h4 style={{ textAlign: "center" }}>Lợn Móng Cái.</h4>
+                                </div>
+                                <div class="w3-row-padding w3-padding-16">
+                                    {farm
+                                        ? farm.map((item, index) => (
+                                              <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
+                                                  <Link to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
+                                                      <img
+                                                          className="pig-image"
+                                                          src={item.hinh_anh}
+                                                          alt={item.ten_trang_trai}
+                                                          style={{
+                                                              width: "100%",
+                                                              height: "350px",
+                                                              objectFit: "cover",
+                                                              display: "inline-block",
+                                                          }}
+                                                      />
+                                                      <div class="w3-container w3-green" style={{ height: 60 }}>
+                                                          <h4
+                                                              style={{
+                                                                  textAlign: "center",
+                                                                  color: "white",
+                                                                  paddingTop: 8,
+                                                              }}
+                                                          >
+                                                              {item.ten_trang_trai}
+                                                          </h4>
+                                                      </div>
+                                                  </Link>
+                                              </div>
+                                          ))
+                                        : null}
+                                </div>
+                            </div>
                         </div>
-                        <Contact />
-                    </div> */}
+                        <Footer />
+                    </div>
                 </>
             )}
         </>

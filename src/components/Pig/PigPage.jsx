@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { getAllPig, getPigByFilter } from "../../api/pig";
 import { Row, Col, Breadcrumb, Layout, Select, Image, Table, Tooltip } from "antd";
-import { Navigation } from "../Navigation/navigation";
+import { Navigation } from "../Navigation/Navigation";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
-import { Contact } from "../Contact/contact";
+import { Footer } from "../Footer/Footer";
 import { PigFilter } from "./PigFilter";
 
 const { Option } = Select;
@@ -86,6 +86,20 @@ export const PigPage = () => {
             ),
             fixed: "left",
             height: "100px",
+            align: "center",
+        },
+
+        {
+            title: (record) => <span style={{ fontSize: 12, alignContent: "center" }}>Hình Ảnh 1</span>,
+            key: "hinh_anh_1",
+            height: "100px",
+            width: "100px",
+            render: (record) => {
+                return (
+                    <Image style={{ width: "70px", height: "70px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_1} />
+                );
+            },
+            fixed: "left",
             align: "center",
         },
         {
@@ -190,17 +204,6 @@ export const PigPage = () => {
             height: "100px",
             width: "100px",
         },
-        {
-            title: (record) => <span style={{ fontSize: 12, alignContent: "center" }}>Hình Ảnh 1</span>,
-            key: "hinh_anh_1",
-            height: "100px",
-            width: "100px",
-            render: (record) => {
-                return (
-                    <Image style={{ width: "70px", height: "70px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_1} />
-                );
-            },
-        },
     ];
 
     return (
@@ -209,19 +212,25 @@ export const PigPage = () => {
             <>
                 <div id="wrapper">
                     <div id="content-fix">
-                        <Content style={{ padding: "0px 400px 0px" }}>
-                            <Breadcrumb style={{ margin: "8px 0" }}>
-                                <Breadcrumb.Item className="txt">
-                                    <Link to="/">Trang Chủ</Link>
-                                </Breadcrumb.Item>
-                                <Breadcrumb.Item className="txt">
-                                    <Link to="/ca-the">Cá Thể ({pigSearch ? pigSearch.length : 0})</Link>
-                                </Breadcrumb.Item>
-                            </Breadcrumb>
-                        </Content>
+                        <div class="w3-content" style={{ maxWidth: "1532px" }}>
+                            <div class="w3-row-padding w3-padding-22">
+                                <div class="w3-col m12">
+                                    <Content style={{ padding: 10 }}>
+                                        <Breadcrumb>
+                                            <Breadcrumb.Item className="txt">
+                                                <Link to="/">Trang Chủ</Link>
+                                            </Breadcrumb.Item>
+                                            <Breadcrumb.Item className="txt">
+                                                <Link to="/ca-the">Cá Thể ({pigSearch ? pigSearch.length : 0})</Link>
+                                            </Breadcrumb.Item>
+                                        </Breadcrumb>
+                                    </Content>
+                                </div>
+                            </div>
+                        </div>
 
                         <Row align="middle" justify="center">
-                            <Col xs={18}>
+                            <Col xs={20}>
                                 <div>
                                     <>
                                         <PigFilter
@@ -237,6 +246,7 @@ export const PigPage = () => {
                                     <Loader />
                                 ) : (
                                     <Table
+                                        scroll={{ x: 800 }}
                                         className="table-view-data"
                                         size="small"
                                         bordered
@@ -250,7 +260,7 @@ export const PigPage = () => {
                             </Col>
                         </Row>
                     </div>
-                    <Contact />
+                    <Footer />
                 </div>
             </>
         </>

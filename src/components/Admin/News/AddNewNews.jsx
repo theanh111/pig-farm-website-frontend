@@ -15,7 +15,15 @@ const AddNewNews = (props) => {
     const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
-    const [news, setNews] = useState({ newsCode: "", newsImage: "", newsName: "", newsContent: "", whoEntered: "" });
+    const [news, setNews] = useState({
+        newsCode: "",
+        newsImage: "",
+        newsImage1: "",
+        newsImage2: "",
+        newsName: "",
+        newsContent: "",
+        whoEntered: "",
+    });
     const [editorState, setEditorState] = useState(null);
     const [content, setContent] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -47,11 +55,20 @@ const AddNewNews = (props) => {
 
     const handleSaveBlog = () => {
         if (news) {
-            if (news.newsImage !== "" && news.newsCode !== "" && news.newsName !== "" && news.newsContent !== "") {
+            if (
+                news.newsImage !== "" &&
+                news.newsImage1 !== "" &&
+                news.newsImage2 !== "" &&
+                news.newsCode !== "" &&
+                news.newsName !== "" &&
+                news.newsContent !== ""
+            ) {
                 setErrorMessage(null);
                 let obj = {
                     ma_tin_tuc: news.newsCode,
                     hinh_anh: news.newsImage,
+                    hinh_anh_1: news.newsImage1,
+                    hinh_anh_2: news.newsImage2,
                     ten_tin_tuc: news.newsName,
                     noi_dung: news.newsContent,
                     nguoi_nhap: news.whoEntered,
@@ -204,14 +221,44 @@ const AddNewNews = (props) => {
                             name="hinh-anh"
                             label={
                                 <>
-                                    <span>Hình Ảnh </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Hình Ảnh Bài Viết</span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh bài viết" }]}
                         >
                             <Input
                                 autoComplete="off"
                                 onChange={(e) => setNews({ ...news, newsImage: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh-1"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 1</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 1" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setNews({ ...news, newsImage1: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh-2"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 2</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 2" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setNews({ ...news, newsImage2: e.target.value })}
                                 placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
                             />
                         </Form.Item>

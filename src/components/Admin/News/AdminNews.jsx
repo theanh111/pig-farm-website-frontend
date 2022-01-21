@@ -318,6 +318,8 @@ const AdminNews = (props) => {
                                     ten_tin_tuc={dataEditNews.ten_tin_tuc}
                                     noi_dung={dataEditNews.noi_dung}
                                     hinh_anh={dataEditNews.hinh_anh}
+                                    hinh_anh_1={dataEditNews.hinh_anh_1}
+                                    hinh_anh_2={dataEditNews.hinh_anh_2}
                                     fetchData={() => getAllNewsAPI()}
                                     closeDrawer={() => {
                                         setViewEditNews(false);
@@ -341,6 +343,7 @@ const AdminNews = (props) => {
 
                             <Form form={form} component={false}>
                                 <Table
+                                    scroll={{ x: 800 }}
                                     className="table-view-data"
                                     size="small"
                                     bordered

@@ -4,10 +4,13 @@ import { Typography, Table } from "antd";
 import { NotificationOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { getAllNews } from "../../api/news";
+import Loader from "../Loader/Loader";
 
 const News = () => {
+    const [viewLoader, setViewLoader] = useState(false);
     const [data, setData] = useState([]);
     const getAllNewsAPI = async () => {
+        setViewLoader(true);
         setData([]);
         await getAllNews()
             .then((res) => {
@@ -21,6 +24,7 @@ const News = () => {
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
     };
 
     const columns = [
@@ -28,7 +32,7 @@ const News = () => {
             title: (
                 <>
                     <Link className="news-text" to="/tin-tuc" style={{ cursor: "pointer" }}>
-                        <span style={{ color: "brown", fontWeight: 700, fontSize: 38 }}>Tin Tức</span>
+                        <span style={{ color: "brown", fontWeight: 700, fontSize: 28 }}>Tin Tức</span>
                     </Link>
                 </>
             ),
@@ -36,10 +40,10 @@ const News = () => {
             render: (record) => {
                 return (
                     <>
-                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} style={{ color: "black", fontSize: 28, fontWeight: 500 }}>
+                        <Link to={"/tin-tuc/" + record.ma_tin_tuc} style={{ color: "black", fontSize: 24, fontWeight: 500 }}>
                             <Typography.Text>
                                 <NotificationOutlined />
-                            </Typography.Text>{" "}
+                            </Typography.Text>
                             <span className="title-text">{record.ten_tin_tuc}</span>
                         </Link>
                     </>
@@ -53,36 +57,21 @@ const News = () => {
 
     return (
         <>
-            <div
-                style={{
-                    overflowX: "hidden",
-                    overflowY: "auto",
-                    // borderTop: "3px solid brown",
-                    // borderLeft: "1px solid black",
-                    // borderRight: "1px solid black",
-                    // borderBottom: "1px solid black",
-                    height: 450,
-                }}
-            >
-                <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
-            </div>
-
-            {/* <Divider orientation="center">Tin Tức</Divider> */}
-            {/* <List
-                header={<div style={{ fontWeight: 500, fontSize: 16 }}>Tin Tức</div>}
-                bordered
-                dataSource={data}
-                renderItem={(item) => (
-                    <List.Item style={{ cursor: "pointer" }}>
-                        <Link to={"/blog/" + item} style={{ color: "black" }}>
-                            <Typography.Text>
-                                <FileTextOutlined />
-                            </Typography.Text>{" "}
-                            {item}
-                        </Link>
-                    </List.Item>
-                )}
-            /> */}
+            {viewLoader ? (
+                <Loader />
+            ) : (
+                <div class="w3-half ">
+                    <div
+                        style={{
+                            overflowX: "hidden",
+                            overflowY: "auto",
+                            height: 380,
+                        }}
+                    >
+                        <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
+                    </div>
+                </div>
+            )}
         </>
     );
 };

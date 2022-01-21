@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { Navigation } from "../Navigation/navigation";
+import { Navigation } from "../Navigation/Navigation";
 import "../../App.css";
-import { Gallery } from "../Gallery/gallery";
-import { Header } from "../Header/header";
-import { Contact } from "../Contact/contact";
-import { GalleryImage } from "../Gallery/GalleryImage";
+import { PigGallery } from "../Gallery/PigGallery";
+import News from "../News/News";
+import Blog from "../Blog/Blog";
+import { ImageGallery } from "../Gallery/ImageGallery";
+import { Footer } from "../Footer/Footer";
 
 const LandingPage = () => {
     useEffect(() => {
@@ -15,233 +16,23 @@ const LandingPage = () => {
     return (
         <>
             <Navigation />
-            <GalleryImage />
-            {/* <header class="w3-display-container w3-content" style={{ maxWidth: "1500px" }}>
-                <div class="container">
-                    <h2>Carousel Example</h2>
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
-
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                            </div>
-
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                            </div>
-
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                            </div>
-                        </div>
-
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
+            <div id="wrapper">
+                <div id="content-fix">
+                    <ImageGallery />
+                    <div class="w3-row-padding w3-padding-22">
+                        <News />
+                        <Blog />
                     </div>
+                    <PigGallery />
                 </div>
-                <div class="container">
-                    <h2>Carousel Example</h2>
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
+                <Footer />
+            </div>
 
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                            </div>
+            {/*
+             <div class="w3-content" style={{ maxWidth: "1532px" }}>
+         
 
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                            </div>
-
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                            </div>
-                        </div>
-
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="container">
-                    <h2>Carousel Example</h2>
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                            <li data-target="#myCarousel" data-slide-to="1"></li>
-                            <li data-target="#myCarousel" data-slide-to="2"></li>
-                        </ol>
-
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                            </div>
-
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                            </div>
-
-                            <div class="item">
-                                <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                            </div>
-                        </div>
-
-                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </header> */}
-
-            <div class="w3-content" style={{ maxWidth: "1532px" }}>
-                <div class="w3-container w3-margin-top" id="rooms">
-                    <h3>Rooms</h3>
-                    <p>Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
-                </div>
-
-                <div class="w3-row-padding">
-                    <div class="w3-col m3">
-                        <label>
-                            <i class="fa fa-calendar-o"></i> Check In
-                        </label>
-                        <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" />
-                    </div>
-                    <div class="w3-col m3">
-                        <label>
-                            <i class="fa fa-calendar-o"></i> Check Out
-                        </label>
-                        <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" />
-                    </div>
-                    <div class="w3-col m2">
-                        <label>
-                            <i class="fa fa-male"></i> Adults
-                        </label>
-                        <input class="w3-input w3-border" type="number" placeholder="1" />
-                    </div>
-                    <div class="w3-col m2">
-                        <label>
-                            <i class="fa fa-child"></i> Kids
-                        </label>
-                        <input class="w3-input w3-border" type="number" placeholder="0" />
-                    </div>
-                    <div class="w3-col m2">
-                        <label>
-                            <i class="fa fa-search"></i> Search
-                        </label>
-                        <button class="w3-button w3-block w3-black">Search</button>
-                    </div>
-                </div>
-
-                <div class="w3-row-padding w3-padding-16">
-                    <div class="w3-third w3-margin-bottom">
-                        <img src="/images/cosochannuoi.jpg" alt="Norway" style={{ width: "100%" }} />
-                        <div class="w3-container w3-white">
-                            <h3>Single Room</h3>
-                            <h6 class="w3-opacity">From $99</h6>
-                            <p>Single bed</p>
-                            <p>
-                                15m<sup>2</sup>
-                            </p>
-                            <p class="w3-large">
-                                <i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i>
-                            </p>
-                            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-                        </div>
-                    </div>
-                    <div class="w3-third w3-margin-bottom">
-                        <img src="/images/cosochannuoi.jpg" alt="Norway" style={{ width: "100%" }} />
-                        <div class="w3-container w3-white">
-                            <h3>Single Room</h3>
-                            <h6 class="w3-opacity">From $99</h6>
-                            <p>Single bed</p>
-                            <p>
-                                15m<sup>2</sup>
-                            </p>
-                            <p class="w3-large">
-                                <i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i>
-                            </p>
-                            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-                        </div>
-                    </div>
-                    <div class="w3-third w3-margin-bottom">
-                        <img src="/images/cosochannuoi.jpg" alt="Norway" style={{ width: "100%" }} />
-                        <div class="w3-container w3-white">
-                            <h3>Double Room</h3>
-                            <h6 class="w3-opacity">From $149</h6>
-                            <p>Queen-size bed</p>
-                            <p>
-                                25m<sup>2</sup>
-                            </p>
-                            <p class="w3-large">
-                                <i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i>
-                            </p>
-                            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-                        </div>
-                    </div>
-                    <div class="w3-third w3-margin-bottom">
-                        <img src="/images/cosochannuoi.jpg" alt="Norway" style={{ width: "100%" }} />
-                        <div class="w3-container w3-white">
-                            <h3>Deluxe Room</h3>
-                            <h6 class="w3-opacity">From $199</h6>
-                            <p>King-size bed</p>
-                            <p>
-                                40m<sup>2</sup>
-                            </p>
-                            <p class="w3-large">
-                                <i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i>{" "}
-                                <i class="fa fa-glass"></i> <i class="fa fa-cutlery"></i>
-                            </p>
-                            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="w3-row-padding" id="about">
-                    <div class="w3-col l4 12">
-                        <h3>About</h3>
-                        <h6>
-                            Our hotel is one of a kind. It is truely amazing. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                            voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                            sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-                        </h6>
-                        <p>
-                            We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i>{" "}
-                            <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i>
-                            <i class="fa fa-cc-paypal w3-large"></i>
-                        </p>
-                    </div>
-                    <div class="w3-col l8 12">
-                        <img src="/images/cosochannuoi.jpg" class="w3-image w3-greyscale" style={{ width: "100%" }} />
-                    </div>
-                </div>
+               
 
                 <div class="w3-row-padding w3-large w3-center" style={{ margin: "32px 0" }}>
                     <div class="w3-third">
@@ -345,25 +136,7 @@ const LandingPage = () => {
                         </p>
                     </form>
                 </div>
-            </div>
-
-            <footer class="w3-padding-32 w3-black w3-center w3-margin-top">
-                <h5>Find Us On</h5>
-                <div class="w3-xlarge w3-padding-16">
-                    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-                    <i class="fa fa-instagram w3-hover-opacity"></i>
-                    <i class="fa fa-snapchat w3-hover-opacity"></i>
-                    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-                    <i class="fa fa-twitter w3-hover-opacity"></i>
-                    <i class="fa fa-linkedin w3-hover-opacity"></i>
-                </div>
-                <p>
-                    Powered by{" "}
-                    <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">
-                        w3.css
-                    </a>
-                </p>
-            </footer>
+            </div> */}
         </>
     );
 };

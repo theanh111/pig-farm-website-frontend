@@ -4,11 +4,14 @@ import { List, Typography, Divider, Table } from "antd";
 import { FileTextOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { getAllBlog } from "../../api/blog";
+import Loader from "../Loader/Loader";
 
 const Blog = () => {
+    const [viewLoader, setViewLoader] = useState(false);
     const [data, setData] = useState([]);
     const [blogName, setBlogName] = useState([]);
     const getAllBlogAPI = async () => {
+        setViewLoader(true);
         await getAllBlog()
             .then((res) => {
                 let result = res.data.data;
@@ -28,6 +31,7 @@ const Blog = () => {
             .catch((err) => {
                 console.log(err);
             });
+        setViewLoader(false);
     };
 
     const columns = [
@@ -35,7 +39,7 @@ const Blog = () => {
             title: (
                 <>
                     <Link className="blog-text" to="/thong-tin-du-an" style={{ cursor: "pointer" }}>
-                        <span style={{ color: "green", fontWeight: 700, fontSize: 38 }}>Hoạt Động</span>
+                        <span style={{ color: "green", fontWeight: 700, fontSize: 28 }}>Hoạt Động</span>
                     </Link>
                 </>
             ),
@@ -43,7 +47,7 @@ const Blog = () => {
             render: (record) => {
                 return (
                     <>
-                        <Link to={"/thong-tin-du-an/" + record.ma_blog} style={{ color: "black", fontSize: 28, fontWeight: 500 }}>
+                        <Link to={"/thong-tin-du-an/" + record.ma_blog} style={{ color: "black", fontSize: 24, fontWeight: 500 }}>
                             <Typography.Text>
                                 <FileTextOutlined />
                             </Typography.Text>{" "}
@@ -60,36 +64,21 @@ const Blog = () => {
 
     return (
         <>
-            {/* <Divider orientation="center">Hoạt Động</Divider> */}
-            <div
-                style={{
-                    overflowX: "hidden",
-                    overflowY: "auto",
-                    // borderTop: "3px solid green",
-                    // borderLeft: "1px solid black",
-                    // borderRight: "1px solid black",
-                    // borderBottom: "1px solid black",
-                    height: 450,
-                }}
-            >
-                <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
-            </div>
-
-            {/* <List
-                header={<div style={{ fontWeight: 500, fontSize: 16 }}>Hoạt Động</div>}
-                bordered
-                dataSource={data}
-                renderItem={(item) => (
-                    <List.Item style={{ cursor: "pointer" }}>
-                        <Link to={"/blog/" + item.ma_blog} style={{ color: "black" }}>
-                            <Typography.Text>
-                                <FileTextOutlined />
-                            </Typography.Text>{" "}
-                            {item.ten_blog}
-                        </Link>
-                    </List.Item>
-                )} */}
-            {/* /> */}
+            {viewLoader ? (
+                <Loader />
+            ) : (
+                <div class="w3-half  ">
+                    <div
+                        style={{
+                            overflowX: "hidden",
+                            overflowY: "auto",
+                            height: 380,
+                        }}
+                    >
+                        <Table scroll={{ y: 300 }} size="small" pagination={false} dataSource={data} columns={columns} />
+                    </div>
+                </div>
+            )}
         </>
     );
 };
