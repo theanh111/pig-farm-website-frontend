@@ -64,7 +64,6 @@ const AdminDashboard = (props) => {
 
     const backToLogin = () => {
         localStorage.removeItem("token");
-        alert("Hết phiên đăng nhập");
         history("/dang-nhap");
     };
 

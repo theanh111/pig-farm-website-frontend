@@ -4,6 +4,7 @@ import "../../App.css";
 import { Gallery } from "../Gallery/gallery";
 import { Header } from "../Header/header";
 import { Contact } from "../Contact/contact";
+import { GalleryImage } from "../Gallery/GalleryImage";
 
 const LandingPage = () => {
     useEffect(() => {
@@ -14,106 +15,7 @@ const LandingPage = () => {
     return (
         <>
             <Navigation />
-            <div class="w3-content" style={{ maxWidth: "1532px" }}>
-                <div class="w3-row-padding w3-padding-16">
-                    <div class="w3-third w3-margin-bottom">
-                        <div id="myCarousel1" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel1" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel1" data-slide-to="1"></li>
-                                <li data-target="#myCarousel1" data-slide-to="2"></li>
-                            </ol>
-
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                                </div>
-                            </div>
-
-                            <a class="left carousel-control" href="#myCarousel1" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel1" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="w3-third w3-margin-bottom">
-                        <div id="myCarousel2" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel2" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel2" data-slide-to="1"></li>
-                                <li data-target="#myCarousel2" data-slide-to="2"></li>
-                            </ol>
-
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                                </div>
-                            </div>
-
-                            <a class="left carousel-control" href="#myCarousel2" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel2" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="w3-third w3-margin-bottom">
-                        <div id="myCarousel3" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel3" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel3" data-slide-to="1"></li>
-                                <li data-target="#myCarousel3" data-slide-to="2"></li>
-                            </ol>
-
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="/images/cosochannuoi.jpg" alt="Los Angeles" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="Chicago" style={{ width: "100%" }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="/images/cosochannuoi.jpg" alt="New york" style={{ width: "100%" }} />
-                                </div>
-                            </div>
-
-                            <a class="left carousel-control" href="#myCarousel3" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel3" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <GalleryImage />
             {/* <header class="w3-display-container w3-content" style={{ maxWidth: "1500px" }}>
                 <div class="container">
                     <h2>Carousel Example</h2>

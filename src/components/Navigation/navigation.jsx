@@ -66,9 +66,10 @@ export const Navigation = () => {
                 <Link to="/lien-he" style={{ fontSize: 16, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile">
                     Liên Hệ
                 </Link>
-                <a href="#contact" class="w3-bar-item w3-button w3-right w3-green w3-mobile" style={{ fontSize: 16, fontWeight: 600 }}>
-                    Book Now
-                </a>
+
+                <Link to="/dang-nhap" className="login-button" class="w3-bar-item w3-button w3-right w3-green w3-mobile">
+                    <ExportOutlined title="Đăng Nhập" className="login-icon" style={{ color: "white", fontSize: 22, paddingTop: 3 }} />
+                </Link>
             </div>
 
             {/* <Row align="middle" justify="center" style={{ height: 60, backgroundColor: "#006544" }}>
