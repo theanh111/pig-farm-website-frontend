@@ -52,7 +52,7 @@ export const FarmPage = (props) => {
                                                     <Link to="/">Trang Chủ</Link>
                                                 </Breadcrumb.Item>
                                                 <Breadcrumb.Item className="txt">
-                                                    <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi ({farm.length})</Link>
+                                                    <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi ({farm ? farm.length : 0})</Link>
                                                 </Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>

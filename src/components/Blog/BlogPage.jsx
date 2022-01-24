@@ -68,7 +68,7 @@ export const BlogPage = () => {
                                                     <Link to="/">Trang Chủ</Link>
                                                 </Breadcrumb.Item>
                                                 <Breadcrumb.Item className="txt">
-                                                    <Link to="/thong-tin-du-an">Thông Tin Dự Án ({listData.length})</Link>
+                                                    <Link to="/thong-tin-du-an">Thông Tin Dự Án ({listData ? listData.length : 0})</Link>
                                                 </Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>

@@ -62,7 +62,7 @@ export const NewsPage = () => {
                                                     <Link to="/">Trang Chủ</Link>
                                                 </Breadcrumb.Item>
                                                 <Breadcrumb.Item className="txt">
-                                                    <Link to="/tin-tuc">Tin Tức ({listData.length})</Link>
+                                                    <Link to="/tin-tuc">Tin Tức ({listData ? listData.length : 0})</Link>
                                                 </Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>
