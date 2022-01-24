@@ -14,8 +14,9 @@ import { useNavigate } from "react-router-dom";
 import EditPig from "./EditPig";
 import { checkToken } from "../../../api/auth";
 
-const { Search } = Input;
 const { Content } = Layout;
+
+const jwt = require("jsonwebtoken");
 
 const AdminPigs = (props) => {
     const history = useNavigate();
@@ -32,6 +33,7 @@ const AdminPigs = (props) => {
     const [pigStatus, setPigStatus] = useState(false);
     const [dataEditPig, setDataEditPig] = useState({});
     const [dataDeletePig, setDataDeletePig] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const sleep = (time) => {
         return new Promise((resolve) => setTimeout(resolve, time));
@@ -126,21 +128,8 @@ const AdminPigs = (props) => {
             height: "100px",
         },
         {
-            title: (record) => <span style={{ fontSize: 12 }}>Dấu Thời Gian</span>,
-            dataIndex: "dau_thoi_gian",
-            width: "100px",
-            height: "100px",
-            fixed: "left",
-        },
-        {
             title: (record) => <span style={{ fontSize: 12 }}>Tuổi</span>,
             dataIndex: "tuoi",
-            height: "100px",
-            width: "100px",
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Người Đánh Giá</span>,
-            dataIndex: "nguoi_danh_gia",
             height: "100px",
             width: "100px",
         },
@@ -228,13 +217,11 @@ const AdminPigs = (props) => {
                 );
             },
         },
+
         {
-            title: (record) => <span style={{ fontSize: 12 }}>Phả Hệ</span>,
-            dataIndex: "pha_he",
-            height: "100px",
-            width: "100px",
-        },
-        {
+            height: "80px",
+            width: "80px",
+            align: "center",
             title: "Sửa",
             render: (record) => {
                 return (
@@ -247,6 +234,9 @@ const AdminPigs = (props) => {
             },
         },
         {
+            height: "80px",
+            width: "80px",
+            align: "center",
             title: "Trạng Thái",
             render: (record) => {
                 return (
@@ -261,8 +251,10 @@ const AdminPigs = (props) => {
             },
         },
         {
-            title: "Xóa",
+            height: "80px",
+            width: "80px",
             align: "center",
+            title: "Xóa",
             render: (record) => {
                 return (
                     <Tooltip title="Xóa">
@@ -411,7 +403,18 @@ const AdminPigs = (props) => {
         }
     };
 
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
+        }
+    };
+
     useEffect(() => {
+        getUserCurrent();
         fetchData();
     }, []);
 
@@ -484,6 +487,7 @@ const AdminPigs = (props) => {
                         ) : null}
                         {viewEditPig ? (
                             <EditPig
+                                userCurrent={userCurrent}
                                 fetchData={() => getAllPigAPI()}
                                 closeDrawer={() => setViewEditPig(false)}
                                 viewEditPig={viewEditPig}

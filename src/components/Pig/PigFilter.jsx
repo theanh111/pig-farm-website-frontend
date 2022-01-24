@@ -59,7 +59,7 @@ export const PigFilter = (props) => {
     };
 
     const handleSearchInput = (value) => {
-        let obj = { keyWord: value };
+        let obj = { tu_khoa: value };
         fetchDataSearch(obj);
     };
 

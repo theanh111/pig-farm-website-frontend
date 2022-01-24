@@ -11,7 +11,7 @@ import { updateNews } from "../../../api/news";
 
 const EditNews = (props) => {
     const history = useNavigate();
-    const { viewEditNews, closeDrawer, fetchData, id, ma_tin_tuc, ten_tin_tuc, noi_dung, hinh_anh, hinh_anh_1, hinh_anh_2 } = props;
+    const { viewEditNews, closeDrawer, fetchData, id, ma_tin_tuc, ten_tin_tuc, noi_dung, hinh_anh, userCurrent } = props;
     const [dataSubmit, setDataSubmit] = useState({});
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
@@ -51,9 +51,10 @@ const EditNews = (props) => {
                 dataSubmit.newsName !== "" &&
                 dataSubmit.newsContent !== "" &&
                 dataSubmit.newsImage !== "" &&
-                dataSubmit.newsImage1 !== "" &&
-                dataSubmit.newsImage2 !== "" &&
-                dataSubmit.newsId !== null
+                // dataSubmit.newsImage1 !== "" &&
+                // dataSubmit.newsImage2 !== "" &&
+                dataSubmit.newsId !== null &&
+                userCurrent !== ""
             ) {
                 let obj = {
                     id: dataSubmit.newsId,
@@ -61,8 +62,9 @@ const EditNews = (props) => {
                     ten_tin_tuc: dataSubmit.newsName,
                     noi_dung: dataSubmit.newsContent,
                     hinh_anh: dataSubmit.newsImage,
-                    hinh_anh_1: dataSubmit.newsImage1,
-                    hinh_anh_2: dataSubmit.newsImage2,
+                    // hinh_anh_1: dataSubmit.newsImage1,
+                    // hinh_anh_2: dataSubmit.newsImage2,
+                    nguoi_cap_nhat: userCurrent,
                 };
                 updateNewsAPI(obj);
             } else {
@@ -133,12 +135,12 @@ const EditNews = (props) => {
                 newsName: ten_tin_tuc,
                 newsContent: noi_dung,
                 newsImage: hinh_anh,
-                newsImage1: hinh_anh_1,
-                newsImage2: hinh_anh_2,
+                // newsImage1: hinh_anh_1,
+                // newsImage2: hinh_anh_2,
             });
         };
         fetchData2();
-    }, [id, ma_tin_tuc, ten_tin_tuc, hinh_anh, hinh_anh_1, hinh_anh_2, noi_dung]);
+    }, [id, ma_tin_tuc, ten_tin_tuc, hinh_anh, noi_dung]);
 
     useEffect(() => {
         const fetchData3 = () => {
@@ -243,7 +245,7 @@ const EditNews = (props) => {
                             <span style={{ visibility: "hidden" }}>{dataSubmit.newsImage}</span>
                         </Form.Item>
 
-                        <Form.Item
+                        {/* <Form.Item
                             name="hinh-anh-1"
                             label={
                                 <>
@@ -276,7 +278,7 @@ const EditNews = (props) => {
                                 value={dataSubmit.newsImage2}
                             />
                             <span style={{ visibility: "hidden" }}>{dataSubmit.newsImage2}</span>
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item
                             name="noi-dung"
                             label={

@@ -22,6 +22,7 @@ import AdminBlog from "./components/Admin/Blog/AdminBlog";
 import AdminNews from "./components/Admin/News/AdminNews";
 import AdminContact from "./components/Admin/Contact/AdminContact";
 import AdminGallery from "./components/Admin/Gallery/AdminGallery";
+import { SearchPage } from "./components/Search/SearchPage";
 
 const App = (props) => {
     const [authen, setAuthen] = useState(false);
@@ -54,6 +55,8 @@ const App = (props) => {
             <Route path="/thong-tin-du-an" element={<BlogPage />} />
             <Route path="/tin-tuc" element={<NewsPage />} />
             <Route path="/tin-tuc/:newscode" element={<NewsDetail />} />
+
+            <Route path="/tim-kiem/:search" element={<SearchPage />} />
 
             <Route
                 path="/admin"

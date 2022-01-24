@@ -6,7 +6,6 @@ import { Layout, Row, Col, Breadcrumb, Image } from "antd";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { Footer } from "../Footer/Footer";
-import { PigGallery } from "../Gallery/PigGallery";
 const { Content } = Layout;
 
 export const FarmPage = (props) => {

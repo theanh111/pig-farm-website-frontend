@@ -7,7 +7,7 @@ import { updateContact } from "../../../api/contact";
 
 const EditContact = (props) => {
     const history = useNavigate();
-    const { viewEditContact, closeDrawer, fetchData, id, ten_lien_he, email, sdt, dia_chi } = props;
+    const { viewEditContact, closeDrawer, fetchData, id, ten_lien_he, email, sdt, dia_chi, userCurrent } = props;
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
@@ -45,7 +45,8 @@ const EditContact = (props) => {
                 dataSubmit.contactName !== "" &&
                 dataSubmit.contactAddress !== "" &&
                 dataSubmit.contactEmail !== "" &&
-                dataSubmit.contactPhone !== ""
+                dataSubmit.contactPhone !== "" &&
+                userCurrent !== ""
             ) {
                 setErrorMessage(null);
                 let obj = {
@@ -54,6 +55,7 @@ const EditContact = (props) => {
                     dia_chi: dataSubmit.contactAddress,
                     email: dataSubmit.contactEmail,
                     sdt: dataSubmit.contactPhone,
+                    nguoi_cap_nhat: userCurrent,
                 };
                 updateContactAPI(obj);
             } else {
@@ -127,7 +129,7 @@ const EditContact = (props) => {
                 </Modal>
                 <Drawer
                     title="Cập Nhật Thông Tin Liên Hệ"
-                    width="30%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewEditContact}
                     bodyStyle={{ paddingBottom: 80 }}

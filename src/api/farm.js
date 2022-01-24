@@ -10,6 +10,7 @@ const GET_ALL_FARM = ENDPOINT + "/get-farm";
 const GET_FARM_BY_ID = ENDPOINT + "/get-farm-by-id/";
 const GET_FARM_BY_FARM_CODE = ENDPOINT + "/get-farm-by-farm-code/";
 const COUNT_FARM = ENDPOINT + "/count-farm";
+const GET_ALL_FARM_BY_FILTER = ENDPOINT + "/get-farm-by-filter";
 
 export const getFarmByFarmCode = async (farmcode) => {
     try {
@@ -41,6 +42,15 @@ export const countFarm = async () => {
 export const getAllFarm = async () => {
     try {
         let data = await axios.get(GET_ALL_FARM);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const getFarmByFilter = async (farm) => {
+    try {
+        let data = await axios.post(GET_ALL_FARM_BY_FILTER, farm);
         return data;
     } catch (error) {
         return error.response;

@@ -11,7 +11,7 @@ const { Option } = Select;
 
 const AddNewGallery = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewAddNewFarm, closeDrawer, fetchData, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
@@ -80,12 +80,12 @@ const AddNewGallery = (props) => {
 
     const handleSaveGallery = () => {
         if (gallery) {
-            if (gallery.imageName !== "" && gallery.imageType !== "" && gallery.imageUrl !== "") {
+            if (gallery.imageName !== "" && gallery.imageType !== "" && gallery.imageUrl !== "" && userCurrent !== "") {
                 let obj = {
                     ten_anh: gallery.imageName,
                     the_loai: gallery.imageType,
                     hinh_anh: gallery.imageUrl,
-                    nguoi_nhap: gallery.whoEntered,
+                    nguoi_nhap: userCurrent,
                 };
                 saveGalleryAPI(obj);
             }
@@ -170,7 +170,7 @@ const AddNewGallery = (props) => {
                 </Modal>
                 <Drawer
                     title="Thêm Ảnh Trình Chiếu"
-                    width="30%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewAddNewFarm}
                     bodyStyle={{ paddingBottom: 80 }}
@@ -226,7 +226,7 @@ const AddNewGallery = (props) => {
                                             textAlign: "center",
                                             border: "solid 1px",
                                             height: "300px",
-                                            width: "530px",
+                                            width: "100%",
                                         }}
                                     >
                                         <img
@@ -234,8 +234,8 @@ const AddNewGallery = (props) => {
                                                 marginTop: "auto",
                                                 marginLeft: "auto",
                                                 marginRight: "auto",
-                                                maxWidth: "100%",
-                                                maxHeight: "100%",
+                                                height: "300px",
+                                                width: "100%",
                                                 objectFit: "cover",
                                                 display: "block",
                                             }}
@@ -252,13 +252,13 @@ const AddNewGallery = (props) => {
                                             border: "solid 1px",
                                             align: "center",
                                             height: "300px",
-                                            width: "530px",
+                                            width: "100%",
                                         }}
                                     >
                                         <img
                                             style={{
-                                                maxWidth: "100%",
-                                                maxHeight: "100%",
+                                                height: "300px",
+                                                width: "100%",
                                                 objectFit: "cover",
                                                 display: "inline-block",
                                             }}

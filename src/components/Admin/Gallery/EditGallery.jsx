@@ -11,7 +11,7 @@ const { Option } = Select;
 const EditGallery = (props) => {
     const history = useNavigate();
     const [dataSubmit, setDataSubmit] = useState({});
-    const { viewEditGallery, closeDrawer, fetchData, id, ten_anh, the_loai, hinh_anh } = props;
+    const { viewEditGallery, closeDrawer, fetchData, id, ten_anh, the_loai, hinh_anh, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
@@ -80,12 +80,19 @@ const EditGallery = (props) => {
 
     const handleSaveGallery = () => {
         if (dataSubmit) {
-            if (dataSubmit.imageId !== null && dataSubmit.imageName !== "" && dataSubmit.imageType !== "" && dataSubmit.imageUrl !== "") {
+            if (
+                dataSubmit.imageId !== null &&
+                dataSubmit.imageName !== "" &&
+                dataSubmit.imageType !== "" &&
+                dataSubmit.imageUrl !== "" &&
+                userCurrent !== ""
+            ) {
                 let obj = {
                     id: dataSubmit.imageId,
                     ten_anh: dataSubmit.imageName,
                     the_loai: dataSubmit.imageType,
                     hinh_anh: dataSubmit.imageUrl,
+                    nguoi_cap_nhat: userCurrent,
                 };
                 updateGalleryAPI(obj);
             }
@@ -169,7 +176,7 @@ const EditGallery = (props) => {
                 </Modal>
                 <Drawer
                     title="Cập Nhật Ảnh Trình Chiếu"
-                    width="30%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewEditGallery}
                     bodyStyle={{ paddingBottom: 80 }}
@@ -230,7 +237,7 @@ const EditGallery = (props) => {
                                     textAlign: "center",
                                     border: "solid 1px",
                                     height: "300px",
-                                    width: "530px",
+                                    width: "100%",
                                 }}
                             >
                                 <img
@@ -238,8 +245,8 @@ const EditGallery = (props) => {
                                         marginTop: "auto",
                                         marginLeft: "auto",
                                         marginRight: "auto",
-                                        maxWidth: "100%",
-                                        maxHeight: "100%",
+                                        height: "300px",
+                                        width: "100%",
                                         objectFit: "cover",
                                         display: "block",
                                     }}

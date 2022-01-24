@@ -12,6 +12,7 @@ import { getAllNews } from "../../../api/news";
 import { deleteNews } from "../../../api/news";
 import EditNews from "./EditNews";
 
+const jwt = require("jsonwebtoken");
 const { Content } = Layout;
 
 const AdminNews = (props) => {
@@ -27,6 +28,7 @@ const AdminNews = (props) => {
     const [dataEditNews, setDataEditNews] = useState({});
     const [dataDeleteNews, setDataDeleteNews] = useState({});
     const [blogData, setBlogData] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const showAddNewFarm = () => {
         let token = checkTokenLocalStorage();
@@ -104,7 +106,7 @@ const AdminNews = (props) => {
         {
             title: "Mã Tin Tức",
             key: "ma_tin_tuc",
-            width: "40%",
+            width: "25%",
             editable: true,
             render: (record) => {
                 return (
@@ -119,14 +121,14 @@ const AdminNews = (props) => {
         {
             title: "Tiêu Đề Tin Tức",
             dataIndex: "ten_tin_tuc",
-            width: "40%",
+            width: "25%",
             editable: true,
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "5%",
+            width: "10%",
             editable: true,
         },
         {
@@ -135,6 +137,18 @@ const AdminNews = (props) => {
             dataIndex: "ngay_nhap",
             width: "10%",
             editable: true,
+        },
+        {
+            title: "Người Cập Nhật",
+            align: "center",
+            dataIndex: "nguoi_cap_nhat",
+            width: "10%",
+        },
+        {
+            title: "Ngày Cập Nhật",
+            align: "center",
+            dataIndex: "ngay_cap_nhat",
+            width: "10%",
         },
         {
             title: "Sửa",
@@ -249,7 +263,18 @@ const AdminNews = (props) => {
         }
     };
 
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
+        }
+    };
+
     useEffect(() => {
+        getUserCurrent();
         checkTokenAPI();
         getAllNewsAPI();
     }, []);
@@ -305,6 +330,7 @@ const AdminNews = (props) => {
 
                             {viewAddNewFarm ? (
                                 <AddNewNews
+                                    userCurrent={userCurrent}
                                     fetchData={() => getAllNewsAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -313,13 +339,14 @@ const AdminNews = (props) => {
 
                             {viewEditNews ? (
                                 <EditNews
+                                    userCurrent={userCurrent}
                                     id={dataEditNews.id}
                                     ma_tin_tuc={dataEditNews.ma_tin_tuc}
                                     ten_tin_tuc={dataEditNews.ten_tin_tuc}
                                     noi_dung={dataEditNews.noi_dung}
                                     hinh_anh={dataEditNews.hinh_anh}
-                                    hinh_anh_1={dataEditNews.hinh_anh_1}
-                                    hinh_anh_2={dataEditNews.hinh_anh_2}
+                                    // hinh_anh_1={dataEditNews.hinh_anh_1}
+                                    // hinh_anh_2={dataEditNews.hinh_anh_2}
                                     fetchData={() => getAllNewsAPI()}
                                     closeDrawer={() => {
                                         setViewEditNews(false);

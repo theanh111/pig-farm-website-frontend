@@ -138,6 +138,8 @@ const PigDetail = (props) => {
                             <Descriptions.Item label="Độ Dài Lông">{pig.do_dai_long}</Descriptions.Item>
                             <Descriptions.Item label="Độ Dày Lông">{pig.do_day_long}</Descriptions.Item>
                             <Descriptions.Item label="Phả Hệ">{pig.pha_he}</Descriptions.Item>
+                            <Descriptions.Item label="Người Cập Nhật">{pig.nguoi_cap_nhat}</Descriptions.Item>
+                            <Descriptions.Item label="Ngày Cập Nhật">{pig.ngay_cap_nhat}</Descriptions.Item>
                         </Descriptions>
                     ) : null}
                 </Drawer>

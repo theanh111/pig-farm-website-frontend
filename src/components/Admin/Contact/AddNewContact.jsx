@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 
 const AddNewContact = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewAddNewFarm, closeDrawer, fetchData, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
     const [contact, setContact] = useState({ contactName: "", contactAddress: "", contactPhone: "", contactEmail: "", whoEntered: "" });
@@ -42,14 +42,20 @@ const AddNewContact = (props) => {
 
     const handleSaveContact = () => {
         if (contact) {
-            if (contact.contactName !== "" && contact.contactAddress !== "" && contact.contactPhone !== "" && contact.contactEmail !== "") {
+            if (
+                contact.contactName !== "" &&
+                contact.contactAddress !== "" &&
+                contact.contactPhone !== "" &&
+                contact.contactEmail !== "" &&
+                userCurrent !== ""
+            ) {
                 setErrorMessage(null);
                 let obj = {
                     ten_lien_he: contact.contactName,
                     dia_chi: contact.contactAddress,
                     sdt: contact.contactPhone,
                     email: contact.contactEmail,
-                    nguoi_nhap: contact.whoEntered,
+                    nguoi_nhap: userCurrent,
                 };
                 saveContactAPI(obj);
                 getUserCurrent();
@@ -124,7 +130,7 @@ const AddNewContact = (props) => {
                 </Modal>
                 <Drawer
                     title="Thêm Thông Tin Liên Hệ Mới"
-                    width="30%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewAddNewFarm}
                     bodyStyle={{ paddingBottom: 80 }}

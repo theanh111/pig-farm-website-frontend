@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Footer } from "../Footer/Footer";
 import { Link } from "react-router-dom";
-import { Row, Col, Breadcrumb, Descriptions, Layout, Empty, Card } from "antd";
+import { Row, Col, Breadcrumb, Descriptions, Layout, Empty, Card, Image } from "antd";
 import Loader from "../Loader/Loader";
 import { getNewsByNewsCode } from "../../api/news";
 const { Content } = Layout;
@@ -71,42 +71,50 @@ export const NewsDetail = () => {
                                 <div class="w3-row-padding w3-padding-small">
                                     <Card style={{ color: "#006544", fontWeight: 700, fontSize: 20 }}>{newsDetail.ten_tin_tuc}</Card>
                                     <Card>
-                                        <div class="w3-row ">
-                                            <div class="w3-quarter w3-container"></div>
-                                            <div class="w3-half w3-container ">
-                                                <img
-                                                    src={newsDetail.hinh_anh_1}
-                                                    style={{
-                                                        cursor: "pointer",
-                                                        width: "100%",
-                                                        height: "400px",
-                                                        objectFit: "cover",
-                                                        display: "inline-block",
-                                                    }}
-                                                />
-                                            </div>
-                                            <div class="w3-quarter w3-container"></div>
-                                        </div>
-                                        <br></br>
-                                        <div class="w3-row ">
-                                            <div class="w3-quarter w3-container"></div>
-                                            <div class="w3-half w3-container ">
-                                                <img
-                                                    src={newsDetail.hinh_anh_2}
-                                                    style={{
-                                                        cursor: "pointer",
-                                                        width: "100%",
-                                                        height: "400px",
-                                                        objectFit: "cover",
-                                                        display: "inline-block",
-                                                    }}
-                                                />
-                                            </div>
-
-                                            <div class="w3-quarter w3-container"></div>
-                                        </div>
-                                        <br></br>
                                         <div dangerouslySetInnerHTML={{ __html: newsDetail.noi_dung }} />
+                                        {newsDetail.hinh_anh_1 ? (
+                                            <>
+                                                <div class="w3-row ">
+                                                    <div class="w3-quarter w3-container"></div>
+                                                    <div class="w3-half w3-container ">
+                                                        <img
+                                                            src={newsDetail.hinh_anh_1}
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "400px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div class="w3-quarter w3-container"></div>
+                                                </div>
+                                                <br></br>
+                                            </>
+                                        ) : null}
+                                        {newsDetail.hinh_anh_2 ? (
+                                            <>
+                                                <div class="w3-row ">
+                                                    <div class="w3-quarter w3-container"></div>
+                                                    <div class="w3-half w3-container ">
+                                                        <img
+                                                            src={newsDetail.hinh_anh_2}
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "400px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div class="w3-quarter w3-container"></div>
+                                                </div>
+                                                <br></br>
+                                            </>
+                                        ) : null}
                                     </Card>
                                 </div>
                             </div>

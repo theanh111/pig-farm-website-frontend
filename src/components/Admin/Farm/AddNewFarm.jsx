@@ -8,7 +8,7 @@ import { saveFarm } from "../../../api/farm";
 
 const AddNewFarm = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewAddNewFarm, closeDrawer, fetchData, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
@@ -16,7 +16,7 @@ const AddNewFarm = (props) => {
     const [errorMessgae, setErrorMessage] = useState("");
     const [url, setUrl] = useState("");
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [farm, setFarm] = useState({ farmCode: "", farmName: "", farmImage: "" });
+    const [farm, setFarm] = useState({ farmCode: "", farmName: "", farmImage: "", whoEntered: "" });
     const onCloseDrawer = () => {
         closeDrawer();
     };
@@ -77,8 +77,13 @@ const AddNewFarm = (props) => {
 
     const handleSaveFarm = () => {
         if (farm) {
-            if (farm.farmCode !== "" && farm.farmName !== "" && farm.farmImage !== "") {
-                let obj = { ma_trang_trai: farm.farmCode, ten_trang_trai: farm.farmName, hinh_anh: farm.farmImage };
+            if (farm.farmCode !== "" && farm.farmName !== "" && farm.farmImage !== "" && userCurrent !== "") {
+                let obj = {
+                    ma_trang_trai: farm.farmCode,
+                    ten_trang_trai: farm.farmName,
+                    hinh_anh: farm.farmImage,
+                    nguoi_nhap: userCurrent,
+                };
                 saveFarmAPI(obj);
             }
         }
@@ -149,7 +154,7 @@ const AddNewFarm = (props) => {
                 </Modal>
                 <Drawer
                     title="Thêm Cơ Sở Chăn Nuôi"
-                    width="40%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewAddNewFarm}
                     bodyStyle={{ paddingBottom: 80 }}
@@ -197,7 +202,7 @@ const AddNewFarm = (props) => {
                                             textAlign: "center",
                                             border: "solid 1px",
                                             height: "400px",
-                                            width: "700px",
+                                            width: "100%",
                                         }}
                                     >
                                         <img
@@ -205,8 +210,8 @@ const AddNewFarm = (props) => {
                                                 marginTop: "auto",
                                                 marginLeft: "auto",
                                                 marginRight: "auto",
-                                                maxWidth: "100%",
-                                                maxHeight: "100%",
+                                                width: "100%",
+                                                height: "400px",
                                                 objectFit: "cover",
                                                 display: "block",
                                             }}
@@ -223,13 +228,13 @@ const AddNewFarm = (props) => {
                                             border: "solid 1px",
                                             align: "center",
                                             height: "400px",
-                                            width: "700px",
+                                            width: "100%",
                                         }}
                                     >
                                         <img
                                             style={{
-                                                maxWidth: "100%",
-                                                maxHeight: "100%",
+                                                width: "100%",
+                                                height: "400px",
                                                 objectFit: "cover",
                                                 display: "inline-block",
                                             }}

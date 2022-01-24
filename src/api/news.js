@@ -8,6 +8,7 @@ const SAVE_NEWS = ENDPOINT + "/save-news";
 const UPDATE_NEWS = ENDPOINT + "/update-news";
 const DELETE_NEWS = ENDPOINT + "/delete-news";
 const GET_NEWS_BY_NEWS_CODE = ENDPOINT + "/get-news-by-news-code/";
+const GET_ALL_NEWS_BY_FILTER = ENDPOINT + "/get-news-by-filter";
 
 export const getNewsByNewsCode = async (newscode) => {
     try {
@@ -21,6 +22,15 @@ export const getNewsByNewsCode = async (newscode) => {
 export const getAllNews = async () => {
     try {
         let data = await axios.get(GET_ALL_NEWS);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const getNewsByFilter = async (news) => {
+    try {
+        let data = await axios.post(GET_ALL_NEWS_BY_FILTER, news);
         return data;
     } catch (error) {
         return error.response;

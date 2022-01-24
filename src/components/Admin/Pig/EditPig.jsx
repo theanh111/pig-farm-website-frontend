@@ -9,7 +9,7 @@ const EditPig = (props) => {
     const history = useNavigate();
     const [dataEdit, setDataEdit] = useState({});
     const [dataSubmit, setDataSubmit] = useState({});
-    const { viewEditPig, closeDrawer, fetchData, pig } = props;
+    const { viewEditPig, closeDrawer, fetchData, pig, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [saveButton, setSaveButton] = useState(true);
@@ -132,7 +132,7 @@ const EditPig = (props) => {
                 pha_he: pig.pha_he,
                 ngay_nhap: pig.ngay_nhap,
                 trang_thai: pig.trang_thai,
-                nguoi_nhap: pig.nguoi_nhap,
+                nguoi_cap_nhat: userCurrent,
             });
         };
         fetchData2();
@@ -185,6 +185,7 @@ const EditPig = (props) => {
             ngay_nhap: pig.ngay_nhap,
             trang_thai: pig.trang_thai,
             nguoi_nhap: pig.nguoi_nhap,
+            nguoi_cap_nhat: userCurrent,
         });
     }, []);
 

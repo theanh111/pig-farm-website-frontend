@@ -11,15 +11,15 @@ const jwt = require("jsonwebtoken");
 
 const AddNewNews = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewAddNewFarm, closeDrawer, fetchData, userCurrent } = props;
     const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
     const [news, setNews] = useState({
         newsCode: "",
         newsImage: "",
-        newsImage1: "",
-        newsImage2: "",
+        // newsImage1: "",
+        // newsImage2: "",
         newsName: "",
         newsContent: "",
         whoEntered: "",
@@ -57,21 +57,22 @@ const AddNewNews = (props) => {
         if (news) {
             if (
                 news.newsImage !== "" &&
-                news.newsImage1 !== "" &&
-                news.newsImage2 !== "" &&
+                // news.newsImage1 !== "" &&
+                // news.newsImage2 !== "" &&
                 news.newsCode !== "" &&
                 news.newsName !== "" &&
-                news.newsContent !== ""
+                news.newsContent !== "" &&
+                userCurrent !== ""
             ) {
                 setErrorMessage(null);
                 let obj = {
                     ma_tin_tuc: news.newsCode,
                     hinh_anh: news.newsImage,
-                    hinh_anh_1: news.newsImage1,
-                    hinh_anh_2: news.newsImage2,
+                    // hinh_anh_1: news.newsImage1,
+                    // hinh_anh_2: news.newsImage2,
                     ten_tin_tuc: news.newsName,
                     noi_dung: news.newsContent,
-                    nguoi_nhap: news.whoEntered,
+                    nguoi_nhap: userCurrent,
                 };
                 saveNewsAPI(obj);
                 getUserCurrent();
@@ -191,10 +192,10 @@ const AddNewNews = (props) => {
                             name="ma-blog"
                             label={
                                 <>
-                                    <span>Mã Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Mã Tin Tức </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập mã blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập mã tin tức" }]}
                         >
                             <Input
                                 autoComplete="off"
@@ -232,7 +233,7 @@ const AddNewNews = (props) => {
                                 placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
                             />
                         </Form.Item>
-                        <Form.Item
+                        {/* <Form.Item
                             name="hinh-anh-1"
                             label={
                                 <>
@@ -261,7 +262,7 @@ const AddNewNews = (props) => {
                                 onChange={(e) => setNews({ ...news, newsImage2: e.target.value })}
                                 placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
                             />
-                        </Form.Item>
+                        </Form.Item> */}
                         <Form.Item
                             name="noi-dung"
                             label={

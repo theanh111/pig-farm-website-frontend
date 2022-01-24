@@ -11,11 +11,19 @@ const jwt = require("jsonwebtoken");
 
 const AddNewBlog = (props) => {
     const history = useNavigate();
-    const { viewAddNewFarm, closeDrawer, fetchData } = props;
+    const { viewAddNewFarm, closeDrawer, fetchData, userCurrent } = props;
     const [viewEndOfSession, setViewEndOfSession] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
     const [errorMessgae, setErrorMessage] = useState(null);
-    const [blog, setBlog] = useState({ blogCode: "", blogImage: "", blogName: "", blogContent: "", whoEntered: "" });
+    const [blog, setBlog] = useState({
+        blogCode: "",
+        blogImage: "",
+        // blogImage1: "",
+        // blogImage2: "",
+        blogName: "",
+        blogContent: "",
+        whoEntered: "",
+    });
     const [editorState, setEditorState] = useState(null);
     const [content, setContent] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -47,14 +55,24 @@ const AddNewBlog = (props) => {
 
     const handleSaveBlog = () => {
         if (blog) {
-            if (blog.blogImage !== "" && blog.blogCode !== "" && blog.blogName !== "" && blog.blogContent !== "") {
+            if (
+                blog.blogImage !== "" &&
+                // blog.blogImage1 !== "" &&
+                // blog.blogImage2 !== "" &&
+                blog.blogCode !== "" &&
+                blog.blogName !== "" &&
+                blog.blogContent !== "" &&
+                userCurrent !== ""
+            ) {
                 setErrorMessage(null);
                 let obj = {
                     ma_blog: blog.blogCode,
                     hinh_anh: blog.blogImage,
+                    // hinh_anh_1: blog.blogImage1,
+                    // hinh_anh_2: blog.blogImage2,
                     ten_blog: blog.blogName,
                     noi_dung: blog.blogContent,
-                    nguoi_nhap: blog.whoEntered,
+                    nguoi_nhap: userCurrent,
                 };
                 saveBlogAPI(obj);
                 getUserCurrent();
@@ -150,7 +168,7 @@ const AddNewBlog = (props) => {
                     <p style={{ fontSize: 18 }}>Bạn có chắc muốn thoát?</p>
                 </Modal>
                 <Drawer
-                    title="Thêm Blog Mới"
+                    title="Thêm Thông Tin Dự Án Mới"
                     width="85%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewAddNewFarm}
@@ -170,10 +188,10 @@ const AddNewBlog = (props) => {
                             name="ma-blog"
                             label={
                                 <>
-                                    <span>Mã Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Mã Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập mã blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập mã thông tin dự án" }]}
                         >
                             <Input
                                 autoComplete="off"
@@ -188,19 +206,19 @@ const AddNewBlog = (props) => {
                                     <span>Tên Blog </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập tên blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập tên thông tin dự án" }]}
                         >
                             <Input
                                 autoComplete="off"
                                 onChange={(e) => setBlog({ ...blog, blogName: e.target.value })}
-                                placeholder="VD: Tên Blog Sẽ Hiển Thị Như Này"
+                                placeholder="VD: Tên Thông Tin Dự Án Sẽ Hiển Thị Như Này"
                             />
                         </Form.Item>
                         <Form.Item
                             name="hinh-anh"
                             label={
                                 <>
-                                    <span>Hình Ảnh </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Hình Ảnh Bài Viết</span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
                             rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh" }]}
@@ -211,11 +229,41 @@ const AddNewBlog = (props) => {
                                 placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
                             />
                         </Form.Item>
+                        {/* <Form.Item
+                            name="hinh-anh-1"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 1</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 1" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setBlog({ ...blog, blogImage1: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                            />
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh-2"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 2</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 2" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setBlog({ ...blog, blogImage2: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                            />
+                        </Form.Item> */}
                         <Form.Item
                             name="noi-dung"
                             label={
                                 <>
-                                    <span>Nội Dung Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Nội Dung Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
                         >

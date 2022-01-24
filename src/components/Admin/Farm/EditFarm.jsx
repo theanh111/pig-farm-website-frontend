@@ -9,7 +9,7 @@ import { updateFarm } from "../../../api/farm";
 const EditFarm = (props) => {
     const history = useNavigate();
     const [dataSubmit, setDataSubmit] = useState({});
-    const { viewEditFarm, closeDrawer, fetchData, id, ma_trang_trai, ten_trang_trai, hinh_anh } = props;
+    const { viewEditFarm, closeDrawer, fetchData, id, ma_trang_trai, ten_trang_trai, hinh_anh, userCurrent } = props;
     const [viewLoader, setViewLoader] = useState(false);
     const [uploadBtn, setUploadBtn] = useState(false);
     const [disabledSave, setDisabledSave] = useState(true);
@@ -84,6 +84,7 @@ const EditFarm = (props) => {
                     ma_trang_trai: dataSubmit.farmCode,
                     ten_trang_trai: dataSubmit.farmName,
                     hinh_anh: dataSubmit.farmImage,
+                    nguoi_cap_nhat: userCurrent,
                 };
                 updateFarmAPI(obj);
             }
@@ -167,7 +168,7 @@ const EditFarm = (props) => {
                 </Modal>
                 <Drawer
                     title="Cập Nhật Cơ Sở Chăn Nuôi"
-                    width="40%"
+                    width="60%"
                     onClose={() => handleCloseDrawer()}
                     visible={viewEditFarm}
                     bodyStyle={{ paddingBottom: 80 }}

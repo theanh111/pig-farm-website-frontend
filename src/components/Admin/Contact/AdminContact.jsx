@@ -10,6 +10,7 @@ import EditContact from "./EditContact";
 import { checkToken } from "../../../api/auth";
 import { deleteContact, getAllContact } from "../../../api/contact";
 
+const jwt = require("jsonwebtoken");
 const { Content } = Layout;
 
 const AdminContact = (props) => {
@@ -23,6 +24,7 @@ const AdminContact = (props) => {
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditContact, setDataEditContact] = useState({});
     const [dataDeleteContact, setDataDeleteContact] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const showAddNewFarm = () => {
         checkTokenAPI();
@@ -83,7 +85,7 @@ const AdminContact = (props) => {
         {
             title: "Tiêu Đề Liên Hệ",
             key: "ten_lien_he",
-            width: "15%",
+            width: "10%",
             align: "center",
             render: (record) => {
                 return (
@@ -104,25 +106,36 @@ const AdminContact = (props) => {
         {
             title: "Số Điện Thoại",
             dataIndex: "sdt",
-            width: "15%",
+            width: "10%",
         },
         {
             title: "Email",
             dataIndex: "email",
-            width: "15%",
+            width: "10%",
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "5%",
+            width: "10%",
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
             width: "10%",
-            editable: true,
+        },
+        {
+            title: "Người Cập Nhật",
+            align: "center",
+            dataIndex: "nguoi_cap_nhat",
+            width: "10%",
+        },
+        {
+            title: "Ngày Cập Nhật",
+            align: "center",
+            dataIndex: "ngay_cap_nhat",
+            width: "10%",
         },
         {
             title: "Sửa",
@@ -223,7 +236,18 @@ const AdminContact = (props) => {
         }
     };
 
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
+        }
+    };
+
     useEffect(() => {
+        getUserCurrent();
         checkTokenAPI();
         getAllContactAPI();
     }, []);
@@ -279,6 +303,7 @@ const AdminContact = (props) => {
 
                             {viewAddNewFarm ? (
                                 <AddNewContact
+                                    userCurrent={userCurrent}
                                     fetchData={() => getAllContactAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -287,6 +312,7 @@ const AdminContact = (props) => {
 
                             {viewEditContact ? (
                                 <EditContact
+                                    userCurrent={userCurrent}
                                     id={dataEditContact.id}
                                     ten_lien_he={dataEditContact.ten_lien_he}
                                     dia_chi={dataEditContact.dia_chi}

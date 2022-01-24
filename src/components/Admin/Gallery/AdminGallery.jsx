@@ -10,6 +10,7 @@ import EditGallery from "./EditGallery";
 import { checkToken } from "../../../api/auth";
 import { deleteGallery, getAllGallery } from "../../../api/gallery";
 
+const jwt = require("jsonwebtoken");
 const { Content } = Layout;
 
 const AdminGallery = (props) => {
@@ -23,6 +24,7 @@ const AdminGallery = (props) => {
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditGallery, setDataEditGallery] = useState({});
     const [dataDeleteGallery, setDataDeleteGallery] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const showAddNewFarm = () => {
         checkTokenAPI();
@@ -94,7 +96,7 @@ const AdminGallery = (props) => {
         {
             title: "Tên Ảnh",
             key: "ten_anh",
-            width: "40%",
+            width: "20%",
             render: (record) => (
                 <>
                     <div style={{ fontWeight: 500, fontSize: 15, color: "#34568B" }}>
@@ -106,19 +108,31 @@ const AdminGallery = (props) => {
         {
             title: "Thể Loại",
             key: "the_loai",
-            width: "40%",
+            width: "20%",
             render: (record) => <p>{record.the_loai}</p>,
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "5%",
+            width: "10%",
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
+            width: "10%",
+        },
+        {
+            title: "Người Cập Nhật",
+            align: "center",
+            dataIndex: "nguoi_cap_nhat",
+            width: "10%",
+        },
+        {
+            title: "Ngày Cập Nhật",
+            align: "center",
+            dataIndex: "ngay_cap_nhat",
             width: "10%",
         },
         {
@@ -220,7 +234,18 @@ const AdminGallery = (props) => {
         }
     };
 
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
+        }
+    };
+
     useEffect(() => {
+        getUserCurrent();
         document.title = "Ảnh Trình Chiếu - Admin";
         checkTokenAPI();
         getAllGalleryAPI();
@@ -269,15 +294,11 @@ const AdminGallery = (props) => {
                                         Thêm Ảnh Trình Chiếu
                                     </Button>
                                 </Col>
-                                {/* <Col span={2}>
-                                    <Button type="primary" onClick={showAddNewFarm} icon={<PlusOutlined />}>
-                                        Import File Excel
-                                    </Button>
-                                </Col> */}
                             </Row>
 
                             {viewAddNewFarm ? (
                                 <AddNewGallery
+                                    userCurrent={userCurrent}
                                     fetchData={() => getAllGalleryAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -286,6 +307,7 @@ const AdminGallery = (props) => {
 
                             {viewEditGallery ? (
                                 <EditGallery
+                                    userCurrent={userCurrent}
                                     id={dataEditGallery.id}
                                     ten_anh={dataEditGallery.ten_anh}
                                     the_loai={dataEditGallery.the_loai}

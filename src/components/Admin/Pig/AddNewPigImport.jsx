@@ -77,6 +77,7 @@ const AddNewPigImport = (props) => {
         if (excelData) {
             if (excelData.length > 0) {
                 let obj = { data: excelData };
+                console.log(obj);
                 await savePigImport(obj)
                     .then((res) => {
                         if (res) {

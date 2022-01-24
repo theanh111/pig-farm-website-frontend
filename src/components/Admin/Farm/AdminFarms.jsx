@@ -10,6 +10,8 @@ import { Link, useNavigate } from "react-router-dom";
 import EditFarm from "./EditFarm";
 import { checkToken } from "../../../api/auth";
 
+const jwt = require("jsonwebtoken");
+
 const { Content } = Layout;
 
 const AdminFarms = (props) => {
@@ -23,6 +25,7 @@ const AdminFarms = (props) => {
     const [dataEdit, setDataEdit] = useState([]);
     const [dataEditFarm, setDataEditFarm] = useState({});
     const [dataDeleteFarm, setDataDeleteFarm] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const showAddNewFarm = () => {
         checkTokenAPI();
@@ -49,6 +52,16 @@ const AdminFarms = (props) => {
             return true;
         } else {
             return false;
+        }
+    };
+
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
         }
     };
 
@@ -94,7 +107,7 @@ const AdminFarms = (props) => {
         {
             title: "Mã Trang Trại",
             key: "ma_trang_trai",
-            width: "40%",
+            width: "30%",
             render: (record) => (
                 <>
                     <a target="_blank" href={"/co-so-chan-nuoi/" + record.ma_trang_trai}>
@@ -108,15 +121,34 @@ const AdminFarms = (props) => {
         {
             title: "Tên Trang Trại",
             key: "ten_trang_trai",
-            width: "40%",
+            width: "25%",
             render: (record) => <p>{record.ten_trang_trai}</p>,
+        },
+        {
+            title: "Người Nhập",
+            align: "center",
+            dataIndex: "nguoi_nhap",
+            width: "10%",
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
-            width: "30%",
+            width: "10%",
         },
+        {
+            title: "Người Cập Nhật",
+            align: "center",
+            dataIndex: "nguoi_cap_nhat",
+            width: "10%",
+        },
+        {
+            title: "Ngày Cập Nhật",
+            align: "center",
+            dataIndex: "ngay_cap_nhat",
+            width: "10%",
+        },
+
         {
             title: "Sửa",
             align: "center",
@@ -217,6 +249,7 @@ const AdminFarms = (props) => {
     };
 
     useEffect(() => {
+        getUserCurrent();
         document.title = "Danh Sách Cơ Sở Chăn Nuôi - Admin";
         checkTokenAPI();
         getAllFarmAPI();
@@ -274,6 +307,7 @@ const AdminFarms = (props) => {
 
                             {viewAddNewFarm ? (
                                 <AddNewFarm
+                                    userCurrent={userCurrent}
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -282,6 +316,7 @@ const AdminFarms = (props) => {
 
                             {viewEditFarm ? (
                                 <EditFarm
+                                    userCurrent={userCurrent}
                                     id={dataEditFarm.id}
                                     ma_trang_trai={dataEditFarm.ma_trang_trai}
                                     ten_trang_trai={dataEditFarm.ten_trang_trai}

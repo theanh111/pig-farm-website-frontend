@@ -2,12 +2,10 @@ import { Navigation } from "../Navigation/Navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getFarmByFarmCode } from "../../api/farm";
-import { Image, Col, Row, Empty, Breadcrumb, Layout } from "antd";
+import { Breadcrumb, Layout } from "antd";
 import { getPigByFarmName } from "../../api/pig";
-import { PigImage } from "../Pig/PigImage";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import { PigGallery } from "../Gallery/PigGallery";
 import { Footer } from "../Footer/Footer";
 import { PigGalleryParam } from "../Gallery/PigGalleryParam";
 

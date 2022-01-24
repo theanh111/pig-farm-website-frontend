@@ -72,54 +72,56 @@ export const BlogDetail = () => {
                                     <Card style={{ color: "#006544", fontWeight: 700, fontSize: 20 }}>{blogDetail.ten_blog}</Card>
                                     <Card>
                                         <div dangerouslySetInnerHTML={{ __html: blogDetail.noi_dung }} />
+                                        {blogDetail.hinh_anh_1 ? (
+                                            <>
+                                                <div class="w3-row ">
+                                                    <div class="w3-quarter w3-container"></div>
+                                                    <div class="w3-half w3-container ">
+                                                        <img
+                                                            src={blogDetail.hinh_anh_1}
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "400px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div class="w3-quarter w3-container"></div>
+                                                </div>
+                                                <br></br>
+                                            </>
+                                        ) : null}
+
+                                        {blogDetail.hinh_anh_2 ? (
+                                            <>
+                                                <div class="w3-row ">
+                                                    <div class="w3-quarter w3-container"></div>
+                                                    <div class="w3-half w3-container ">
+                                                        <img
+                                                            src={blogDetail.hinh_anh_2}
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "400px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    <div class="w3-quarter w3-container"></div>
+                                                </div>
+                                                <br></br>
+                                            </>
+                                        ) : null}
                                     </Card>
                                 </div>
                             </div>
                         </div>
                         <Footer />
                     </div>
-                    {/* <div id="wrapper">
-                        <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/thong-tin-du-an">Thông Tin Dự Án</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to={"/thong-tin-du-an/" + blogDetail.ten_blog}>{blogDetail.ten_blog}</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
-                            <Row align="middle" justify="center">
-                                <Col xs={15} style={{ cursor: "pointer" }}>
-                                    {blogDetail.ten_blog && blogDetail.noi_dung ? (
-                                        <Descriptions layout="vertical" bordered>
-                                            <Descriptions.Item
-                                                label={
-                                                    <span style={{ color: "#006544", fontWeight: 600, paddingLeft: 20, fontSize: 20 }}>
-                                                        {blogDetail.ten_blog}
-                                                    </span>
-                                                }
-                                                span={3}
-                                            >
-                                                <div style={{ paddingLeft: 20 }}>
-                                                    <div style={{ width: 1100 }}>
-                                                        <div dangerouslySetInnerHTML={{ __html: blogDetail.noi_dung }} />
-                                                    </div>
-                                                </div>
-                                            </Descriptions.Item>
-                                        </Descriptions>
-                                    ) : (
-                                        <Empty description="Không Có Dữ Liệu" />
-                                    )}
-                                </Col>
-                            </Row>
-                        </div>
-                        <Footer />
-                    </div> */}
                 </>
             )}
         </>

@@ -11,6 +11,7 @@ import AddNewBlog from "./AddNewBlog";
 import EditBlog from "./EditBlog";
 import { checkToken } from "../../../api/auth";
 
+const jwt = require("jsonwebtoken");
 const { Content } = Layout;
 
 const AdminBlog = (props) => {
@@ -26,6 +27,7 @@ const AdminBlog = (props) => {
     const [dataEditBlog, setDataEditBlog] = useState({});
     const [dataDeleteBlog, setDataDeleteBlog] = useState({});
     const [blogData, setBlogData] = useState({});
+    const [userCurrent, setUserCurrent] = useState("");
 
     const showAddNewFarm = () => {
         checkTokenAPI();
@@ -103,7 +105,7 @@ const AdminBlog = (props) => {
         {
             title: "Mã Thông Tin Dự Án",
             key: "ma_blog",
-            width: "40%",
+            width: "25%",
             editable: true,
             render: (record) => {
                 return (
@@ -118,22 +120,31 @@ const AdminBlog = (props) => {
         {
             title: "Tiêu Đề Thông Tin Dự Án",
             dataIndex: "ten_blog",
-            width: "40%",
-            editable: true,
+            width: "25%",
         },
         {
             title: "Người Nhập",
             align: "center",
             dataIndex: "nguoi_nhap",
-            width: "5%",
-            editable: true,
+            width: "10%",
         },
         {
             title: "Ngày Nhập",
             align: "center",
             dataIndex: "ngay_nhap",
             width: "10%",
-            editable: true,
+        },
+        {
+            title: "Người Cập Nhật",
+            align: "center",
+            dataIndex: "nguoi_cap_nhat",
+            width: "10%",
+        },
+        {
+            title: "Ngày Cập Nhật",
+            align: "center",
+            dataIndex: "ngay_cap_nhat",
+            width: "10%",
         },
         {
             title: "Sửa",
@@ -248,7 +259,18 @@ const AdminBlog = (props) => {
         }
     };
 
+    const getUserCurrent = () => {
+        setUserCurrent("");
+        let token = localStorage.getItem("token");
+        if (token) {
+            let objJwt = jwt.decode(token);
+            let user = objJwt.sub;
+            setUserCurrent(user);
+        }
+    };
+
     useEffect(() => {
+        getUserCurrent();
         checkTokenAPI();
         getAllFarmAPI();
     }, []);
@@ -304,6 +326,7 @@ const AdminBlog = (props) => {
 
                             {viewAddNewFarm ? (
                                 <AddNewBlog
+                                    userCurrent={userCurrent}
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => setViewAddNewFarm(false)}
                                     viewAddNewFarm={viewAddNewFarm}
@@ -312,11 +335,14 @@ const AdminBlog = (props) => {
 
                             {viewEditBlog ? (
                                 <EditBlog
+                                    userCurrent={userCurrent}
                                     id={dataEditBlog.id}
                                     ma_blog={dataEditBlog.ma_blog}
                                     ten_blog={dataEditBlog.ten_blog}
                                     noi_dung={dataEditBlog.noi_dung}
                                     hinh_anh={dataEditBlog.hinh_anh}
+                                    // hinh_anh_1={dataEditBlog.hinh_anh_1}
+                                    // hinh_anh_2={dataEditBlog.hinh_anh_2}
                                     fetchData={() => getAllFarmAPI()}
                                     closeDrawer={() => {
                                         setViewEditBlog(false);

@@ -11,7 +11,7 @@ import { updateBlog } from "../../../api/blog";
 
 const EditBlog = (props) => {
     const history = useNavigate();
-    const { viewEditBlog, closeDrawer, fetchData, id, ma_blog, ten_blog, noi_dung, hinh_anh } = props;
+    const { viewEditBlog, closeDrawer, fetchData, id, ma_blog, ten_blog, noi_dung, hinh_anh, userCurrent } = props;
     const [dataSubmit, setDataSubmit] = useState({});
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [viewLoader, setViewLoader] = useState(false);
@@ -51,7 +51,10 @@ const EditBlog = (props) => {
                 dataSubmit.blogName !== "" &&
                 dataSubmit.blogContent !== "" &&
                 dataSubmit.blogImage !== "" &&
-                dataSubmit.blogId !== null
+                // dataSubmit.blogImage1 !== "" &&
+                // dataSubmit.blogImage2 !== "" &&
+                dataSubmit.blogId !== null &&
+                userCurrent !== ""
             ) {
                 let obj = {
                     id: dataSubmit.blogId,
@@ -59,6 +62,9 @@ const EditBlog = (props) => {
                     ten_blog: dataSubmit.blogName,
                     noi_dung: dataSubmit.blogContent,
                     hinh_anh: dataSubmit.blogImage,
+                    // hinh_anh_1: dataSubmit.blogImage1,
+                    // hinh_anh_2: dataSubmit.blogImage2,
+                    nguoi_cap_nhat: userCurrent,
                 };
                 updateBlogAPI(obj);
             } else {
@@ -129,6 +135,8 @@ const EditBlog = (props) => {
                 blogName: ten_blog,
                 blogContent: noi_dung,
                 blogImage: hinh_anh,
+                // blogImage1: hinh_anh_1,
+                // blogImage2: hinh_anh_2,
             });
         };
         fetchData2();
@@ -189,15 +197,15 @@ const EditBlog = (props) => {
                             name="ma-blog"
                             label={
                                 <>
-                                    <span>Mã Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Mã Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập mã blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập mã thông tin dự án" }]}
                         >
                             <Input
                                 autoComplete="off"
                                 onChange={(e) => setDataSubmit({ ...dataSubmit, blogCode: e.target.value })}
-                                placeholder="VD: ma-blog-se-hien-thi-nhu-nay"
+                                placeholder="VD: ma-thong-tin-du-an-se-hien-thi-nhu-nay"
                                 value={dataSubmit.blogCode}
                             />
                             <span style={{ visibility: "hidden" }}>{dataSubmit.blogCode}</span>
@@ -206,24 +214,75 @@ const EditBlog = (props) => {
                             name="ten-blog"
                             label={
                                 <>
-                                    <span>Tên Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Tên Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
-                            rules={[{ required: true, message: "Xin vui lòng nhập tên blog" }]}
+                            rules={[{ required: true, message: "Xin vui lòng nhập tên thông tin dự án" }]}
                         >
                             <Input
                                 autoComplete="off"
                                 onChange={(e) => setDataSubmit({ ...dataSubmit, blogName: e.target.value })}
-                                placeholder="VD: Tên Blog Sẽ Hiển Thị Như Này"
+                                placeholder="VD: Tên Thông Tin Dự Án Sẽ Hiển Thị Như Này"
                                 value={dataSubmit.blogName}
                             />
                             <span style={{ visibility: "hidden" }}>{dataSubmit.blogName}</span>
                         </Form.Item>
                         <Form.Item
+                            name="hinh-anh"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Bài Viết</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, blogImage: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.blogImage}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.blogImage}</span>
+                        </Form.Item>
+                        {/* <Form.Item
+                            name="hinh-anh-1"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 1</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 1" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, blogImage1: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.blogImage1}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.blogName1}</span>
+                        </Form.Item>
+                        <Form.Item
+                            name="hinh-anh-2"
+                            label={
+                                <>
+                                    <span>Hình Ảnh Nội Dung 2</span> <span style={{ color: "red" }}> *</span>
+                                </>
+                            }
+                            rules={[{ required: true, message: "Xin vui lòng nhập hình ảnh nội dung 2" }]}
+                        >
+                            <Input
+                                autoComplete="off"
+                                onChange={(e) => setDataSubmit({ ...dataSubmit, blogImage2: e.target.value })}
+                                placeholder="VD: https://drive.google.com/uc?id=145QK2GHn1JZ0j8XftTvqXicHYru_UbE8"
+                                value={dataSubmit.blogImage2}
+                            />
+                            <span style={{ visibility: "hidden" }}>{dataSubmit.blogName1}</span>
+                        </Form.Item> */}
+                        <Form.Item
                             name="noi-dung"
                             label={
                                 <>
-                                    <span>Nội Dung Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Nội Dung Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
                         >

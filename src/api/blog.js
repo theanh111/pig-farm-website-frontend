@@ -8,6 +8,7 @@ const SAVE_BLOG = ENDPOINT + "/save-blog";
 const UPDATE_BLOG = ENDPOINT + "/update-blog";
 const DELETE_BLOG = ENDPOINT + "/delete-blog";
 const GET_BLOG_BY_BLOG_CODE = ENDPOINT + "/get-blog-by-blog-code/";
+const GET_ALL_BLOG_BY_FILTER = ENDPOINT + "/get-blog-by-filter";
 
 export const getBlogByBlogCode = async (blogcode) => {
     try {
@@ -21,6 +22,15 @@ export const getBlogByBlogCode = async (blogcode) => {
 export const getAllBlog = async () => {
     try {
         let data = await axios.get(GET_ALL_BLOG);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const getBlogByFilter = async (blog) => {
+    try {
+        let data = await axios.post(GET_ALL_BLOG_BY_FILTER, blog);
         return data;
     } catch (error) {
         return error.response;

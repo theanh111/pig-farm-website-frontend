@@ -1,10 +1,19 @@
-import { Col, Row, Menu, Space, Input } from "antd";
+import { Divider, Input } from "antd";
 import { Link } from "react-router-dom";
 import { ExportOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+
 const { Search } = Input;
 
 export const Navigation = () => {
-    const onSearch = (value) => console.log(value);
+    const history = useNavigate();
+    const onSearch = (value) => {
+        if (value) {
+            if (value.trim().length > 0) {
+                history("/tim-kiem/" + value);
+            }
+        }
+    };
 
     return (
         <>
@@ -14,8 +23,8 @@ export const Navigation = () => {
                     style={{ color: "white", fontSize: 28, fontWeight: 800, cursor: "pointer", backgroundColor: "#006544" }}
                     class="w3-bar-item w3-button w3-mobile w3-hover-teal"
                 >
-                    <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 40, width: 40 }} /> DỰ ÁN NGHIÊN CỨU NGUỒN GEN
-                    GIỐNG LỢN MÓNG CÁI
+                    <img title="mongcaipig.vn" src="/images/icon-pig.jpg" style={{ height: 40, width: 40 }} />
+                    <span>DỰ ÁN NGHIÊN CỨU NGUỒN GEN GIỐNG LỢN MÓNG CÁI</span>
                 </a>
             </div>
             <div class="w3-bar w3-green w3-small" style={{ backgroundColor: "#006544" }}>
