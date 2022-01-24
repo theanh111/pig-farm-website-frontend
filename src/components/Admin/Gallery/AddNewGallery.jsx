@@ -214,7 +214,7 @@ const AddNewGallery = (props) => {
                             </Select>
                         </Form.Item>
                         <Divider orientation="left" plain>
-                            Hình Ảnh
+                            Hình Ảnh (Ưu tiên: 1001x771)
                         </Divider>
                         <Form.Item name="image-url" rules={[{ required: true, message: "Xin vui lòng nhập ảnh trình chiếu!" }]}>
                             {url !== "" ? (

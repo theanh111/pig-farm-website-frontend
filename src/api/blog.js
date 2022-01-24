@@ -9,6 +9,16 @@ const UPDATE_BLOG = ENDPOINT + "/update-blog";
 const DELETE_BLOG = ENDPOINT + "/delete-blog";
 const GET_BLOG_BY_BLOG_CODE = ENDPOINT + "/get-blog-by-blog-code/";
 const GET_ALL_BLOG_BY_FILTER = ENDPOINT + "/get-blog-by-filter";
+const COUNT_BLOG = ENDPOINT + "/count-blog";
+
+export const countBlog = async () => {
+    try {
+        let data = await axios.get(COUNT_BLOG);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
 
 export const getBlogByBlogCode = async (blogcode) => {
     try {

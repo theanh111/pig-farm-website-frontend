@@ -9,6 +9,16 @@ const UPDATE_NEWS = ENDPOINT + "/update-news";
 const DELETE_NEWS = ENDPOINT + "/delete-news";
 const GET_NEWS_BY_NEWS_CODE = ENDPOINT + "/get-news-by-news-code/";
 const GET_ALL_NEWS_BY_FILTER = ENDPOINT + "/get-news-by-filter";
+const COUNT_NEWS = ENDPOINT + "/count-news";
+
+export const countNews = async () => {
+    try {
+        let data = await axios.get(COUNT_NEWS);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
 
 export const getNewsByNewsCode = async (newscode) => {
     try {

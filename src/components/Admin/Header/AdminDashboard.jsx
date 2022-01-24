@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { countPig } from "../../../api/pig";
 import { countFarm } from "../../../api/farm";
 import { checkToken } from "../../../api/auth";
+import { countNews } from "../../../api/news";
+import { countBlog } from "../../../api/blog";
 
 const { Content } = Layout;
 
@@ -13,6 +15,8 @@ const AdminDashboard = (props) => {
     const history = useNavigate();
     const [totalPig, setTotalPig] = useState(null);
     const [totalFarm, setTotalFarm] = useState(null);
+    const [totalNews, setTotalNews] = useState(null);
+    const [totalBlog, setTotalBlog] = useState(null);
 
     const countPigAPI = async () => {
         await countPig()
@@ -44,6 +48,36 @@ const AdminDashboard = (props) => {
             });
     };
 
+    const countNewsAPI = async () => {
+        await countNews()
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setTotalNews(result);
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const countBlogAPI = async () => {
+        await countBlog()
+            .then((res) => {
+                let result = res.data.data;
+                if (result) {
+                    if (result.length > 0) {
+                        setTotalBlog(result);
+                    }
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
     const checkTokenAPI = async () => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -59,6 +93,8 @@ const AdminDashboard = (props) => {
                     backToLogin();
                     console.log(err);
                 });
+        } else {
+            backToLogin();
         }
     };
 
@@ -70,6 +106,8 @@ const AdminDashboard = (props) => {
     const fetchData = () => {
         countFarmAPI();
         countPigAPI();
+        countNewsAPI();
+        countBlogAPI();
     };
 
     useEffect(() => {
@@ -94,32 +132,32 @@ const AdminDashboard = (props) => {
                             </Breadcrumb.Item>
                             <Breadcrumb.Item>Trang Chủ</Breadcrumb.Item>
                         </Breadcrumb>
-                        <div className="site-card-wrapper">
-                            <Row gutter={16}>
-                                <Col span={8}>
+                        <div class="w3-content" style={{ maxWidth: "2000px" }}>
+                            <div class="w3-row-padding w3-padding-22">
+                                <div class="w3-col m3 w3-padding-small">
                                     <Card title="Tổng Số Cá Thể" bordered={false}>
-                                        {totalPig}
+                                        {totalPig ? <h2>{totalPig}</h2> : <h2>Loading...</h2>}
                                     </Card>
-                                </Col>
-                                <Col span={8}>
+                                </div>
+
+                                <div class="w3-col m3  w3-padding-small">
                                     <Card title="Tổng Số Cơ Sở Chăn Nuôi" bordered={false}>
-                                        {totalFarm}
+                                        {totalFarm ? <h2>{totalFarm}</h2> : <h2>Loading...</h2>}
                                     </Card>
-                                </Col>
-                                <Col span={8}>
-                                    <Card title="Thành Viên" bordered={false}>
-                                        10
+                                </div>
+                                <div class="w3-col m3  w3-padding-small">
+                                    <Card title="Tổng Số Tin Tức" bordered={false}>
+                                        {totalNews ? <h2>{totalNews}</h2> : <h2>Loading...</h2>}
                                     </Card>
-                                </Col>
-                            </Row>
+                                </div>
+                                <div class="w3-col m3  w3-padding-small">
+                                    <Card title="Tổng Số Thông Tin Dự Án" bordered={false}>
+                                        {totalBlog ? <h2>{totalBlog}</h2> : <h2>Loading...</h2>}
+                                    </Card>
+                                </div>
+                            </div>
                         </div>
-                        {/* ,
-                       
-                        <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                            Bill is a cat.
-                        </div> */}
                     </Content>
-                    {/* <Footer style={{ textAlign: "center" }}>MONGCAIPIG</Footer> */}
                 </Layout>
             </Layout>
         </>
