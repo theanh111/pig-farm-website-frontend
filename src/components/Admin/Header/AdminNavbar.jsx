@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
-import { FolderOutlined, HomeOutlined } from "@ant-design/icons";
+import { FolderOutlined, HomeOutlined, DownloadOutlined } from "@ant-design/icons";
 import { checkToken } from "../../../api/auth";
 
 const { Sider } = Layout;
@@ -76,6 +76,11 @@ const AdminNavbar = () => {
                     <Menu.Item icon={<FolderOutlined />}>
                         Ảnh trình chiếu
                         <Link to="/admin/anh-trinh-chieu" />
+                    </Menu.Item>
+                    <Menu.Item icon={<DownloadOutlined />}>
+                        <Link to="/file/Huong-dan-admin-MONGCAIPIG.pdf" target="_blank" download>
+                            Hướng dẫn
+                        </Link>
                     </Menu.Item>
                 </Menu>
             </Sider>

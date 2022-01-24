@@ -176,11 +176,7 @@ export const SearchPage = () => {
                                             ? news.map((item, index) => (
                                                   <>
                                                       <Link style={{ cursor: "pointer" }} to={"/tin-tuc/" + item.ma_tin_tuc}>
-                                                          <div
-                                                              class="w3-row-padding w3-padding-small"
-                                                              id="about"
-                                                              style={{ border: "1px solid grey" }}
-                                                          >
+                                                          <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                               <div class="w3-col l12" style={{ height: "200px" }}>
                                                                   <h4
                                                                       className="title-text"
@@ -188,7 +184,7 @@ export const SearchPage = () => {
                                                                   >
                                                                       {item.ten_tin_tuc}
                                                                   </h4>
-                                                                  <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                                  <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
 
                                                                   <span
                                                                       style={{
@@ -223,21 +219,25 @@ export const SearchPage = () => {
                                                                   />
                                                               </div>
                                                           </div>
-                                                          <hr style={{ width: "100%" }}></hr>
+                                                          <hr
+                                                              style={{
+                                                                  width: "100%",
+                                                                  height: "1px",
+                                                                  border: "none",
+                                                                  color: "#333",
+                                                                  backgroundColor: "#333",
+                                                              }}
+                                                          ></hr>
                                                       </Link>
                                                   </>
                                               ))
                                             : null}
                                         {news.length == 0 ? (
                                             <>
-                                                <div
-                                                    class="w3-row-padding w3-padding-small"
-                                                    id="about"
-                                                    style={{ border: "1px solid grey" }}
-                                                >
+                                                <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                     </div>
                                                 </div>
                                             </>
@@ -251,11 +251,7 @@ export const SearchPage = () => {
                                             pig.map((item, index) => (
                                                 <>
                                                     <Link style={{ cursor: "pointer" }} to={"/ca-the/" + item.id}>
-                                                        <div
-                                                            class="w3-row-padding w3-padding-small"
-                                                            id="about"
-                                                            style={{ border: "1px solid grey" }}
-                                                        >
+                                                        <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
                                                                     className="title-text"
@@ -263,7 +259,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ma_so_ca_the}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
 
                                                                 <span
                                                                     style={{
@@ -338,7 +334,15 @@ export const SearchPage = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <hr style={{ width: "100%" }}></hr>
+                                                        <hr
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "1px",
+                                                                border: "none",
+                                                                color: "#333",
+                                                                backgroundColor: "#333",
+                                                            }}
+                                                        ></hr>
                                                     </Link>
                                                 </>
                                             ))
@@ -351,14 +355,10 @@ export const SearchPage = () => {
                                         )}
                                         {pig.length == 0 ? (
                                             <>
-                                                <div
-                                                    class="w3-row-padding w3-padding-small"
-                                                    id="about"
-                                                    style={{ border: "1px solid grey" }}
-                                                >
+                                                <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                     </div>
                                                 </div>
                                             </>
@@ -372,11 +372,7 @@ export const SearchPage = () => {
                                             blog.map((item, index) => (
                                                 <>
                                                     <Link style={{ cursor: "pointer" }} to={"/thong-tin-du-an/" + item.ma_blog}>
-                                                        <div
-                                                            class="w3-row-padding w3-padding-small"
-                                                            id="about"
-                                                            style={{ border: "1px solid grey" }}
-                                                        >
+                                                        <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
                                                                     className="title-text"
@@ -384,7 +380,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ten_blog}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                                 <span
                                                                     style={{
                                                                         color: "grey",
@@ -418,7 +414,15 @@ export const SearchPage = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <hr style={{ width: "100%" }}></hr>
+                                                        <hr
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "1px",
+                                                                border: "none",
+                                                                color: "#333",
+                                                                backgroundColor: "#333",
+                                                            }}
+                                                        ></hr>
                                                     </Link>
                                                 </>
                                             ))
@@ -434,11 +438,11 @@ export const SearchPage = () => {
                                                 <div
                                                     class="w3-row-padding w3-padding-small"
                                                     id="about"
-                                                    style={{ border: "1px solid grey" }}
+                                                    style={{ border: "0px solid grey" }}
                                                 >
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                     </div>
                                                 </div>
                                             </>
@@ -452,11 +456,7 @@ export const SearchPage = () => {
                                             farm.map((item, index) => (
                                                 <>
                                                     <Link style={{ cursor: "pointer" }} to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
-                                                        <div
-                                                            class="w3-row-padding w3-padding-small"
-                                                            id="about"
-                                                            style={{ border: "1px solid grey" }}
-                                                        >
+                                                        <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
                                                                     className="title-text"
@@ -464,7 +464,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ten_trang_trai}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                                 <span
                                                                     style={{
                                                                         color: "grey",
@@ -488,7 +488,15 @@ export const SearchPage = () => {
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <hr style={{ width: "100%" }}></hr>
+                                                        <hr
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "1px",
+                                                                border: "none",
+                                                                color: "#333",
+                                                                backgroundColor: "#333",
+                                                            }}
+                                                        ></hr>
                                                     </Link>
                                                 </>
                                             ))
@@ -501,14 +509,10 @@ export const SearchPage = () => {
                                         )}
                                         {farm.length == 0 ? (
                                             <>
-                                                <div
-                                                    class="w3-row-padding w3-padding-small"
-                                                    id="about"
-                                                    style={{ border: "1px solid grey" }}
-                                                >
+                                                <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3 }}></hr>
+                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
                                                     </div>
                                                 </div>
                                             </>

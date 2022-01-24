@@ -196,14 +196,14 @@ const AddNewBlog = (props) => {
                             <Input
                                 autoComplete="off"
                                 onChange={(e) => setBlog({ ...blog, blogCode: e.target.value })}
-                                placeholder="VD: ma-blog-se-hien-thi-nhu-nay"
+                                placeholder="VD: ma-thong-tin-du-an-se-hien-thi-nhu-nay"
                             />
                         </Form.Item>
                         <Form.Item
                             name="ten-blog"
                             label={
                                 <>
-                                    <span>Tên Blog </span> <span style={{ color: "red" }}> *</span>
+                                    <span>Tên Thông Tin Dự Án </span> <span style={{ color: "red" }}> *</span>
                                 </>
                             }
                             rules={[{ required: true, message: "Xin vui lòng nhập tên thông tin dự án" }]}

@@ -54,23 +54,13 @@ export const Navigation = () => {
                         style={{ cursor: "pointer", color: "white", fontSize: 28, paddingTop: 2 }}
                     />
                 </Link>
-                <span class="w3-bar-item w3-right w3-mobile" style={{ paddingTop: 9 }}>
+                <span class="w3-bar-item w3-right w3-mobile">
                     <span className="vietnam-flag-button">
-                        <img
-                            title="Vietnamese"
-                            className="vietnam-flag"
-                            src="/images/vi-vn.gif"
-                            style={{ height: "30px", cursor: "pointer" }}
-                        />
+                        <img title="Vietnamese" className="vietnam-flag" src="/images/vie.png" style={{ cursor: "pointer", height: 32 }} />
                     </span>
                     <span> </span>
                     <span className="england-flag-button">
-                        <img
-                            title="English"
-                            className="england-flag"
-                            src="/images/en-GB.gif"
-                            style={{ height: "30px", cursor: "pointer" }}
-                        />
+                        <img title="English" className="england-flag" src="/images/uk.png" style={{ cursor: "pointer", height: 32 }} />
                     </span>
                 </span>
                 <span class="w3-bar-item w3-right w3-mobile">
