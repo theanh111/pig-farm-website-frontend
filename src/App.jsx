@@ -2,7 +2,6 @@ import "./App.css";
 import LandingPage from "./components/LandingPage/LandingPage";
 import LandingPageENG from "./components/LandingPage/LandingPageENG";
 import { Login } from "./components/Login/login";
-import { LoginENG } from "./components/Login/LoginENG";
 import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "./components/Notfound/notfound";
 import { SignUp } from "./components/SignUp/signup";
@@ -98,7 +97,6 @@ const App = (props) => {
             <Route path="/homepage" element={<LandingPageENG />} />
 
             <Route path="/dang-nhap" element={<Login />} />
-            <Route path="/sign-in" element={<LoginENG />} />
 
             <Route path="/dang-ky" element={<SignUp />} />
 

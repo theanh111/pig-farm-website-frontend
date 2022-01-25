@@ -67,6 +67,8 @@ export const PigPageENG = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "Pig Indivuduals";
         fetchData();
     }, []);
 

@@ -16,14 +16,17 @@ export const FarmDetail = () => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigByFarmName, setPigByFarmName] = useState([]);
     const [farmDetail, setFarmDetail] = useState({});
+    const [title, setTitle] = useState("");
 
     const getDataFarmByFarmCode = async (farmcode) => {
         setViewLoader(true);
+        setTitle("");
         await getFarmByFarmCode(farmcode)
             .then((res) => {
                 let result = res.data.data;
                 if (result.length > 0) {
                     setFarmDetail(result[0]);
+                    setTitle(result[0].ten_trang_trai);
                     let obj = { dia_diem_danh_gia: result[0].ten_trang_trai };
                     getPigByFarmNameAPI(obj);
                 }
@@ -55,6 +58,11 @@ export const FarmDetail = () => {
         getDataFarmByFarmCode(params.farmcode);
     }, []);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = title;
+    }, [title]);
+
     return (
         <>
             <Navigation />
@@ -76,7 +84,7 @@ export const FarmDetail = () => {
                                                     <Link to="/co-so-chan-nuoi">Cơ Sở Chăn Nuôi</Link>
                                                 </Breadcrumb.Item>
                                                 <Breadcrumb.Item className="txt">
-                                                    <Link to={"/co-so-chan-nuoi/" + farmDetail.ten_trang_trai}>
+                                                    <Link to={"/co-so-chan-nuoi/" + farmDetail.ma_trang_trai}>
                                                         {farmDetail.ten_trang_trai}
                                                     </Link>
                                                 </Breadcrumb.Item>

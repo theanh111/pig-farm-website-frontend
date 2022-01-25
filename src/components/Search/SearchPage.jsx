@@ -162,9 +162,7 @@ export const SearchPage = () => {
                                                 <Breadcrumb.Item className="txt">
                                                     <Link to="/">Trang Chủ</Link>
                                                 </Breadcrumb.Item>
-                                                <Breadcrumb.Item className="txt">
-                                                    <Link>Tìm Kiếm </Link>
-                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">Tìm Kiếm</Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>
                                     </div>

@@ -11,6 +11,7 @@ const { Content } = Layout;
 export const PigDetailENG = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigDetail, setPigDetail] = useState({});
+    const [title, setTitle] = useState("");
     const [data, setData] = useState([]);
     const [items, setItems] = useState([]);
 
@@ -23,6 +24,7 @@ export const PigDetailENG = (props) => {
                 let result = res.data.data;
                 if (result.length > 0) {
                     setPigDetail(result[0]);
+                    setTitle(result[0].ma_so_ca_the);
                 }
             })
             .catch((err) => {
@@ -35,6 +37,11 @@ export const PigDetailENG = (props) => {
     useEffect(() => {
         getDataPigById(params.id);
     }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = "Individual Code: " + title;
+    }, [title]);
 
     return (
         <>

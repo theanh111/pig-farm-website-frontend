@@ -7,7 +7,7 @@ import { getPigByFarmName } from "../../api/pig";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { FooterENG } from "../Footer/FooterENG";
-import { PigGalleryParam } from "../Gallery/PigGalleryParam";
+import { PigGalleryParamENG } from "../Gallery/PigGalleryParamENG";
 
 const { Content } = Layout;
 
@@ -16,14 +16,17 @@ export const FarmDetailENG = () => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigByFarmName, setPigByFarmName] = useState([]);
     const [farmDetail, setFarmDetail] = useState({});
+    const [title, setTitle] = useState("");
 
     const getDataFarmByFarmCode = async (farmcode) => {
         setViewLoader(true);
+        setTitle("");
         await getFarmByFarmCode(farmcode)
             .then((res) => {
                 let result = res.data.data;
                 if (result.length > 0) {
                     setFarmDetail(result[0]);
+                    setTitle(result[0].ten_trang_trai);
                     let obj = { dia_diem_danh_gia: result[0].ten_trang_trai };
                     getPigByFarmNameAPI(obj);
                 }
@@ -54,6 +57,11 @@ export const FarmDetailENG = () => {
     useEffect(() => {
         getDataFarmByFarmCode(params.farmcode);
     }, []);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        document.title = title;
+    }, [title]);
 
     return (
         <>
@@ -103,7 +111,7 @@ export const FarmDetailENG = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <PigGalleryParam title={"List Of Pig Indivuduals"} data={pigByFarmName} />
+                                <PigGalleryParamENG title={"List Of Pig Indivuduals"} data={pigByFarmName} />
                             </div>
                             <FooterENG />
                         </div>

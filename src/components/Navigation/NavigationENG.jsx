@@ -10,7 +10,7 @@ export const NavigationENG = (props) => {
     const onSearch = (value) => {
         if (value) {
             if (value.trim().length > 0) {
-                history("/tim-kiem/" + value);
+                history("/search/" + value);
             }
         }
     };
@@ -51,7 +51,7 @@ export const NavigationENG = (props) => {
                 <Link to="/contact" style={{ fontSize: 20, fontWeight: 600 }} class="w3-bar-item w3-button w3-mobile w3-hover-teal">
                     Contact
                 </Link>
-                <Link to="/sign-in" className="login-button" class="w3-bar-item w3-button w3-right w3-green w3-mobile w3-hover-teal">
+                <Link to="/dang-nhap" className="login-button" class="w3-bar-item w3-button w3-right w3-green w3-mobile w3-hover-teal">
                     <ExportOutlined
                         title="Sign In"
                         className="login-icon"

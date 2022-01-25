@@ -162,20 +162,18 @@ export const SearchPageENG = () => {
                                                 <Breadcrumb.Item className="txt">
                                                     <Link to="/homepage">Homepage</Link>
                                                 </Breadcrumb.Item>
-                                                <Breadcrumb.Item className="txt">
-                                                    <Link>Search </Link>
-                                                </Breadcrumb.Item>
+                                                <Breadcrumb.Item className="txt">Search</Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>
                                     </div>
                                     <div class="w3-col l3">
                                         <Divider orientation="left" plain>
-                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Tin Tức</p>
+                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>News</p>
                                         </Divider>
                                         {news
                                             ? news.map((item, index) => (
                                                   <>
-                                                      <Link style={{ cursor: "pointer" }} to={"/tin-tuc/" + item.ma_tin_tuc}>
+                                                      <Link style={{ cursor: "pointer" }} to={"/news/" + item.ma_tin_tuc}>
                                                           <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                               <div class="w3-col l12" style={{ height: "200px" }}>
                                                                   <h4
@@ -245,12 +243,12 @@ export const SearchPageENG = () => {
                                     </div>
                                     <div class="w3-col l3">
                                         <Divider orientation="left" plain>
-                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Cá Thể</p>
+                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Pig Indivuduals</p>
                                         </Divider>
                                         {pig ? (
                                             pig.map((item, index) => (
                                                 <>
-                                                    <Link style={{ cursor: "pointer" }} to={"/ca-the/" + item.id}>
+                                                    <Link style={{ cursor: "pointer" }} to={"/pig-indivuduals/" + item.id}>
                                                         <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
@@ -349,7 +347,7 @@ export const SearchPageENG = () => {
                                         ) : (
                                             <>
                                                 <div class="w3-col l12">
-                                                    <Empty description="Chưa Có Cá Thể" />
+                                                    <Empty description="No Data" />
                                                 </div>
                                             </>
                                         )}
@@ -366,12 +364,12 @@ export const SearchPageENG = () => {
                                     </div>
                                     <div class="w3-col l3">
                                         <Divider orientation="left" plain>
-                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Thông Tin Dự Án</p>
+                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Project Information</p>
                                         </Divider>
                                         {blog ? (
                                             blog.map((item, index) => (
                                                 <>
-                                                    <Link style={{ cursor: "pointer" }} to={"/thong-tin-du-an/" + item.ma_blog}>
+                                                    <Link style={{ cursor: "pointer" }} to={"/project-information/" + item.ma_blog}>
                                                         <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
@@ -429,7 +427,7 @@ export const SearchPageENG = () => {
                                         ) : (
                                             <>
                                                 <div class="w3-col l12">
-                                                    <Empty description="Chưa Có Cá Thể" />
+                                                    <Empty description="No Data" />
                                                 </div>
                                             </>
                                         )}
@@ -450,12 +448,12 @@ export const SearchPageENG = () => {
                                     </div>
                                     <div class="w3-col l3">
                                         <Divider orientation="left" plain>
-                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Cơ Sở Chăn Nuôi</p>
+                                            <p style={{ fontSize: 24, fontWeight: 700, margin: 0, padding: 0 }}>Livestock Farms</p>
                                         </Divider>
                                         {farm ? (
                                             farm.map((item, index) => (
                                                 <>
-                                                    <Link style={{ cursor: "pointer" }} to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
+                                                    <Link style={{ cursor: "pointer" }} to={"/livestock-farms/" + item.ma_trang_trai}>
                                                         <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                             <div class="w3-col l12" style={{ height: "200px" }}>
                                                                 <h4
@@ -503,7 +501,7 @@ export const SearchPageENG = () => {
                                         ) : (
                                             <>
                                                 <div class="w3-col l12">
-                                                    <Empty description="Chưa Có Cá Thể" />
+                                                    <Empty description="No Data" />
                                                 </div>
                                             </>
                                         )}
