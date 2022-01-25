@@ -74,12 +74,12 @@ const AdminNavbar = () => {
                         <Link to="/admin/quan-ly-lien-he" />
                     </Menu.Item>
                     <Menu.Item icon={<FolderOutlined />}>
-                        Ảnh trình chiếu
+                        Ảnh Trình Chiếu
                         <Link to="/admin/anh-trinh-chieu" />
                     </Menu.Item>
                     <Menu.Item icon={<DownloadOutlined />}>
                         <Link to="/file/Huong-dan-admin-MONGCAIPIG.pdf" target="_blank" download>
-                            Hướng dẫn
+                            Hướng Dẫn Admin
                         </Link>
                     </Menu.Item>
                 </Menu>

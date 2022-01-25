@@ -184,7 +184,7 @@ export const SearchPage = () => {
                                                                   >
                                                                       {item.ten_tin_tuc}
                                                                   </h4>
-                                                                  <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                                  {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
 
                                                                   <span
                                                                       style={{
@@ -237,7 +237,7 @@ export const SearchPage = () => {
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                        {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
                                             </>
@@ -259,7 +259,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ma_so_ca_the}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                                {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
 
                                                                 <span
                                                                     style={{
@@ -358,7 +358,7 @@ export const SearchPage = () => {
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                        {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
                                             </>
@@ -380,7 +380,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ten_blog}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                                {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                                 <span
                                                                     style={{
                                                                         color: "grey",
@@ -442,7 +442,7 @@ export const SearchPage = () => {
                                                 >
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                        {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
                                             </>
@@ -464,7 +464,7 @@ export const SearchPage = () => {
                                                                 >
                                                                     {item.ten_trang_trai}
                                                                 </h4>
-                                                                <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                                {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                                 <span
                                                                     style={{
                                                                         color: "grey",
@@ -512,7 +512,7 @@ export const SearchPage = () => {
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
                                                         <Empty description="Không Có Dữ Liệu Phù Hợp" />
-                                                        <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr>
+                                                        {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
                                             </>

@@ -1,3 +1,4 @@
+import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getPigLimit12 } from "../../api/pig";
@@ -29,24 +30,27 @@ export const PigGallery = () => {
                 <h4 style={{ textAlign: "center" }}>Lợn Móng Cái.</h4>
             </div>
             <div class="w3-row-padding w3-padding-16">
-                {pig
-                    ? pig.map((item, index) => (
-                          <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
-                              <Link to={"/ca-the/" + item.id}>
-                                  <img
-                                      className="pig-image"
-                                      src={item.hinh_anh_1}
-                                      alt={item.ma_so_ca_the}
-                                      style={{ width: "100%", height: "350px", objectFit: "cover", display: "inline-block" }}
-                                  />
-                                  <div class="w3-container w3-green">
-                                      <h2 style={{ textAlign: "center", color: "white" }}>{item.ma_so_ca_the}</h2>
-                                      <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "Không Có"}</h4>
-                                  </div>
-                              </Link>
-                          </div>
-                      ))
-                    : null}
+                {pig ? (
+                    pig.map((item, index) => (
+                        <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
+                            <Link to={"/ca-the/" + item.id}>
+                                <img
+                                    className="pig-image"
+                                    src={item.hinh_anh_1}
+                                    alt={item.ma_so_ca_the}
+                                    style={{ width: "100%", height: "350px", objectFit: "cover", display: "inline-block" }}
+                                />
+                                <div class="w3-container w3-green">
+                                    <h2 style={{ textAlign: "center", color: "white" }}>{item.ma_so_ca_the}</h2>
+                                    <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "Không Có"}</h4>
+                                </div>
+                            </Link>
+                        </div>
+                    ))
+                ) : (
+                    <Empty description="Không Khả Dụng" />
+                )}
+                {pig.length == 0 ? <Empty description="Không Có Dữ Liệu" /> : null}
             </div>
         </div>
     );

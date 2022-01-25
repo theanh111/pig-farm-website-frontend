@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Navigation } from "../Navigation/Navigation";
 import "../../App.css";
 import { PigGallery } from "../Gallery/PigGallery";
@@ -8,6 +8,21 @@ import { ImageGallery } from "../Gallery/ImageGallery";
 import { Footer } from "../Footer/Footer";
 
 const LandingPage = () => {
+    const [vietnamese, setVietnamese] = useState({
+        web_title: "DỰ ÁN NGHIÊN CỨU NGUỒN GEN GIỐNG LỢN MÓNG CÁI",
+        homepage: "Trang Chủ",
+        pig: "Cá Thể",
+        farm: "Cơ Sở Chăn Nuôi",
+        news: "Tin Tức",
+        blog: "Thông Tin Dự Án",
+        contact: "Liên Hệ",
+        search_title: "Tìm kiếm",
+        search_placeholder: "Tìm kiếm...",
+        vie_title: "Vietnamese",
+        eng_title: "English",
+        login_title: "Đăng Nhập",
+    });
+
     useEffect(() => {
         window.scrollTo(0, 0);
         document.title = "Website giới thiệu kết quả đề tài đánh giá đa dạng di truyền giống lợn Móng Cái ở thành phố Móng Cái 2021-2023";
@@ -15,7 +30,7 @@ const LandingPage = () => {
 
     return (
         <>
-            <Navigation />
+            <Navigation vietnamese={vietnamese} />
             <div id="wrapper">
                 <div id="content-fix">
                     <ImageGallery />

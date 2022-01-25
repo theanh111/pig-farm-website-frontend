@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FarmImage } from "./FarmImage";
 import { Navigation } from "../Navigation/Navigation";
 import { getAllFarm } from "../../api/farm";
-import { Layout, Row, Col, Breadcrumb, Image } from "antd";
+import { Layout, Row, Col, Breadcrumb, Image, Empty } from "antd";
 import { Link } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import { Footer } from "../Footer/Footer";
@@ -65,36 +65,38 @@ export const FarmPage = (props) => {
                                     <h4 style={{ textAlign: "center" }}>Lợn Móng Cái.</h4>
                                 </div>
                                 <div class="w3-row-padding w3-padding-16">
-                                    {farm
-                                        ? farm.map((item, index) => (
-                                              <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
-                                                  <Link to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
-                                                      <img
-                                                          className="pig-image"
-                                                          src={item.hinh_anh}
-                                                          alt={item.ten_trang_trai}
-                                                          style={{
-                                                              width: "100%",
-                                                              height: "350px",
-                                                              objectFit: "cover",
-                                                              display: "inline-block",
-                                                          }}
-                                                      />
-                                                      <div class="w3-container w3-green" style={{ height: 60 }}>
-                                                          <h4
-                                                              style={{
-                                                                  textAlign: "center",
-                                                                  color: "white",
-                                                                  paddingTop: 8,
-                                                              }}
-                                                          >
-                                                              {item.ten_trang_trai}
-                                                          </h4>
-                                                      </div>
-                                                  </Link>
-                                              </div>
-                                          ))
-                                        : null}
+                                    {farm ? (
+                                        farm.map((item, index) => (
+                                            <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
+                                                <Link to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
+                                                    <img
+                                                        className="pig-image"
+                                                        src={item.hinh_anh}
+                                                        alt={item.ten_trang_trai}
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "350px",
+                                                            objectFit: "cover",
+                                                            display: "inline-block",
+                                                        }}
+                                                    />
+                                                    <div class="w3-container w3-green" style={{ height: 60 }}>
+                                                        <h4
+                                                            style={{
+                                                                textAlign: "center",
+                                                                color: "white",
+                                                                paddingTop: 8,
+                                                            }}
+                                                        >
+                                                            {item.ten_trang_trai}
+                                                        </h4>
+                                                    </div>
+                                                </Link>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <Empty description="Không Có Dữ Liệu" />
+                                    )}
                                 </div>
                             </div>
                         </div>

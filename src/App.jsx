@@ -1,5 +1,6 @@
 import "./App.css";
 import LandingPage from "./components/LandingPage/LandingPage";
+import LandingPageENG from "./components/LandingPage/LandingPageENG";
 import { Login } from "./components/Login/login";
 import { Route, Routes, Navigate } from "react-router-dom";
 import NotFound from "./components/Notfound/notfound";
@@ -44,6 +45,7 @@ const App = (props) => {
             <Route path="*" element={<NotFound />} />
             <Route render={() => <Navigate replace to="/" />} />
             <Route path="/" element={<LandingPage />} />
+            <Route path="/en" element={<LandingPageENG />} />
             <Route path="/dang-nhap" element={<Login />} />
             <Route path="/dang-ky" element={<SignUp />} />
             <Route path="/co-so-chan-nuoi/:farmcode" element={<FarmDetail />} />
