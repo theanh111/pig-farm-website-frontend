@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { getAllBlog } from "../../api/blog";
 import Loader from "../Loader/Loader";
 
-const Blog = () => {
+const Blog = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [data, setData] = useState([]);
     const [blogName, setBlogName] = useState([]);

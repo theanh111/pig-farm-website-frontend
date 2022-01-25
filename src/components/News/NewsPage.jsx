@@ -119,9 +119,9 @@ export const NewsPage = () => {
                                             </>
                                         ))
                                     ) : (
-                                        <Empty description="Không Có Dữ Liệu" />
+                                        <Empty description="No Data" />
                                     )}
-                                    {listData.length == 0 ? <Empty description="Không Có Dữ Liệu" /> : null}
+                                    {listData.length == 0 ? <Empty description="No Data" /> : null}
                                 </div>
                             </div>
                         </div>

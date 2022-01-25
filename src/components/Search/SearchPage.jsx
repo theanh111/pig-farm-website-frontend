@@ -163,7 +163,7 @@ export const SearchPage = () => {
                                                     <Link to="/">Trang Chủ</Link>
                                                 </Breadcrumb.Item>
                                                 <Breadcrumb.Item className="txt">
-                                                    <Link to="/tin-tuc">Tìm Kiếm </Link>
+                                                    <Link>Tìm Kiếm </Link>
                                                 </Breadcrumb.Item>
                                             </Breadcrumb>
                                         </Content>
@@ -236,7 +236,7 @@ export const SearchPage = () => {
                                             <>
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
-                                                        <Empty description="Không Có Dữ Liệu Phù Hợp" />
+                                                        <Empty description="No Data" />
                                                         {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
@@ -357,7 +357,7 @@ export const SearchPage = () => {
                                             <>
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
-                                                        <Empty description="Không Có Dữ Liệu Phù Hợp" />
+                                                        <Empty description="No Data" />
                                                         {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
@@ -441,7 +441,7 @@ export const SearchPage = () => {
                                                     style={{ border: "0px solid grey" }}
                                                 >
                                                     <div class="w3-col l12">
-                                                        <Empty description="Không Có Dữ Liệu Phù Hợp" />
+                                                        <Empty description="No Data" />
                                                         {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>
@@ -511,7 +511,7 @@ export const SearchPage = () => {
                                             <>
                                                 <div class="w3-row-padding w3-padding-small" id="about" style={{ border: 0 }}>
                                                     <div class="w3-col l12">
-                                                        <Empty description="Không Có Dữ Liệu Phù Hợp" />
+                                                        <Empty description="No Data" />
                                                         {/* <hr style={{ margin: 0, paddingTop: 3, width: "100%" }}></hr> */}
                                                     </div>
                                                 </div>

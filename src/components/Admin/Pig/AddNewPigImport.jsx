@@ -96,15 +96,16 @@ const AddNewPigImport = (props) => {
                                     closeDrawer();
                                     fetchData();
                                 });
-                            } else if (res.status == 400) {
-                                localStorage.removeItem("token");
-                                alert("Hết phiên đăng nhập");
-                                history("/dang-nhap");
-                            } else if (res.status == 401) {
-                                localStorage.removeItem("token");
-                                alert("Hết phiên đăng nhập");
-                                history("/dang-nhap");
                             }
+                            // else if (res.status == 400) {
+                            //     localStorage.removeItem("token");
+                            //     alert("Hết phiên đăng nhập");
+                            //     history("/dang-nhap");
+                            // } else if (res.status == 401) {
+                            //     localStorage.removeItem("token");
+                            //     alert("Hết phiên đăng nhập");
+                            //     history("/dang-nhap");
+                            // }
                         }
                     })
                     .catch((err) => {
@@ -126,13 +127,6 @@ const AddNewPigImport = (props) => {
     };
 
     const columns = [
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Dấu Thời Gian</span>,
-            dataIndex: "dau_thoi_gian",
-            width: "100px",
-            height: "100px",
-            fixed: "left",
-        },
         {
             title: (record) => <span style={{ fontSize: 12 }}>Mã Số Cá Thể</span>,
             key: "ma_so_ca_the",

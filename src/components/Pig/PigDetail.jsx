@@ -8,7 +8,7 @@ import Loader from "../Loader/Loader";
 
 const { Content } = Layout;
 
-export const PigDetail = () => {
+export const PigDetail = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [pigDetail, setPigDetail] = useState({});
     const [data, setData] = useState([]);
@@ -71,12 +71,18 @@ export const PigDetail = () => {
                                             <ol class="carousel-indicators">
                                                 {pigDetail.hinh_anh_1 ? (
                                                     <li data-target="#galleryPig1" data-slide-to={0} class="active"></li>
-                                                ) : null}
-                                                {pigDetail.hinh_anh_2 ? <li data-target="#galleryPig1" data-slide-to={1}></li> : null}
+                                                ) : (
+                                                    <li data-target="#galleryPig1" data-slide-to={0} class="active"></li>
+                                                )}
+                                                {pigDetail.hinh_anh_2 ? (
+                                                    <li data-target="#galleryPig1" data-slide-to={1}></li>
+                                                ) : (
+                                                    <li data-target="#galleryPig1" data-slide-to={1}></li>
+                                                )}
                                             </ol>
                                             <div class="carousel-inner">
                                                 <div class="item active">
-                                                    {pigDetail ? (
+                                                    {pigDetail && pigDetail.hinh_anh_1 ? (
                                                         <img
                                                             title={pigDetail.ma_so_ca_the}
                                                             src={pigDetail.hinh_anh_1}
@@ -89,10 +95,23 @@ export const PigDetail = () => {
                                                                 display: "inline-block",
                                                             }}
                                                         />
-                                                    ) : null}
+                                                    ) : (
+                                                        <img
+                                                            title="Không Có Ảnh"
+                                                            src="/images/user/preview.png"
+                                                            alt="Không Có Ảnh"
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "450px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    )}
                                                 </div>
                                                 <div class="item">
-                                                    {pigDetail ? (
+                                                    {pigDetail && pigDetail.hinh_anh_1 ? (
                                                         <img
                                                             title={pigDetail.ma_so_ca_the}
                                                             src={pigDetail.hinh_anh_2}
@@ -105,7 +124,20 @@ export const PigDetail = () => {
                                                                 display: "inline-block",
                                                             }}
                                                         />
-                                                    ) : null}
+                                                    ) : (
+                                                        <img
+                                                            title="Không Có Ảnh"
+                                                            src="/images/user/preview.png"
+                                                            alt="Không Có Ảnh"
+                                                            style={{
+                                                                cursor: "pointer",
+                                                                width: "100%",
+                                                                height: "450px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    )}
                                                 </div>
                                             </div>
                                             <a title="Ảnh Trước" class="left carousel-control" href="#galleryPig1" data-slide="prev">
@@ -142,7 +174,7 @@ export const PigDetail = () => {
                                         <p style={{ margin: 0, padding: 0, fontSize: 18 }}>- Kiểu Lưng Bụng: {pigDetail.kieu_lung_bung}</p>
                                         <p style={{ margin: 0, padding: 0, fontSize: 18 }}>- Chân: {pigDetail.chan}</p>
                                         <p style={{ margin: 0, padding: 0, fontSize: 18 }}>- Kiểu Đuôi: {pigDetail.kieu_duoi}</p>
-                                        <p style={{ margin: 0, padding: 0, fontSize: 18 }}>- Dấu Thời Gian: {pigDetail.dau_thoi_gian}</p>
+                                        <p style={{ margin: 0, padding: 0, fontSize: 18 }}>- Ngày Đánh Giá: {pigDetail.ngay_danh_gia}</p>
                                     </div>
                                 </div>
                             </div>

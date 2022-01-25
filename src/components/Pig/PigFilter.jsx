@@ -96,7 +96,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Nhân trung trắng</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Nhân trung trắng...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -113,7 +113,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Tai mèo</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Tai mèo...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -128,7 +128,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mõm</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mõm...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -143,7 +143,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Vành trắng quanh mõm</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Vành trắng quanh mõm...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -160,7 +160,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mắt</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Mắt...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -175,7 +175,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da có khoang đen</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da có khoang đen...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -191,7 +191,7 @@ export const PigFilter = (props) => {
                             style={{ width: "100%" }}
                             allowClear
                             showSearch
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Khoang đen phụ</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Khoang đen phụ...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -206,7 +206,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Chân</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Chân...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -221,7 +221,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da mắt</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Da mặt...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -237,7 +237,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu đuôi</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu đuôi...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -253,7 +253,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu tai</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu tai...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -269,7 +269,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hướng tai</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hướng tai...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -284,7 +284,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lông</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lông...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -300,7 +300,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Loại màu lông</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Loại màu lông...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -308,8 +308,8 @@ export const PigFilter = (props) => {
                         >
                             <Option value="trắng">Trắng</Option>
                             <Option value="đen">Đen</Option>
-                            <Option value="đỏ đậm">Đổ đậm</Option>
-                            <Option value="đỏ nhạt">Đổ nhạt</Option>
+                            <Option value="đỏ đậm">Đỏ đậm</Option>
+                            <Option value="đỏ nhạt">Đỏ nhạt</Option>
                             <Option value="nâu vàng">Nâu vàng</Option>
                             <Option value="xám">Xám</Option>
                         </Select>
@@ -319,7 +319,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hình dạng đầu</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Hình dạng đầu...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
@@ -335,7 +335,7 @@ export const PigFilter = (props) => {
                             allowClear
                             showSearch
                             style={{ width: "100%" }}
-                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lưng bụng</span>}
+                            placeholder={<span style={{ fontSize: 12, color: "grey" }}>Kiểu lưng bụng...</span>}
                             optionFilterProp="children"
                             filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                             filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}

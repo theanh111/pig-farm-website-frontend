@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { getAllNews } from "../../api/news";
 import Loader from "../Loader/Loader";
 
-const News = () => {
+const News = (props) => {
     const [viewLoader, setViewLoader] = useState(false);
     const [data, setData] = useState([]);
     const getAllNewsAPI = async () => {

@@ -195,28 +195,31 @@ const AdminPigs = (props) => {
             width: "100px",
         },
 
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 1</span>,
-            key: "hinh_anh_1",
-            height: "100px",
-            width: "100px",
-            render: (record) => {
-                return (
-                    <Image style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_1} />
-                );
-            },
-        },
-        {
-            title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 2</span>,
-            key: "hinh_anh_2",
-            height: "100px",
-            width: "100px",
-            render: (record) => {
-                return (
-                    <Image style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_2} />
-                );
-            },
-        },
+        // {
+        //     title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 1</span>,
+        //     key: "hinh_anh_1",
+        //     height: "100px",
+        //     width: "100px",
+        //     render: (record) => {
+        //         return (
+        //             <Image
+        //                 style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }}
+        //                 src={record.hinh_anh_1 ? record.hinh_anh_1 : "/images/user/preview.png"}
+        //             />
+        //         );
+        //     },
+        // },
+        // {
+        //     title: (record) => <span style={{ fontSize: 12 }}>Hình Ảnh 2</span>,
+        //     key: "hinh_anh_2",
+        //     height: "100px",
+        //     width: "100px",
+        //     render: (record) => {
+        //         return (
+        //             <Image style={{ width: "90px", height: "90px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_2} />
+        //         );
+        //     },
+        // },
 
         {
             height: "80px",

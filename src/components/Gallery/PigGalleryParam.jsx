@@ -37,25 +37,25 @@ export const PigGalleryParam = (props) => {
                             <Link to={"/ca-the/" + item.id}>
                                 <img
                                     className="pig-image"
-                                    src={item.hinh_anh_1}
+                                    src={item.hinh_anh_1 ? item.hinh_anh_1 : "/images/user/preview.png"}
                                     alt={item.ma_so_ca_the}
                                     style={{ width: "100%", height: "350px", objectFit: "cover", display: "inline-block" }}
                                 />
                                 <div class="w3-container w3-green">
                                     <h2 style={{ textAlign: "center", color: "white" }}>{item.ma_so_ca_the}</h2>
-                                    <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "Không Có"}</h4>
+                                    <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "Chưa Có Dữ Liệu"}</h4>
                                 </div>
                             </Link>
                         </div>
                     ))
                 ) : (
                     <>
-                        <Empty description="Chưa Có Cá Thể" />
+                        <Empty description="No Data" />
                     </>
                 )}
                 {data.length == 0 ? (
                     <>
-                        <Empty description="Chưa Có Cá Thể" />
+                        <Empty description="No Data" />
                     </>
                 ) : null}
             </div>

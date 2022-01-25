@@ -121,48 +121,6 @@ export const NewsDetail = () => {
                         </div>
                         <Footer />
                     </div>
-                    {/* <div id="wrapper">
-                        <div id="content-fix">
-                            <Content style={{ padding: "0px 400px 0px" }}>
-                                <Breadcrumb style={{ margin: "8px 0" }}>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/">Trang Chủ</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to="/tin-tuc">Tin Tức</Link>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item className="txt">
-                                        <Link to={"/tin-tuc/" + newsDetail.ma_tin_tuc}>{newsDetail.ten_tin_tuc}</Link>
-                                    </Breadcrumb.Item>
-                                </Breadcrumb>
-                            </Content>
-                            <Row align="middle" justify="center">
-                                <Col xs={15} style={{ cursor: "pointer" }}>
-                                    {newsDetail.ten_tin_tuc && newsDetail.noi_dung ? (
-                                        <Descriptions layout="vertical" bordered>
-                                            <Descriptions.Item
-                                                label={
-                                                    <p style={{ color: "#006544", fontWeight: 600, paddingLeft: 20, fontSize: 20 }}>
-                                                        {newsDetail.ten_tin_tuc}
-                                                    </p>
-                                                }
-                                                span={3}
-                                            >
-                                                <div style={{ paddingLeft: 20 }}>
-                                                    <div style={{ width: 1100 }}>
-                                                        <div dangerouslySetInnerHTML={{ __html: newsDetail.noi_dung }} />
-                                                    </div>
-                                                </div>
-                                            </Descriptions.Item>
-                                        </Descriptions>
-                                    ) : (
-                                        <Empty description="Không Có Dữ Liệu" />
-                                    )}
-                                </Col>
-                            </Row>
-                        </div>
-                        <Footer />
-                    </div> */}
                 </>
             )}
         </>

@@ -58,11 +58,14 @@ const PigDetail = (props) => {
                                                 <Image
                                                     style={{ width: 500, height: 260, objectFit: "cover", display: "inline-block" }}
                                                     alt="Hinh Anh 1"
-                                                    src={pig.hinh_anh_1}
+                                                    src={pig.hinh_anh_1 ? pig.hinh_anh_1 : "/images/user/preview.png"}
                                                 />
                                             }
                                         >
-                                            <Meta title="Hình Ảnh 1" description={"- Link: " + pig.hinh_anh_1} />
+                                            <Meta
+                                                title="Hình Ảnh 1"
+                                                description={pig.hinh_anh_1 ? "- Link: " + pig.hinh_anh_1 : "- Link: " + "Chưa Có Link Ảnh"}
+                                            />
                                         </Card>
                                     </Col>
                                     <Col xs={8}>
@@ -73,11 +76,14 @@ const PigDetail = (props) => {
                                                 <Image
                                                     style={{ width: 500, height: 260, objectFit: "cover", display: "inline-block" }}
                                                     alt="Hinh Anh 2"
-                                                    src={pig.hinh_anh_2}
+                                                    src={pig.hinh_anh_2 ? pig.hinh_anh_2 : "/images/user/preview.png"}
                                                 />
                                             }
                                         >
-                                            <Meta title="Hình Ảnh 2" description={"- Link: " + pig.hinh_anh_2} />
+                                            <Meta
+                                                title="Hình Ảnh 2"
+                                                description={pig.hinh_anh_2 ? "- Link: " + pig.hinh_anh_2 : "- Link: " + "Chưa Có Link Ảnh"}
+                                            />
                                         </Card>
                                     </Col>
                                 </Row>
@@ -93,7 +99,6 @@ const PigDetail = (props) => {
                             <Descriptions.Item label="Mã Số Cá Thể">
                                 <span style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{pig.ma_so_ca_the}</span>
                             </Descriptions.Item>
-                            <Descriptions.Item label="Dấu Thời Gian">{pig.dau_thoi_gian}</Descriptions.Item>
                             <Descriptions.Item label="Tuổi">{pig.tuoi}</Descriptions.Item>
                             <Descriptions.Item label="Người Đánh Giá">{pig.nguoi_danh_gia}</Descriptions.Item>
                             <Descriptions.Item label="Địa Điểm Đánh Giá">{pig.dia_diem_danh_gia}</Descriptions.Item>

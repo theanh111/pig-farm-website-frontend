@@ -41,7 +41,7 @@ const EditPig = (props) => {
 
     const handleSavePig = () => {
         if (dataSubmit) {
-            if (dataSubmit.id !== null && dataSubmit.ma_so_ca_the !== "" && dataSubmit.dau_thoi_gian !== "") {
+            if (dataSubmit.id !== null && dataSubmit.ma_so_ca_the !== "") {
                 updatePigAPI(dataSubmit);
             }
         }
@@ -86,7 +86,6 @@ const EditPig = (props) => {
         const fetchData2 = () => {
             setDataEdit({
                 id: pig.id,
-                dau_thoi_gian: pig.dau_thoi_gian,
                 ma_so_ca_the: pig.ma_so_ca_the,
                 tuoi: pig.tuoi,
                 nguoi_danh_gia: pig.nguoi_danh_gia,
@@ -138,7 +137,6 @@ const EditPig = (props) => {
         fetchData2();
         setDataSubmit({
             id: pig.id,
-            dau_thoi_gian: pig.dau_thoi_gian,
             ma_so_ca_the: pig.ma_so_ca_the,
             tuoi: pig.tuoi,
             nguoi_danh_gia: pig.nguoi_danh_gia,
@@ -232,11 +230,6 @@ const EditPig = (props) => {
                             <Col span={12}>
                                 <Form.Item name="ma-so-ca-the" label="Mã Số Cá Thể">
                                     <span style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{dataEdit.ma_so_ca_the}</span>
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item name="dau-thoi-gian" label="Dấu Thời Gian">
-                                    <span style={{ cursor: "pointer", fontWeight: 700, color: "#34568B" }}>{dataEdit.dau_thoi_gian}</span>
                                 </Form.Item>
                             </Col>
                         </Row>

@@ -53,61 +53,6 @@ export const ImageGallery = (props) => {
 
     return (
         <>
-            {/* {viewLoader ? ( */}
-            {/* <Loader /> */}
-            {/* ) : ( */}
-            {/* <> */}
-            {/* <div class="container">
-                        <h2>Carousel Example</h2>
-                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                <li data-target="#myCarousel" data-slide-to="1"></li>
-                                <li data-target="#myCarousel" data-slide-to="2"></li>
-                            </ol>
-
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img src="images/cosochannuoi.jpg" alt="Los Angeles" style={{
-                                                        cursor: "pointer",
-                                                        width: "100%",
-                                                        height: "400px",
-                                                        objectFit: "cover",
-                                                        display: "inline-block",
-                                                    }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="images/cosochannuoi2.jpg" alt="Chicago" style={{
-                                                        cursor: "pointer",
-                                                        width: "100%",
-                                                        height: "400px",
-                                                        objectFit: "cover",
-                                                        display: "inline-block",
-                                                    }} />
-                                </div>
-
-                                <div class="item">
-                                    <img src="images/cosochannuoi3.jpg" alt="New york" style={{
-                                                        cursor: "pointer",
-                                                        width: "100%",
-                                                        height: "400px",
-                                                        objectFit: "cover",
-                                                        display: "inline-block",
-                                                    }} />
-                                </div>
-                            </div>
-
-                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div> */}
             <div class="w3-content" style={{ maxWidth: "2000px" }}>
                 <div class="w3-row-padding w3-padding-16">
                     <div class="w3-third w3-margin-bottom">
@@ -282,8 +227,6 @@ export const ImageGallery = (props) => {
                     </div>
                 </div>
             </div>
-            {/* </> */}
-            {/* )} */}
         </>
     );
 };

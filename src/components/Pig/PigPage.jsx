@@ -89,19 +89,19 @@ export const PigPage = () => {
             align: "center",
         },
 
-        {
-            title: (record) => <span style={{ fontSize: 12, alignContent: "center" }}>Hình Ảnh 1</span>,
-            key: "hinh_anh_1",
-            height: "100px",
-            width: "100px",
-            render: (record) => {
-                return (
-                    <Image style={{ width: "70px", height: "70px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_1} />
-                );
-            },
-            fixed: "left",
-            align: "center",
-        },
+        // {
+        //     title: (record) => <span style={{ fontSize: 12, alignContent: "center" }}>Hình Ảnh 1</span>,
+        //     key: "hinh_anh_1",
+        //     height: "100px",
+        //     width: "100px",
+        //     render: (record) => {
+        //         return (
+        //             <Image style={{ width: "70px", height: "70px", objectFit: "cover", display: "inline-block" }} src={record.hinh_anh_1} />
+        //         );
+        //     },
+        //     fixed: "left",
+        //     align: "center",
+        // },
         {
             title: (record) => <span style={{ fontSize: 12, alignContent: "center" }}>Giới Tính</span>,
             dataIndex: "gioi_tinh",

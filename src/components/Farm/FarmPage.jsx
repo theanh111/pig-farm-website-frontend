@@ -62,7 +62,6 @@ export const FarmPage = (props) => {
                             <div class="w3-content" style={{ maxWidth: "1532px" }}>
                                 <div class="w3-container " id="rooms">
                                     <h1 style={{ textAlign: "center" }}>Danh Sách Cơ Sở Chăn Nuôi</h1>
-                                    <h4 style={{ textAlign: "center" }}>Lợn Móng Cái.</h4>
                                 </div>
                                 <div class="w3-row-padding w3-padding-16">
                                     {farm ? (
@@ -95,7 +94,7 @@ export const FarmPage = (props) => {
                                             </div>
                                         ))
                                     ) : (
-                                        <Empty description="Không Có Dữ Liệu" />
+                                        <Empty description="No Data" />
                                     )}
                                 </div>
                             </div>
