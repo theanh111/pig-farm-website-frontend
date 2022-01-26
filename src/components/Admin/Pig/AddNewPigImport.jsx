@@ -435,7 +435,7 @@ const AddNewPigImport = (props) => {
                     extra={
                         <Space>
                             <Link to="/file/mongcaipig-mau-import.xlsx" target="_blank" download>
-                                <Button style={{ marginTop: 5 + "px" }}>
+                                <Button>
                                     <DownloadOutlined />
                                     Tải Xuống Mẫu Import
                                 </Button>

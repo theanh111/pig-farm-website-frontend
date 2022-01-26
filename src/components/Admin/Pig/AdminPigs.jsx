@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, Modal, message, Input } from "antd";
+import { Layout, Breadcrumb, Table, Form, Button, Row, Col, Image, Tooltip, Switch, Modal, message, Input, Space } from "antd";
 import AdminHeader from "../Header/AdminHeader";
-import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined, DeleteOutlined } from "@ant-design/icons";
+import { PlusOutlined, EditOutlined, CloseOutlined, CheckOutlined, DeleteOutlined, DownloadOutlined } from "@ant-design/icons";
 import AddNewPig from "./AddNewPig";
 import AddNewPigImport from "./AddNewPigImport";
 import AdminPigFilter from "./AdminPigFilter";
@@ -456,10 +456,17 @@ const AdminPigs = (props) => {
                             <Breadcrumb.Item>Danh Sách Cá Thể ({data ? data.length : 0})</Breadcrumb.Item>
                         </Breadcrumb>
                         <Row gutter={[8, 8]}>
-                            <Col span={2}>
+                            <Col span={4}>
                                 <Button type="primary" onClick={showAddNewPigImport} icon={<PlusOutlined />}>
                                     Import File Excel
                                 </Button>
+                                <span> </span>
+                                <Link to="/file/mongcaipig-mau-import.xlsx" target="_blank" download>
+                                    <Button>
+                                        <DownloadOutlined />
+                                        Tải Xuống Mẫu Import
+                                    </Button>
+                                </Link>
                             </Col>
                         </Row>
                         {viewPigDetail ? (
