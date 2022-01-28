@@ -111,7 +111,7 @@ export const FarmDetail = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <PigGalleryParam title={"Danh Sách Cá Thể Tại Trại"} desc={"Các cá thể tại trại"} data={pigByFarmName} />
+                                <PigGalleryParam title={"Danh Sách Cá Thể Tại Trại"} data={pigByFarmName} />
                             </div>
                             <Footer />
                         </div>

@@ -68,17 +68,19 @@ export const FarmPage = (props) => {
                                         farm.map((item, index) => (
                                             <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
                                                 <Link to={"/co-so-chan-nuoi/" + item.ma_trang_trai}>
-                                                    <img
-                                                        className="pig-image"
-                                                        src={item.hinh_anh}
-                                                        alt={item.ten_trang_trai}
-                                                        style={{
-                                                            width: "100%",
-                                                            height: "350px",
-                                                            objectFit: "cover",
-                                                            display: "inline-block",
-                                                        }}
-                                                    />
+                                                    <div class="img-hover-zoom">
+                                                        <img
+                                                            className="pig-image"
+                                                            src={item.hinh_anh}
+                                                            alt={item.ten_trang_trai}
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "350px",
+                                                                objectFit: "cover",
+                                                                display: "inline-block",
+                                                            }}
+                                                        />
+                                                    </div>
                                                     <div class="w3-container w3-green" style={{ height: 60 }}>
                                                         <h4
                                                             style={{

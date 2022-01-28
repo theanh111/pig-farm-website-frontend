@@ -35,6 +35,7 @@ import AdminContact from "./components/Admin/Contact/AdminContact";
 import AdminGallery from "./components/Admin/Gallery/AdminGallery";
 import { SearchPage } from "./components/Search/SearchPage";
 import { SearchPageENG } from "./components/Search/SearchPageENG";
+import AdminPigsSpecial from "./components/Admin/Pig/AdminPigsSpecial";
 
 const App = (props) => {
     const [vietnamese, setVietnamese] = useState({
@@ -152,6 +153,16 @@ const App = (props) => {
                     <>
                         <PrivateRoute>
                             <AdminPigs />
+                        </PrivateRoute>
+                    </>
+                }
+            />
+            <Route
+                path="/admin/danh-sach-tieu-bieu"
+                element={
+                    <>
+                        <PrivateRoute>
+                            <AdminPigsSpecial />
                         </PrivateRoute>
                     </>
                 }

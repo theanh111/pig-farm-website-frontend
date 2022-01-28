@@ -35,12 +35,14 @@ export const PigGalleryParamENG = (props) => {
                     data.map((item, index) => (
                         <div class="w3-third w3-margin-bottom" style={{ cursor: "pointer" }}>
                             <Link to={"/pig-indivuduals/" + item.id}>
-                                <img
-                                    className="pig-image"
-                                    src={item.hinh_anh_1 ? item.hinh_anh_1 : "/images/user/preview.png"}
-                                    alt={item.ma_so_ca_the}
-                                    style={{ width: "100%", height: "350px", objectFit: "cover", display: "inline-block" }}
-                                />
+                                <div class="img-hover-zoom">
+                                    <img
+                                        className="pig-image"
+                                        src={item.hinh_anh_1 ? item.hinh_anh_1 : "/images/user/preview.png"}
+                                        alt={item.ma_so_ca_the}
+                                        style={{ width: "100%", height: "350px", objectFit: "cover", display: "inline-block" }}
+                                    />
+                                </div>
                                 <div class="w3-container w3-green">
                                     <h2 style={{ textAlign: "center", color: "white" }}>{item.ma_so_ca_the}</h2>
                                     <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "No Data"}</h4>

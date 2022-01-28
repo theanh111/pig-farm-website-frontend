@@ -5,6 +5,7 @@ import { FolderOutlined, HomeOutlined, DownloadOutlined } from "@ant-design/icon
 import { checkToken } from "../../../api/auth";
 
 const { Sider } = Layout;
+const { SubMenu } = Menu;
 
 const AdminNavbar = () => {
     const history = useNavigate();
@@ -48,15 +49,21 @@ const AdminNavbar = () => {
                         <span className="webtitle-text">MONGCAIPIG</span>
                     </a>
                 </div>
-                <Menu onClick={checkUser} theme="dark" mode="inline">
+                <Menu defaultOpenKeys={["sub1"]} onClick={checkUser} theme="dark" mode="inline">
                     <Menu.Item icon={<HomeOutlined />}>
                         Trang Chủ
                         <Link to="/admin" />
                     </Menu.Item>
-                    <Menu.Item icon={<FolderOutlined />}>
-                        Danh Sách Cá Thể
-                        <Link to="/admin/danh-sach-ca-the" />
-                    </Menu.Item>
+                    <SubMenu key="sub1" icon={<FolderOutlined />} title="Cá Thể">
+                        <Menu.Item icon={<FolderOutlined />}>
+                            <Link to="/admin/danh-sach-ca-the">Danh Sách Cá Thể</Link>
+                        </Menu.Item>
+
+                        <Menu.Item icon={<FolderOutlined />}>
+                            <Link to="/admin/danh-sach-tieu-bieu">Danh Sách Tiêu Biểu</Link>
+                        </Menu.Item>
+                    </SubMenu>
+
                     <Menu.Item icon={<FolderOutlined />}>
                         Cơ Sở Chăn Nuôi
                         <Link to="/admin/co-so-chan-nuoi" />

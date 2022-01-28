@@ -4,6 +4,7 @@ import { Config } from "../config";
 
 const ENDPOINT = Config.baseAPI;
 
+const GET_PIG_SPECIAL = ENDPOINT + "/get-pig-special";
 const GET_PIG_LIMIT_12 = ENDPOINT + "/get-pig-limit-12";
 const GET_PIG_BY_ID = ENDPOINT + "/get-pig-by-id/";
 const GET_PIG_BY_FARM_NAME = ENDPOINT + "/get-pig-by-farm-name";
@@ -13,6 +14,7 @@ const SAVE_PIG_IMPORT = ENDPOINT + "/save-pig-import";
 const UPDATE_PIG = ENDPOINT + "/update-pig";
 const DELETE_PIG = ENDPOINT + "/delete-pig";
 const UPDATE_PIG_STATUS = ENDPOINT + "/update-pig-status";
+const UPDATE_PIG_SPECIAL = ENDPOINT + "/update-pig-special";
 const COUNT_PIG = ENDPOINT + "/count-pig";
 
 export const countPig = async () => {
@@ -88,6 +90,22 @@ export const updatePigStatus = async (pig) => {
     }
 };
 
+export const updatePigSpecial = async (pig_special) => {
+    try {
+        let token = localStorage.getItem("token");
+        if (token) {
+            let data = await axios.post(UPDATE_PIG_SPECIAL, pig_special, {
+                headers: {
+                    access_token: token,
+                },
+            });
+            return data;
+        }
+    } catch (error) {
+        return error.response;
+    }
+};
+
 export const getAllPig = async () => {
     try {
         let data = await axios.get(GET_ALL_PIG);
@@ -118,6 +136,15 @@ export const getPigById = async (id) => {
 export const getPigLimit12 = async () => {
     try {
         let data = await axios.get(GET_PIG_LIMIT_12);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
+export const getPigSpecial = async () => {
+    try {
+        let data = await axios.get(GET_PIG_SPECIAL);
         return data;
     } catch (error) {
         return error.response;

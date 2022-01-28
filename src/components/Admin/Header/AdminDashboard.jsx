@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import AdminNavbar from "./AdminNavbar";
-import { Layout, Breadcrumb, Card, Col, Row } from "antd";
+import { Layout, Breadcrumb, Card } from "antd";
 import AdminHeader from "./AdminHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { countPig } from "../../../api/pig";
@@ -111,12 +111,9 @@ const AdminDashboard = (props) => {
     };
 
     useEffect(() => {
+        document.title = "Trang Chủ - Admin";
         checkTokenAPI();
         fetchData();
-    }, []);
-
-    useEffect(() => {
-        document.title = "Trang Chủ - Admin";
     }, []);
 
     return (

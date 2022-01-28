@@ -85,9 +85,9 @@ const AddNewPigImport = (props) => {
                                 if (res.data.data.dataFailed) {
                                     let dataFailed = res.data.data.dataFailed;
                                     if (dataFailed.length > 0) {
-                                        message.error("Danh sách mã cá thể lỗi: " + dataFailed);
+                                        message.error("Danh sách mã cá thể lỗi: " + dataFailed, 30);
                                     } else {
-                                        message.success("Lưu file thành công");
+                                        message.success("Lưu file thành công", 10);
                                     }
                                 }
                                 setViewLoader(true);
@@ -96,16 +96,15 @@ const AddNewPigImport = (props) => {
                                     closeDrawer();
                                     fetchData();
                                 });
+                            } else if (res.status == 400) {
+                                localStorage.removeItem("token");
+                                alert("Hết phiên đăng nhập");
+                                history("/dang-nhap");
+                            } else if (res.status == 401) {
+                                localStorage.removeItem("token");
+                                alert("Hết phiên đăng nhập");
+                                history("/dang-nhap");
                             }
-                            // else if (res.status == 400) {
-                            //     localStorage.removeItem("token");
-                            //     alert("Hết phiên đăng nhập");
-                            //     history("/dang-nhap");
-                            // } else if (res.status == 401) {
-                            //     localStorage.removeItem("token");
-                            //     alert("Hết phiên đăng nhập");
-                            //     history("/dang-nhap");
-                            // }
                         }
                     })
                     .catch((err) => {

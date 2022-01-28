@@ -417,13 +417,10 @@ const AdminPigs = (props) => {
     };
 
     useEffect(() => {
-        getUserCurrent();
-        fetchData();
-    }, []);
-
-    useEffect(() => {
         document.title = "Danh Sách Cá Thể - Admin";
         checkTokenAPI();
+        getUserCurrent();
+        fetchData();
     }, []);
 
     return (
@@ -456,7 +453,7 @@ const AdminPigs = (props) => {
                             <Breadcrumb.Item>Danh Sách Cá Thể ({data ? data.length : 0})</Breadcrumb.Item>
                         </Breadcrumb>
                         <Row gutter={[8, 8]}>
-                            <Col span={4}>
+                            <Col span={8}>
                                 <Button type="primary" onClick={showAddNewPigImport} icon={<PlusOutlined />}>
                                     Import File Excel
                                 </Button>
@@ -513,17 +510,19 @@ const AdminPigs = (props) => {
                         {viewLoader ? (
                             <Loader />
                         ) : (
-                            <Table
-                                scroll={{ x: 800 }}
-                                className="table-view-data"
-                                size="small"
-                                bordered
-                                dataSource={data}
-                                columns={columns}
-                                pagination={{
-                                    pageSizeOptions: [5, 10, 20],
-                                }}
-                            />
+                            <>
+                                <Table
+                                    scroll={{ x: 800 }}
+                                    className="table-view-data"
+                                    size="small"
+                                    bordered
+                                    dataSource={data}
+                                    columns={columns}
+                                    pagination={{
+                                        pageSizeOptions: [5, 10, 20],
+                                    }}
+                                />
+                            </>
                         )}
                     </Content>
                 </Layout>
