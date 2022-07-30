@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "antd/dist/antd.css";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import { loginAPI } from "../../api/auth";
 import HeaderComponent from "../Admin/Header/AdminDashboard";
 import { Form, Input, Button, Card } from "antd";

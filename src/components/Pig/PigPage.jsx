@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllPig, getPigByFilter } from "../../api/pig";
 import { Row, Col, Breadcrumb, Layout, Select, Image, Table, Tooltip } from "antd";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import Loader from "../Loader/Loader";
 import { Link } from "react-router-dom";
 import { Footer } from "../Footer/Footer";

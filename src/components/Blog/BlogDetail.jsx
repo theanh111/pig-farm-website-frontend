@@ -1,5 +1,5 @@
 import React from "react";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";

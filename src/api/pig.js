@@ -9,6 +9,7 @@ const GET_PIG_LIMIT_12 = ENDPOINT + "/get-pig-limit-12";
 const GET_PIG_BY_ID = ENDPOINT + "/get-pig-by-id/";
 const GET_PIG_BY_FARM_NAME = ENDPOINT + "/get-pig-by-farm-name";
 const GET_ALL_PIG = ENDPOINT + "/get-pig";
+const GET_ALL_PIG_NOT_SPECIAL = ENDPOINT + "/get-pig-not-special";
 const GET_ALL_PIG_BY_FILTER = ENDPOINT + "/get-pig-by-filter";
 const SAVE_PIG_IMPORT = ENDPOINT + "/save-pig-import";
 const UPDATE_PIG = ENDPOINT + "/update-pig";
@@ -114,6 +115,16 @@ export const getAllPig = async () => {
         return error.response;
     }
 };
+
+export const getAllPigNotSpecial = async () => {
+    try {
+        let data = await axios.get(GET_ALL_PIG_NOT_SPECIAL);
+        return data;
+    } catch (error) {
+        return error.response;
+    }
+};
+
 
 export const getPigByFarmName = async (farm_name) => {
     try {

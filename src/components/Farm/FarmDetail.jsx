@@ -1,4 +1,4 @@
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getFarmByFarmCode } from "../../api/farm";

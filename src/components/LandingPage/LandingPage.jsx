@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import "../../App.css";
 import { PigGallery } from "../Gallery/PigGallery";
 import News from "../News/News";

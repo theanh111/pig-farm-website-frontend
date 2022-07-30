@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import { Footer } from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import { Breadcrumb, Layout, Empty } from "antd";

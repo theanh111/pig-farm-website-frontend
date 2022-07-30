@@ -1,7 +1,7 @@
 import { Empty } from "antd";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getPigLimit12 } from "../../api/pig";
+import { getPigSpecial } from "../../api/pig";
 
 export const PigGallery = (props) => {
     const { language } = props;
@@ -9,7 +9,7 @@ export const PigGallery = (props) => {
     const [pig, setPig] = useState([]);
 
     const getData = async () => {
-        await getPigLimit12()
+        await getPigSpecial()
             .then((res) => {
                 let result = res.data.data;
                 if (result) {
@@ -46,7 +46,7 @@ export const PigGallery = (props) => {
 
                                 <div class="w3-container w3-green">
                                     <h2 style={{ textAlign: "center", color: "white" }}>{item.ma_so_ca_the}</h2>
-                                    <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : "Không Có"}</h4>
+                                    <h4 style={{ textAlign: "center", color: "white" }}>{item.tuoi ? item.tuoi : " "}</h4>
                                 </div>
                             </Link>
                         </div>

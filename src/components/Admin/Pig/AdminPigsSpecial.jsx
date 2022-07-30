@@ -1,44 +1,65 @@
 import React, { useState, useEffect } from "react";
 import AdminNavbar from "../Header/AdminNavbar";
-import { Layout, Breadcrumb, Form, Modal, message, Card, Select } from "antd";
+import { Layout, Breadcrumb, Modal, message, Card, Select } from "antd";
 import AdminHeader from "../Header/AdminHeader";
 import { Link } from "react-router-dom";
-import { deletePig, getAllPig, getPigByFilter, getPigSpecial, updatePigSpecial, updatePigStatus } from "../../../api/pig";
+import { getAllPig, getAllPigNotSpecial, getPigSpecial, updatePigSpecial } from "../../../api/pig";
 import Loader from "../../Loader/Loader";
-import PigDetail from "./PigDetail";
 import { useNavigate } from "react-router-dom";
-import EditPig from "./EditPig";
 import { checkToken } from "../../../api/auth";
-import AddNewPigSpecial from "./AddNewPigSpecial";
 
 const { Option } = Select;
 const { Content } = Layout;
 
 const jwt = require("jsonwebtoken");
 
+const imageStyle = {
+    height: "150px",
+    width: "100%",
+    objectFit: "cover",
+    display: "inline-block",
+};
+
+const cardStyle = {
+    cursor: "pointer",
+    textAlign: "center",
+    height: "200px",
+    width: "33.3%",
+};
+
+const cellStyle = {
+    fontSize: 20,
+    border: "1px dashed #006544",
+    height: "150px",
+    paddingTop: 60,
+};
+
+const pigCode = {
+    fontWeight: 600,
+    position: "absolute",
+    zIndex: 10,
+}
+
+
 const AdminPigsSpecial = (props) => {
     const history = useNavigate();
-    const [dataUpdate, setDataUpdate] = useState({});
-    const [pigById, setPigById] = useState([]);
     const [viewLoader, setViewLoader] = useState(false);
     const [viewConfirm, setViewConfirm] = useState(false);
     const [viewUpdatePigSpecial, setViewUpdatePigSpecial] = useState(false);
     const [positionNumber, setPositionNumber] = useState(null);
     const [viewPigDetail, setViewPigDetail] = useState(false);
-    const [viewAddNewPig, setViewAddNewPig] = useState(false);
     const [viewAddNewPigImport, setViewAddNewPigImport] = useState(false);
-    const [form] = Form.useForm();
     const [data, setData] = useState([]);
-    const [dataSearch, setDataSearch] = useState([]);
+    const [listPigSpecial, setListPigSpecial] = useState([]);
+    const [listPigNotSpecial, setListPigNotSpecial] = useState([]);
     const [viewEditPig, setViewEditPig] = useState(false);
-    const [pigStatus, setPigStatus] = useState(false);
     const [dataEditPig, setDataEditPig] = useState({});
     const [dataDeletePig, setDataDeletePig] = useState({});
     const [userCurrent, setUserCurrent] = useState("");
     const [pigSpecialUpdate, setPigSpecialUpdate] = useState({
         id_new: null,
         id_old: null,
-        position_number: null,
+        vi_tri_cap_nhat: null,
     });
     const [pig1, setPig1] = useState({});
     const [pig2, setPig2] = useState({});
@@ -57,124 +78,30 @@ const AdminPigsSpecial = (props) => {
         return new Promise((resolve) => setTimeout(resolve, time));
     };
 
-    const fetchDataSearch = (pig) => {
-        getAllPigFilterAPI(pig);
-    };
-
-    const showAddNewPig = () => {
-        let token = checkTokenLocalStorage();
-        if (token) {
-            setViewAddNewPig(true);
-        } else {
-            backToLogin();
-        }
-    };
-
-    const showAddNewPigImport = () => {
-        let token = checkTokenLocalStorage();
-        if (token) {
-            checkTokenAPI();
-            setViewAddNewPigImport(true);
-        } else {
-            backToLogin();
-        }
-    };
-
     const backToLogin = () => {
         localStorage.removeItem("token");
         history("/dang-nhap");
     };
 
-    const checkTokenLocalStorage = () => {
-        let token = localStorage.getItem("token");
-        if (token) {
-            return true;
-        } else {
-            return false;
-        }
-    };
-
-    const viewDetailPig = (id) => {
-        let token = checkTokenLocalStorage();
-        if (token) {
-            checkTokenAPI();
-            setViewPigDetail(true);
-            pigById.push(id);
-        } else {
-            setPigById([]);
-            backToLogin();
-        }
-    };
-
-    const handleEditPig = (pig) => {
-        checkTokenAPI();
-        setDataEditPig(pig);
-        setViewEditPig(true);
-    };
-
-    const handleClickDelete = (pig) => {
-        checkTokenAPI();
-        setDataDeletePig(pig);
-        setViewConfirm(true);
-    };
-
-    const handleCancelDelete = () => {
-        checkTokenAPI();
-        setDataDeletePig({});
-        setViewConfirm(false);
-    };
-
-    const handleOkDelete = (pig) => {
-        checkTokenAPI();
-        deletePigAPI(pig);
-    };
-
-    const handlePigStatus = (record) => {
-        checkTokenAPI();
-        if (record) {
-            let data = record;
-            if (data.trang_thai === 1) {
-                let obj = { id: data.id, trang_thai: 0 };
-                updatePigStatusAPI(obj);
-            }
-            if (data.trang_thai === 0) {
-                let obj = { id: data.id, trang_thai: 1 };
-                updatePigStatusAPI(obj);
-            }
-        }
-        fetchData();
-    };
-
-    const updatePigStatusAPI = async (pig) => {
-        setViewLoader(true);
-        await updatePigStatus(pig)
-            .then((res) => {
-                if (res) {
-                    if (res.status == 200) {
-                        message.success("Cập nhật trạng thái cá thể thành công");
-                        setViewLoader(true);
-                        fetchData();
-                    } else if (res.status == 400) {
-                        localStorage.removeItem("token");
-                        alert("Hết phiên đăng nhập");
-                        history("/dang-nhap");
-                    } else if (res.status == 401) {
-                        localStorage.removeItem("token");
-                        alert("Hết phiên đăng nhập");
-                        history("/dang-nhap");
-                    }
-                }
-            })
-            .catch((err) => {
-                alert("Hết phiên đăng nhập");
-                history("/dang-nhap");
-            });
-        setViewLoader(false);
-    };
-
     const fetchData = () => {
+        getAllPigNotSpecialAPI();
         getPigSpecialAPI();
     };
+
+    const getAllPigNotSpecialAPI = async () => {
+        await getAllPigNotSpecial()
+        .then((res) => {
+            let result = res.data.data;
+            if (result) {
+                if (result.length > 0) {
+                    setListPigNotSpecial(result);
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    }
 
     const getPigSpecialAPI = async () => {
         setPig1(null);
@@ -243,58 +170,6 @@ const AdminPigsSpecial = (props) => {
         setViewLoader(false);
     };
 
-    const getAllPigFilterAPI = async (pig) => {
-        setViewLoader(true);
-        await getPigByFilter(pig)
-            .then((res) => {
-                console.log(res);
-                let result = res.data.data;
-                if (result) {
-                    if (result.length > 0) {
-                        setData(result);
-                    }
-                }
-                if (res.status === 400) {
-                    setData([]);
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        setViewLoader(false);
-    };
-
-    const deletePigAPI = async (pig) => {
-        setViewLoader(true);
-        await deletePig(pig)
-            .then((res) => {
-                if (res) {
-                    if (res.status == 200) {
-                        message.success("Xóa cá thể thành công");
-                        setViewConfirm(false);
-                        sleep(500).then(() => {
-                            setViewLoader(false);
-                            setDataDeletePig({});
-                            getPigSpecialAPI();
-                        });
-                    } else if (res.status == 400) {
-                        localStorage.removeItem("token");
-                        alert("Hết phiên đăng nhập");
-                        history("/dang-nhap");
-                    } else if (res.status == 401) {
-                        localStorage.removeItem("token");
-                        alert("Hết phiên đăng nhập");
-                        history("/dang-nhap");
-                    }
-                }
-            })
-            .catch((err) => {
-                alert("Hết phiên đăng nhập");
-                history("/dang-nhap");
-            });
-        setViewLoader(false);
-    };
-
     const checkTokenAPI = async () => {
         let token = localStorage.getItem("token");
         if (token) {
@@ -323,27 +198,6 @@ const AdminPigsSpecial = (props) => {
             let user = objJwt.sub;
             setUserCurrent(user);
         }
-    };
-
-    const imageStyle = {
-        height: "150px",
-        width: "100%",
-        objectFit: "cover",
-        display: "inline-block",
-    };
-
-    const cardStyle = {
-        cursor: "pointer",
-        textAlign: "center",
-        height: "200px",
-        width: "33.3%",
-    };
-
-    const cellStyle = {
-        fontSize: 20,
-        border: "1px dashed #006544",
-        height: "150px",
-        paddingTop: 60,
     };
 
     const getAllPigAPI = async () => {
@@ -404,45 +258,42 @@ const AdminPigsSpecial = (props) => {
     }, []);
 
     const handleClickCard = (position) => {
-        setPigSpecialUpdate({ ...pigSpecialUpdate, position_number: position });
         setViewUpdatePigSpecial(true);
+        setPositionNumber(position)
+        if (position) {
+            let obj = eval("pig" + position);
+            console.log(eval("pig" + position))
+            if (obj) {
+                setPigSpecialUpdate({ ...pigSpecialUpdate, vi_tri_cap_nhat: position, id_old: obj.id });
+            
+            } else {
+                setPigSpecialUpdate({ ...pigSpecialUpdate, vi_tri_cap_nhat: position, id_new: pigSpecialUpdate.id_new });
+            }
+        }
+
     };
 
     const handleUpdatePigSpecial = () => {
         checkTokenAPI();
-        setPigSpecialUpdate({ position_number: null, id_new: null, id_old: null });
+        setPigSpecialUpdate({ vi_tri_cap_nhat: null, id_new: null, id_old: null });
         setViewUpdatePigSpecial(false);
         setPositionNumber(null);
     };
 
-    const handleUpdate = (data) => {
-        console.log(data);
+    const handleUpdate = () => {
+        updatePigSpecialAPI(pigSpecialUpdate)
+        setViewUpdatePigSpecial(false);
     };
 
     return (
         <>
-            {viewConfirm ? (
-                <Modal
-                    centered
-                    okType="danger"
-                    style={{ zIndex: 9 }}
-                    title={<span style={{ color: "red" }}>Bạn có chắc muốn xóa?</span>}
-                    visible={viewConfirm}
-                    onOk={() => handleOkDelete(dataDeletePig)}
-                    onCancel={() => handleCancelDelete()}
-                    cancelText="Hủy"
-                    okText="Xóa"
-                >
-                    <p style={{ fontSize: 14, fontWeight: 500 }}>{dataDeletePig.ma_so_ca_the}</p>
-                </Modal>
-            ) : null}
-
+          
             {viewUpdatePigSpecial ? (
                 <Modal
                     centered
                     okType="primary"
                     style={{ zIndex: 9 }}
-                    title={<span style={{ color: "green" }}>Cập nhật cá thể ở vị trí: {positionNumber}</span>}
+                    title={<span style={{ color: "green" }}>Cập nhật cá thể ở vị trí: <strong style={{color: "black"}}>{positionNumber}</strong></span>}
                     visible={viewUpdatePigSpecial}
                     onOk={() => handleUpdate(pigSpecialUpdate)}
                     onCancel={() => handleUpdatePigSpecial()}
@@ -460,7 +311,7 @@ const AdminPigsSpecial = (props) => {
                         filterSort={(optionA, optionB) => optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())}
                         onChange={(value) => setPigSpecialUpdate({ ...pigSpecialUpdate, id_new: value })}
                     >
-                        {data ? data.map((item, index) => <Option value={item.id}>{item.ma_so_ca_the}</Option>) : null}
+                        {listPigNotSpecial ? listPigNotSpecial.map((item, index) => <Option value={item.id}>{item.ma_so_ca_the}</Option>) : null}
                     </Select>
                 </Modal>
             ) : null}
@@ -477,36 +328,6 @@ const AdminPigsSpecial = (props) => {
                             <Breadcrumb.Item>Danh Sách Cá Thể Tiêu Biểu ({data ? data.length : 0})</Breadcrumb.Item>
                         </Breadcrumb>
 
-                        {viewPigDetail ? (
-                            <>
-                                <PigDetail
-                                    pigById={pigById}
-                                    viewPigDetail={viewPigDetail}
-                                    closeDrawer={() => {
-                                        setPigById([]);
-                                        setViewPigDetail(false);
-                                    }}
-                                />
-                            </>
-                        ) : null}
-
-                        {viewAddNewPigImport ? (
-                            <AddNewPigSpecial
-                                fetchData={() => getPigSpecialAPI()}
-                                closeDrawer={() => setViewAddNewPigImport(false)}
-                                viewAddNewPigImport={viewAddNewPigImport}
-                            />
-                        ) : null}
-                        {viewEditPig ? (
-                            <EditPig
-                                userCurrent={userCurrent}
-                                fetchData={() => getPigSpecialAPI()}
-                                closeDrawer={() => setViewEditPig(false)}
-                                viewEditPig={viewEditPig}
-                                pig={dataEditPig}
-                            />
-                        ) : null}
-
                         {viewLoader ? (
                             <Loader />
                         ) : (
@@ -517,109 +338,154 @@ const AdminPigsSpecial = (props) => {
                                             <div class="w3-col m12">
                                                 <Card title="12 Cá Thể Hiển Thị" size="small">
                                                     <Card.Grid onClick={() => handleClickCard(1)} style={cardStyle}>
-                                                        {pig1 && pig1.hinh_anh_1 ? (
-                                                            <>
-                                                                <img title={pig1.ma_so_ca_the} style={imageStyle} src={pig1.hinh_anh_1} />
-                                                            </>
+                                                        {pig1 ? (pig1.hinh_anh_1 ? (
+                                                        <>
+                                                            <img title={pig1.ma_so_ca_the} style={imageStyle} src={pig1.hinh_anh_1} />
+                                                            <div style={pigCode}><p style={{textAlign: "center"}}>{pig1.ma_so_ca_the}</p></div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig1.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>1</h1>
-                                                        )}
+                                                        )}   
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(2)} style={cardStyle}>
-                                                        {pig2 && pig2.hinh_anh_1 ? (
-                                                            <>
-                                                                <img title={pig2.ma_so_ca_the} style={imageStyle} src={pig2.hinh_anh_1} />
-                                                            </>
+                                                        {pig2 ? (pig2.hinh_anh_1 ? (
+                                                        <>
+                                                            <img title={pig2.ma_so_ca_the} style={imageStyle} src={pig2.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig2.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig2.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>2</h1>
-                                                        )}
+                                                        )}                                                       
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(3)} style={cardStyle}>
-                                                        {pig3 && pig3.hinh_anh_1 ? (
-                                                            <>
-                                                                <img title={pig3.ma_so_ca_the} style={imageStyle} src={pig3.hinh_anh_1} />
-                                                            </>
+                                                        {pig3 ? (pig3.hinh_anh_1 ? (
+                                                        <>
+                                                            <img title={pig3.ma_so_ca_the} style={imageStyle} src={pig3.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig3.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig3.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>3</h1>
-                                                        )}
+                                                        )}    
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(4)} style={cardStyle}>
-                                                        {pig4 && pig4.hinh_anh_1 ? (
-                                                            <>
-                                                                <img title={pig4.ma_so_ca_the} style={imageStyle} src={pig4.hinh_anh_1} />
-                                                            </>
+                                                        {pig4 ? (pig4.hinh_anh_1 ? (
+                                                        <>
+                                                            <img title={pig4.ma_so_ca_the} style={imageStyle} src={pig4.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig4.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
-                                                            <div style={imageStyle}>
-                                                                <h1 style={cellStyle}>4</h1>
-                                                            </div>
-                                                        )}
+                                                            <h1 style={cellStyle}>{pig4.ma_so_ca_the}</h1>
+                                                        )) : (
+                                                            <h1 style={cellStyle}>4</h1>
+                                                        )}  
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(5)} style={cardStyle}>
-                                                        {pig5 && pig5.hinh_anh_1 ? (
+                                                        {pig5 ? (pig5.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig5.ma_so_ca_the} style={imageStyle} src={pig5.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig5.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig5.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>5</h1>
-                                                        )}
+                                                        )}  
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(6)} style={cardStyle}>
-                                                        {pig6 && pig6.hinh_anh_1 ? (
+                                                        {pig6 ? (pig6.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig6.ma_so_ca_the} style={imageStyle} src={pig6.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig6.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig6.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>6</h1>
-                                                        )}
+                                                        )}  
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(7)} style={cardStyle}>
-                                                        {pig7 && pig7.hinh_anh_1 ? (
+                                                        {pig7 ? (pig7.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig7.ma_so_ca_the} style={imageStyle} src={pig7.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig7.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig7.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>7</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(8)} style={cardStyle}>
-                                                        {pig8 && pig8.hinh_anh_1 ? (
+                                                        {pig8 ? (pig8.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig8.ma_so_ca_the} style={imageStyle} src={pig8.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig8.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig8.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>8</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(9)} style={cardStyle}>
-                                                        {pig9 && pig9.hinh_anh_1 ? (
+                                                        {pig9 ? (pig9.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig9.ma_so_ca_the} style={imageStyle} src={pig9.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig9.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig9.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>9</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(10)} style={cardStyle}>
-                                                        {pig10 && pig10.hinh_anh_1 ? (
+                                                        {pig10 ? (pig10.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig10.ma_so_ca_the} style={imageStyle} src={pig10.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig10.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig10.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>10</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(11)} style={cardStyle}>
-                                                        {pig11 && pig11.hinh_anh_1 ? (
+                                                        {pig11 ? (pig11.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig11.ma_so_ca_the} style={imageStyle} src={pig11.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig11.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig11.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>11</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                     <Card.Grid onClick={() => handleClickCard(12)} style={cardStyle}>
-                                                        {pig12 && pig12.hinh_anh_1 ? (
+                                                        {pig12 ? (pig12.hinh_anh_1 ? (
+                                                        <>
                                                             <img title={pig12.ma_so_ca_the} style={imageStyle} src={pig12.hinh_anh_1} />
+                                                            <div style={pigCode}>{pig12.ma_so_ca_the}</div>
+                                                        </>
                                                         ) : (
+                                                            <h1 style={cellStyle}>{pig12.ma_so_ca_the}</h1>
+                                                        )) : (
                                                             <h1 style={cellStyle}>12</h1>
-                                                        )}
+                                                        )} 
                                                     </Card.Grid>
                                                 </Card>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                {/* , */}
-                                {/* <Upload listType="picture-card" fileList={fileList}>
-                                    {fileList.length < 5 && "+ Upload"}
-                                </Upload> */}
                             </>
                         )}
                     </Content>

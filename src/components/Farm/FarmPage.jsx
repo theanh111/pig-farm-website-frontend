@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FarmImage } from "./FarmImage";
-import { Navigation } from "../Navigation/Navigation";
+import { Navigation } from "../Navigation/navigation";
 import { getAllFarm } from "../../api/farm";
 import { Layout, Row, Col, Breadcrumb, Image, Empty } from "antd";
 import { Link } from "react-router-dom";
