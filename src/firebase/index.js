@@ -1,13 +1,14 @@
 import firebase from "firebase";
+import { env } from "node:process";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA-Bgv0OJyEoKbLYGU8xPdcYjdASOLNazI",
-    authDomain: "db-hvnn-images.firebaseapp.com",
-    projectId: "db-hvnn-images",
-    storageBucket: "db-hvnn-images.appspot.com",
-    messagingSenderId: "784929248443",
-    appId: "1:784929248443:web:5d5f8f4e2b742f0832c59e",
-    measurementId: "G-QCDE5YG16F",
+  apiKey: env.FIREBASE_API_KEY,
+  authDomain: env.FIREBASE_AUTH_DOMAIN,
+  projectId: env.FIREBASE_PROJECT_ID,
+  storageBucket: env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: env.FIREBASE_APP_ID,
+  measurementId: env.FIREBASE_MEASUREMENT_ID,
 };
 firebase.initializeApp(firebaseConfig);
 var storage = firebase.storage();
